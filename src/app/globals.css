@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-green: #a3c770;
+  --color-green-dark: #6e9339;
+  --color-green-light: #e7f1da;
+  --color-burgundy: #962B3F;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f5f5f3;
+  --color-text: #1a1a1a;
+  --color-muted: #666666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
