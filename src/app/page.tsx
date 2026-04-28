@@ -6,6 +6,7 @@ import FuerWen from "@/components/FuerWen";
 import FemAiLab from "@/components/FemAiLab";
 import Community from "@/components/Community";
 import Referenzen from "@/components/Referenzen";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <FemAiLab />
       <Community />
       <Referenzen />
+      <FAQ />
       <Footer />
     </main>
   );

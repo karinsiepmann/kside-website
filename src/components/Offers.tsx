@@ -1,10 +1,30 @@
 import { Lightbulb, Users, FlaskConical, UserRound } from "lucide-react";
 
 const formats = [
-  { Icon: Lightbulb, title: "Impulse", text: "Grundlagen verstehen und erste Anwendungen kennenlernen" },
-  { Icon: Users, title: "Workshops", text: "Praktische Einsatzszenarien für den persönlichen und Organisationsalltag" },
-  { Icon: FlaskConical, title: "Open Learning Lab", text: "Offenes Lernlabor: kollaboratives, co-kreatives Peerlearning, timeboxed oder ongoing" },
-  { Icon: UserRound, title: "Personal AI Coaching", text: "Individuelles 1:1 Coaching — neu!" },
+  {
+    Icon: Lightbulb,
+    title: "Impulse",
+    text: "Grundlagen verstehen und erste Anwendungen kennenlernen.",
+    outcome: "Danach kannst du einschätzen, was KI kann — und was für dich oder deine Organisation relevant ist.",
+  },
+  {
+    Icon: Users,
+    title: "Workshops",
+    text: "Praktische Einsatzszenarien für den persönlichen und Organisationsalltag.",
+    outcome: "Danach kennst du konkrete Anwendungsfälle und kannst KI-Tools eigenständig auf deinen Alltag übertragen.",
+  },
+  {
+    Icon: FlaskConical,
+    title: "Open Learning Lab",
+    text: "Offenes Lernlabor: kollaboratives, co-kreatives Peerlearning, timeboxed oder ongoing.",
+    outcome: "Danach hast du KI-Anwendungen im eigenen Tempo erkundet und weißt, wo du als nächstes vertiefen möchtest.",
+  },
+  {
+    Icon: UserRound,
+    title: "Personal AI Coaching",
+    text: "Individuelles 1:1 Coaching — persönliche Begleitung beim Erkunden von KI für deinen Arbeits- und Denkalltag.",
+    outcome: "Danach weißt du, welche KI-Tools zu dir passen, und kannst sie eigenständig einsetzen.",
+  },
 ];
 
 const topics = [
@@ -26,14 +46,15 @@ export default function Offers() {
 
         {/* Formate — elegante Liste */}
         <div className="flex flex-col divide-y divide-gray-200 mb-14 border-t border-gray-200">
-          {formats.map(({ Icon, title, text }) => (
+          {formats.map(({ Icon, title, text, outcome }) => (
             <div key={title} className="flex items-start gap-6 py-6">
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-light flex items-center justify-center">
                 <Icon size={20} className="text-green-dark" />
               </div>
               <div>
                 <h3 className="font-bold text-text mb-1">{title}</h3>
-                <p className="text-gray-600 leading-relaxed">{text}</p>
+                <p className="text-gray-600 leading-relaxed mb-2">{text}</p>
+                <p className="text-sm text-green-dark font-medium">{outcome}</p>
               </div>
             </div>
           ))}

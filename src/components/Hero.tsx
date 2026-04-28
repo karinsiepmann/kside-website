@@ -15,8 +15,11 @@ export default function Hero() {
               className="h-auto w-full max-w-lg mb-10"
               priority
             />
-            <p className="text-xl text-gray-700 mb-8 leading-relaxed max-w-md">
-              KI-Wissen für alle –<br />praxisnah, gemeinschaftlich, offen.
+            <h1 className="text-xl font-bold text-gray-900 mb-2 leading-snug max-w-md">
+              KI-Workshops und Lernlabore für Einzelpersonen, Organisationen und Einrichtungen, die KI praktisch verstehen und anwenden wollen.
+            </h1>
+            <p className="text-base text-gray-500 mb-8 leading-relaxed max-w-md">
+              Praxisnah, gemeinschaftlich, offen.
             </p>
             <div className="flex gap-4 flex-wrap">
               <a href="#portfolio" className="px-7 py-3 rounded-full font-semibold text-white bg-green-dark hover:opacity-90 transition-opacity">
