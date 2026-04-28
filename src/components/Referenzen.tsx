@@ -11,6 +11,8 @@ const logos = [
   { src: "/referenzen/step-institute.png", alt: "Step Institute", w: 120, h: 50 },
   { src: "/referenzen/wi-bit.png", alt: "Wi-Bit", w: 120, h: 50 },
   { src: "/referenzen/srs.png", alt: "SRS", w: 100, h: 50 },
+  { src: "/referenzen/laureus.svg", alt: "Laureus Sport for Good", w: 150, h: 50 },
+  { src: "/referenzen/mega-bildungsstiftung.svg", alt: "Mega Bildungsstiftung", w: 150, h: 50 },
 ];
 
 export default function Referenzen() {
