@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Footer() {
   return (
     <footer className="py-12 border-t border-gray-100 bg-white">
@@ -28,16 +26,6 @@ export default function Footer() {
               <a href="/datenschutz" className="text-gray-500 hover:text-gray-900">Datenschutz</a>
             </div>
           </div>
-        </div>
-
-        {/* Zeile 2: Foto + Bio */}
-        <div className="flex gap-5 items-start border-t border-gray-100 pt-8 mb-8">
-          <div className="relative w-16 h-20 flex-shrink-0 rounded-lg overflow-hidden">
-            <Image src="/karin-foto.png" alt="Karin Siepmann" fill className="object-cover object-top" />
-          </div>
-          <p className="text-sm text-gray-500 leading-relaxed max-w-xl">
-            Karin Siepmann – Digitalenthusiastin – erkundet seit über 30 Jahren digitale Entwicklungen und Tools für ihre Tätigkeit in der Entwicklungszusammenarbeit, im Sozialwesen und in der Erwachsenenbildung.
-          </p>
         </div>
 
         <div className="border-t border-gray-100 pt-6 text-center text-xs text-gray-400">

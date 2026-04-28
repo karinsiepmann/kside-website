@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="about" className="py-24 bg-bg-alt">
       <div className="max-w-6xl mx-auto px-8">
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
@@ -18,9 +18,7 @@ export default function About() {
               Zusammenarbeit und Erwachsenenbildung — seit 2020 mit Schwerpunkt KI-Bildung und digitale Teilhabe.
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
-              KI-Workshops für die Bundeszentrale für politische Bildung, Skala Campus,
-              BerufsWege für Frauen und weitere Organisationen. Leitung des FemAiLab Wiesbaden
-              in Kooperation mit der Landeshauptstadt Wiesbaden.
+              KI-Workshops für Skala Campus, die Bundeszentrale für politische Bildung, BerufsWege für Frauen und weitere Organisationen. Gründerin des FemAiLab Wiesbaden in Kooperation mit dem SmartCity Referat der Landeshauptstadt Wiesbaden.
             </p>
             <div className="flex flex-wrap gap-2">
               {["KI-Bildung", "Erwachsenenbildung", "FemAiLab", "Erasmus+", "Scrum Master"].map(tag => (
