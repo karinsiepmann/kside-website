@@ -17,7 +17,7 @@ export default function Contact() {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
-            <a href="mailto:info@kside.de" className="px-8 py-3 rounded-full font-semibold bg-white text-green-dark hover:bg-gray-100 transition-colors">
+            <a href="mailto:karin.siepmann@gmail.com" className="px-8 py-3 rounded-full font-semibold bg-white text-green-dark hover:bg-gray-100 transition-colors">
               Kontakt aufnehmen
             </a>
             <a href="#portfolio" className="px-8 py-3 rounded-full font-semibold border-2 border-white text-white hover:bg-white/10 transition-colors">

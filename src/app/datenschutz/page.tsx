@@ -24,7 +24,7 @@ export default function Datenschutz() {
             <p className="mt-2">Karin Siepmann Consulting<br />
             Fritz-Reuter-Strasse 1<br />
             65189 Wiesbaden<br />
-            E-Mail: <a href="mailto:info@kside.de" className="text-green-dark hover:underline">info@kside.de</a><br />
+            E-Mail: <a href="mailto:karin.siepmann@gmail.com" className="text-green-dark hover:underline">info@kside.de</a><br />
             Telefon: +49 (0) 1577 3551 777</p>
           </section>
 
@@ -106,7 +106,7 @@ export default function Datenschutz() {
               <li>Recht auf Widerruf einer erteilten Einwilligung (Art. 7 Abs. 3 DSGVO)</li>
             </ul>
             <p className="mt-3">Zur Ausübung Ihrer Rechte wenden Sie sich an:
-            <a href="mailto:info@kside.de" className="text-green-dark hover:underline ml-1">info@kside.de</a></p>
+            <a href="mailto:karin.siepmann@gmail.com" className="text-green-dark hover:underline ml-1">info@kside.de</a></p>
             <p className="mt-2">Sie haben außerdem das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren.
             In Hessen ist dies der Hessische Beauftragte für Datenschutz und Informationsfreiheit,
             Postfach 3163, 65021 Wiesbaden.</p>

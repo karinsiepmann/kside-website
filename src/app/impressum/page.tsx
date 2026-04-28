@@ -27,7 +27,7 @@ export default function Impressum() {
           <section>
             <h2 className="text-xl font-bold mb-3 text-text">Kontakt</h2>
             <p>Telefon: +49 (0) 1577 3551 777<br />
-            E-Mail: <a href="mailto:info@kside.de" className="text-green-dark hover:underline">info@kside.de</a></p>
+            E-Mail: <a href="mailto:karin.siepmann@gmail.com" className="text-green-dark hover:underline">info@kside.de</a></p>
           </section>
 
           <section>

@@ -25,7 +25,7 @@ export default function Hero() {
               <a href="#portfolio" className="px-7 py-3 rounded-full font-semibold text-white bg-green-dark hover:opacity-90 transition-opacity">
                 Angebote entdecken
               </a>
-              <a href="mailto:info@kside.de" className="px-7 py-3 rounded-full font-semibold text-gray-600 border-2 border-gray-300 bg-white hover:border-gray-500 transition-colors">
+              <a href="mailto:karin.siepmann@gmail.com" className="px-7 py-3 rounded-full font-semibold text-gray-600 border-2 border-gray-300 bg-white hover:border-gray-500 transition-colors">
                 Kontakt
               </a>
             </div>

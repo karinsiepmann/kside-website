@@ -101,7 +101,7 @@ export default function Offers() {
               </ol>
             </div>
           </div>
-          <a href="mailto:info@kside.de" className="inline-block px-5 py-2.5 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity bg-burgundy">
+          <a href="mailto:karin.siepmann@gmail.com" className="inline-block px-5 py-2.5 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity bg-burgundy">
             Kostenloses Orientierungsgespräch anfragen
           </a>
         </div>
