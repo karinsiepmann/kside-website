@@ -18,7 +18,6 @@ export default function Footer() {
             <p className="text-sm text-gray-500">Karin Siepmann Consulting</p>
             <p className="text-sm text-gray-500">Fritz-Reuter-Strasse 1, 65189 Wiesbaden</p>
             <a href="mailto:karin.siepmann@gmail.com" className="text-sm text-green-dark hover:underline block mt-1">info@kside.de</a>
-            <p className="text-sm text-gray-500">+49 (0) 1577 3551 777</p>
           </div>
           <div>
             <p className="font-semibold text-sm mb-3 text-gray-700">Links</p>

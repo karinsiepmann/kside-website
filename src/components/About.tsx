@@ -15,7 +15,7 @@ export default function About() {
             <h2 className="text-4xl font-bold mb-6 text-burgundy">Karin Siepmann</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               Gründerin von [kside]//openlabs. Über 30 Jahre Erfahrung in Bildung, internationaler
-              Zusammenarbeit und Erwachsenenbildung — seit 2020 mit Schwerpunkt KI-Bildung und digitale Teilhabe.
+              Zusammenarbeit und Erwachsenenbildung — seit 2023 mit Schwerpunkt KI-Bildung und digitale Teilhabe.
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
               KI-Workshops für Skala Campus, die Bundeszentrale für politische Bildung, BerufsWege für Frauen und weitere Organisationen. Gründerin des FemAiLab Wiesbaden in Kooperation mit dem SmartCity Referat der Landeshauptstadt Wiesbaden.
