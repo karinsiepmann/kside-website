@@ -15,10 +15,16 @@ export default function LivePage() {
         backgroundPosition: "center",
       }}
     >
-      {/* Inhalts-Panel: ~55% Breite / ~55% Höhe */}
-      <div className="w-[55%] h-[55%] rounded-xl border border-amber-400/60 bg-black/65 backdrop-blur-sm">
-        {/* Hier iframe oder Inhalt eintragen, z.B.: */}
-        {/* <iframe src="https://..." className="w-full h-full rounded-xl" allow="microphone; camera" /> */}
+      {/* Inhalts-Panel: ~55% Breite / 16:9 Verhältnis */}
+      <div className="w-[55%] aspect-video rounded-xl border border-amber-400/60 bg-black/65 backdrop-blur-sm overflow-hidden">
+        <iframe
+          src="https://app.heygen.com/embeds/277c4eefde40402e81bf3ea772a6e0d3"
+          title="Avatar-IV-Video"
+          frameBorder="0"
+          allow="encrypted-media; fullscreen;"
+          allowFullScreen
+          className="w-full h-full"
+        />
       </div>
     </div>
   );
