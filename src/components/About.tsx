@@ -18,10 +18,10 @@ export default function About() {
               Zusammenarbeit und Erwachsenenbildung — seit 2023 mit Schwerpunkt KI-Bildung und digitale Teilhabe.
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
-              KI-Workshops für Skala Campus, die Bundeszentrale für politische Bildung, BerufsWege für Frauen und weitere Organisationen. Gründerin des FemAiLab Wiesbaden in Kooperation mit dem SmartCity Referat der Landeshauptstadt Wiesbaden.
+              KI-Workshops für Skala Campus, die Bundeszentrale für politische Bildung, BerufsWege für Frauen und weitere Organisationen. Gründerin des Ai Open Learning Lab for Women Wiesbaden in Kooperation mit dem SmartCity Referat der Landeshauptstadt Wiesbaden.
             </p>
             <div className="flex flex-wrap gap-2">
-              {["KI-Bildung", "Erwachsenenbildung", "FemAiLab", "Erasmus+", "Scrum Master"].map(tag => (
+              {["KI-Bildung", "Erwachsenenbildung", "AIOpenLab", "Erasmus+", "Scrum Master"].map(tag => (
                 <span key={tag} className="px-3 py-1 rounded-full text-sm font-medium bg-green-light text-green-dark">
                   {tag}
                 </span>

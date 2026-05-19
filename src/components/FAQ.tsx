@@ -16,8 +16,8 @@ const faqs = [
     a: "Schreib eine kurze E-Mail an info@kside.de und beschreibe, was dich beschäftigt oder was du dir vorstellst. Wir klären gemeinsam, welches Format zu dir oder deiner Organisation passt.",
   },
   {
-    q: "Was ist das FemAiLab?",
-    a: "Das FemAiLab ist ein wöchentliches offenes Lernlabor in Wiesbaden — speziell für Frauen, die KI in einem geschützten Rahmen erkunden möchten. Es findet montags statt, ist kostenlos zugänglich und folgt dem World-Café-Prinzip: kein Frontalunterricht, sondern Austausch, Neugier und gemeinsames Ausprobieren.",
+    q: "Was ist das Ai Open Learning Lab for Women?",
+    a: "Das Ai Open Learning Lab for Women ist ein wöchentliches offenes Lernlabor in Wiesbaden — speziell für Frauen, die KI in einem geschützten Rahmen erkunden möchten. Es findet montags statt, ist kostenlos zugänglich und folgt dem World-Café-Prinzip: kein Frontalunterricht, sondern Austausch, Neugier und gemeinsames Ausprobieren.",
   },
 ];
 

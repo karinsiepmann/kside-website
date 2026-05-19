@@ -21,7 +21,7 @@ export default function Community() {
               gemeinsam neue Ideen für den KI-Einsatz im Alltag.
             </p>
             <p className="text-gray-700 leading-relaxed mb-8">
-              Werdet Teil unserer Community und kommt in unsere offene LinkedIn Gruppe des FemAiLabs.
+              Werdet Teil unserer Community und kommt in unsere offene LinkedIn Gruppe des AIOpenLab.
             </p>
             <a
               href="https://www.linkedin.com/groups/13202295/"

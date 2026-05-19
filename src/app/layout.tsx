@@ -8,7 +8,7 @@ const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat
 
 export const metadata: Metadata = {
   title: "[kside]//openlabs — KI-Wissen für alle",
-  description: "Praxisnah, gemeinschaftlich, offen. KI-Workshops, FemAiLab und offene Lernlabore von Karin Siepmann.",
+  description: "Praxisnah, gemeinschaftlich, offen. KI-Workshops, Ai Open Learning Lab for Women und offene Lernlabore von Karin Siepmann.",
   metadataBase: new URL("https://kside.de"),
 };
 

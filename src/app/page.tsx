@@ -63,10 +63,10 @@ const schemaFAQ = {
     },
     {
       "@type": "Question",
-      "name": "Was ist das FemAiLab?",
+      "name": "Was ist das Ai Open Learning Lab for Women?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Das FemAiLab ist ein wöchentliches offenes Lernlabor in Wiesbaden — speziell für Frauen, die KI in einem geschützten Rahmen erkunden möchten. Es findet montags statt, ist kostenlos zugänglich und folgt dem World-Café-Prinzip."
+        "text": "Das Ai Open Learning Lab for Women ist ein wöchentliches offenes Lernlabor in Wiesbaden — speziell für Frauen, die KI in einem geschützten Rahmen erkunden möchten. Es findet montags statt, ist kostenlos zugänglich und folgt dem World-Café-Prinzip."
       }
     }
   ]
