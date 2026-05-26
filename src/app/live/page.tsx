@@ -18,7 +18,7 @@ export default function LivePage() {
       {/* Inhalts-Panel: ~55% Breite / 16:9 Verhältnis */}
       <div className="w-[55%] aspect-video rounded-xl border border-amber-400/60 bg-black/65 backdrop-blur-sm overflow-hidden">
         <iframe
-          src="https://app.heygen.com/embeds/277c4eefde40402e81bf3ea772a6e0d3"
+          src="https://app.heygen.com/embeds/avatar-iv-video-24e735b209c04ce5b4dab7361878f022"
           title="Avatar-IV-Video"
           frameBorder="0"
           allow="encrypted-media; fullscreen;"
