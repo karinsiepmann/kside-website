@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FemAILab — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f5;
+    --surface: #ffffff;
+    --surface-alt: #f5f3ee;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.14);
+    --text-primary: #141413;
+    --text-secondary: #5a5a56;
+    --text-muted: #9a9a94;
+    /* kside brand: Rot dominiert */
+    --accent: #962B3F;
+    --accent-bg: #f8e8eb;
+    --accent-text: #962B3F;
+    /* Grün */
+    --gruen: #4a7020;
+    --gruen-bg: #eef6e2;
+    /* Orange */
+    --orange: #b85518;
+    --orange-bg: #fceee5;
+    /* Muted warm für community/ai-os */
+    --warm: #7a4f28;
+    --warm-bg: #faf0e6;
+    --deep-red: #6b1a28;
+    --deep-red-bg: #f2d5da;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border-strong);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 40px; height: 40px;
+    background: #962B3F;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 15px; letter-spacing: -0.5px;
+  }
+  .header-title { font-size: 17px; font-weight: 600; color: #962B3F; }
+  .header-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+  .header-links { display: flex; gap: 8px; }
+  .header-link {
+    font-size: 12px; color: var(--text-secondary);
+    text-decoration: none; padding: 5px 10px;
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
+  }
+  .header-link:hover { background: var(--surface-alt); }
+
+  /* ── Stats ── */
+  .stats-bar {
+    display: flex; gap: 12px;
+    padding: 20px 32px 0;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    flex: 1;
+  }
+  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .stat-value { font-size: 26px; font-weight: 700; color: #962B3F; line-height: 1; }
+  .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ── Layout ── */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    padding: 20px 32px 40px;
+    max-width: 1200px;
+  }
+
+  /* ── Section headers ── */
+  .section-header {
+    font-size: 12px; font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.07em;
+    margin-bottom: 12px; margin-top: 24px;
+  }
+  .section-header:first-child { margin-top: 0; }
+
+  /* ── Latest session ── */
+  .latest-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    border-left: 3px solid #962B3F;
+  }
+  .latest-badge {
+    display: inline-block;
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    background: #f8e8eb; color: #962B3F;
+    padding: 2px 8px; border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .latest-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .latest-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .latest-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 20px;
+    background: var(--surface-alt); color: var(--text-secondary);
+    border: 0.5px solid var(--border-strong);
+  }
+
+  /* ── Cluster tabs ── */
+  .cluster-tabs {
+    display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .cluster-tab {
+    font-size: 12px; padding: 5px 12px;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 20px; cursor: pointer;
+    background: var(--surface);
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .cluster-tab:hover { background: var(--surface-alt); }
+  .cluster-tab.active {
+    background: #962B3F; color: white;
+    border-color: transparent;
+  }
+
+  /* ── Session list ── */
+  .session-list { display: flex; flex-direction: column; gap: 8px; }
+  .session-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .session-item:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .session-item.hidden { display: none; }
+  .session-date {
+    font-size: 11px; color: var(--text-muted);
+    padding-top: 2px; line-height: 1.4;
+  }
+  .session-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .session-keywords { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+  .session-cluster {
+    display: inline-block; font-size: 10px;
+    padding: 1px 7px; border-radius: 10px;
+    margin-bottom: 4px; font-weight: 500;
+  }
+
+  .cluster-tools { background: #f8e8eb; color: #962B3F; }
+  .cluster-methoden { background: #eef6e2; color: #4a7020; }
+  .cluster-apps { background: #fceee5; color: #b85518; }
+  .cluster-community { background: #faf0e6; color: #7a4f28; }
+  .cluster-ai-os { background: #f2d5da; color: #6b1a28; }
+
+  /* ── Placeholder sessions ── */
+  .placeholder-section {
+    background: var(--surface);
+    border: 0.5px dashed var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar { display: flex; flex-direction: column; gap: 0; }
+  .sidebar-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .sidebar-card-header {
+    padding: 12px 16px;
+    font-size: 12px; font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.07em;
+    border-bottom: 0.5px solid var(--border);
+    background: var(--surface-alt);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sidebar-card-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .resource-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 16px; font-size: 13px;
+    text-decoration: none; color: var(--text-primary);
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.12s;
+  }
+  .resource-link:last-child { border-bottom: none; }
+  .resource-link:hover { background: var(--surface-alt); }
+  .resource-link-sub { font-size: 11px; color: var(--text-muted); }
+  .arrow { color: var(--text-muted); font-size: 11px; }
+
+  /* Prompt box */
+  .prompt-box {
+    background: var(--surface-alt);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 8px 12px;
+    white-space: pre-wrap;
+  }
+  .prompt-label {
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-muted);
+    padding: 8px 12px 4px;
+  }
+
+  /* Community pills */
+  .community-links {
+    padding: 10px 12px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .community-pill {
+    font-size: 11px; padding: 4px 10px;
+    border: 0.5px solid var(--border-strong);
+    border-radius: 20px;
+    text-decoration: none; color: var(--text-secondary);
+    transition: background 0.12s;
+  }
+  .community-pill:hover { background: var(--surface-alt); color: var(--text-primary); }
+
+  /* next session */
+  .next-session {
+    padding: 12px 16px;
+  }
+  .next-date {
+    font-size: 22px; font-weight: 700; color: #962B3F;
+  }
+  .next-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .next-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">fAI</div>
+    <div>
+      <div class="header-title">FemAILab</div>
+      <div class="header-subtitle">KI-Lernlabor · Wiesbaden · Montags · kostenlos</div>
+    </div>
+  </div>
+  <div class="header-links">
+    <a href="https://www.linkedin.com/groups/13202295/" target="_blank" class="header-link">LinkedIn Gruppe</a>
+    <a href="https://prezi.com/view/4pEFyFjwyoW900pAK5Dm/" target="_blank" class="header-link">Prezi</a>
+    <a href="https://poe.com/FemAiLia" target="_blank" class="header-link">FemAiLia</a>
+    <a href="https://www.easyerklaert.de/femailab-onboarding-v4.html" target="_blank" class="header-link">Onboarding</a>
+    <a href="https://anny.eu/de-formal/explore/lhwzukunftswerk/resources" target="_blank" class="header-link">Events</a>
+  </div>
+</header>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-label">Sessions gesamt</div>
+    <div class="stat-value">~52</div>
+    <div class="stat-sub">seit Start des Labs</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Dokumentiert</div>
+    <div class="stat-value">13</div>
+    <div class="stat-sub">Feb–Jul 2026 · mehr folgen</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Format</div>
+    <div class="stat-value" style="font-size:18px; padding-top:4px;">Mo 16–18h</div>
+    <div class="stat-sub">Zukunftswerk Wiesbaden + Online</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Ressourcen</div>
+    <div class="stat-value">29</div>
+    <div class="stat-sub">Tools, Newsletter, Prompts</div>
+  </div>
+</div>
+
+<!-- Main layout -->
+<div class="main">
+
+  <!-- Left column -->
+  <div>
+    <!-- Latest session -->
+    <div class="section-header">Letzte Session</div>
+    <div class="latest-card">
+      <div class="latest-badge">Neueste Session</div>
+      <div class="latest-date">20. Juli 2026 · Montag</div>
+      <div class="latest-title">Orga, Öffnungszeiten &amp; August-Programm</div>
+      <div class="latest-desc">
+        Organisatorische Themen, veränderte Öffnungszeiten des Labs, Planung des August-Programms und Überblick zu aktuellen KI-Entwicklungen.
+      </div>
+      <div class="tag-row">
+        <span class="tag">Organisatorische Themen</span>
+        <span class="tag">Öffnungszeiten</span>
+        <span class="tag">August-Programm</span>
+        <span class="tag">Neue KI Entwicklungen</span>
+      </div>
+    </div>
+
+    <!-- Session archive -->
+    <div class="section-header">Session-Archiv</div>
+
+    <div class="cluster-tabs">
+      <button class="cluster-tab active" onclick="filterCluster('all', this)">Alle (13)</button>
+      <button class="cluster-tab" onclick="filterCluster('tools', this)">KI-Tools &amp; Plattformen</button>
+      <button class="cluster-tab" onclick="filterCluster('methoden', this)">Methoden &amp; Prompts</button>
+      <button class="cluster-tab" onclick="filterCluster('apps', this)">Apps &amp; Agenten</button>
+      <button class="cluster-tab" onclick="filterCluster('community', this)">Community &amp; Events</button>
+      <button class="cluster-tab" onclick="filterCluster('ai-os', this)">AI OS &amp; Zukunft</button>
+    </div>
+
+    <div class="session-list" id="sessionList">
+
+      <div class="session-item" data-cluster="community">
+        <div class="session-date">20.07.2026</div>
+        <div>
+          <span class="session-cluster cluster-community">Community</span>
+          <div class="session-title">Orga, Öffnungszeiten &amp; August-Programm</div>
+          <div class="session-keywords">Organisatorische Themen · Veränderte Öffnungszeiten · August-Programm · Neue KI Entwicklungen</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="ai-os">
+        <div class="session-date">13.07.2026</div>
+        <div>
+          <span class="session-cluster cluster-ai-os">AI OS &amp; Zukunft</span>
+          <div class="session-title">ChatGPT Live Chat &amp; AI Betriebssystem</div>
+          <div class="session-keywords">ChatGPT Full Duplex · Co-Moderator · AI OS · Agentisches Betriebssystem</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="tools">
+        <div class="session-date">15.06.2026</div>
+        <div>
+          <span class="session-cluster cluster-tools">KI-Tools</span>
+          <div class="session-title">Dashboards &amp; Mistral</div>
+          <div class="session-keywords">Interaktive Dashboards · paper2pdf · Mistral cron-jobs</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="community">
+        <div class="session-date">08.06.2026</div>
+        <div>
+          <span class="session-cluster cluster-community">Community</span>
+          <div class="session-title">WM Spielplan, KI-Bedenken &amp; Planung</div>
+          <div class="session-keywords">WM-Spielplan mit Claude · KI Bedenken-Level · FemAI Online</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="tools">
+        <div class="session-date">01.06.2026</div>
+        <div>
+          <span class="session-cluster cluster-tools">KI-Tools</span>
+          <div class="session-title">Images, Video &amp; Risikomanagement</div>
+          <div class="session-keywords">NotebookLM · Canva Magic · ArenaLM · KI-Risikoapp · Vibe Learning</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="tools">
+        <div class="session-date">13.04.2026</div>
+        <div>
+          <span class="session-cluster cluster-tools">KI-Tools</span>
+          <div class="session-title">NotebookLM, Bilder &amp; Obsidian</div>
+          <div class="session-keywords">ChatGPT Image · Google Nano · Interaktive Grafiken · Obsidian &amp; Claude</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="community">
+        <div class="session-date">30.03.2026</div>
+        <div>
+          <span class="session-cluster cluster-community">Community</span>
+          <div class="session-title">Community-Input zur Dokumentation</div>
+          <div class="session-keywords">Tally-Formular · Notion-Datenbank · Feedback · Ladies Lounge</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="apps">
+        <div class="session-date">23.03.2026</div>
+        <div>
+          <span class="session-cluster cluster-apps">Apps &amp; Agenten</span>
+          <div class="session-title">Lovable, Apps &amp; Dispatch</div>
+          <div class="session-keywords">Was ist eine App · Lovable · Dispatch · Netlify</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="tools">
+        <div class="session-date">16.03.2026</div>
+        <div>
+          <span class="session-cluster cluster-tools">KI-Tools</span>
+          <div class="session-title">CoPilot, KI-Workflow &amp; Netlify</div>
+          <div class="session-keywords">CoPilot Notizbücher · KI-Assistentinnen · Netlify · Vercel</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="tools">
+        <div class="session-date">09.03.2026</div>
+        <div>
+          <span class="session-cluster cluster-tools">KI-Tools</span>
+          <div class="session-title">NotebookLM, Napkin &amp; Events</div>
+          <div class="session-keywords">NotebookLM · Napkin · ChatGPT Skills · KI Masterprompts</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="methoden">
+        <div class="session-date">02.03.2026</div>
+        <div>
+          <span class="session-cluster cluster-methoden">Methoden</span>
+          <div class="session-title">Prompts gestalten</div>
+          <div class="session-keywords">Prompt-Basics · Erfahrungen teilen · Learn Claude</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="methoden">
+        <div class="session-date">23.02.2026</div>
+        <div>
+          <span class="session-cluster cluster-methoden">Methoden</span>
+          <div class="session-title">Mit Dateien arbeiten in Claude</div>
+          <div class="session-keywords">Dateien · PowerPoint · Learn Claude</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="methoden">
+        <div class="session-date">09.02.2026</div>
+        <div>
+          <span class="session-cluster cluster-methoden">Methoden</span>
+          <div class="session-title">Skills, MCP &amp; Excalidraw</div>
+          <div class="session-keywords">Skills in Claude · MCP Connectors · Montagsmaler · Vibe Learning</div>
+        </div>
+      </div>
+
+      <div class="session-item" data-cluster="apps">
+        <div class="session-date">02.02.2026</div>
+        <div>
+          <span class="session-cluster cluster-apps">Apps &amp; Agenten</span>
+          <div class="session-title">Agenten &amp; Assistenten</div>
+          <div class="session-keywords">OpenClaw · Moltbot · Clawbot · tldraw</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Placeholder for older sessions -->
+    <div class="placeholder-section" style="margin-top: 12px;">
+      ✦ ~39 weitere Sessions aus der Frühphase des FemAILab — werden nachgepflegt
+    </div>
+
+  </div>
+
+  <!-- Right sidebar -->
+  <div class="sidebar">
+
+    <!-- Next session -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #962B3F;"></div>
+        Nächste Session
+      </div>
+      <div class="next-session">
+        <div class="next-label">Montag · Zukunftswerk Wiesbaden</div>
+        <div class="next-date">Montags 16–18h</div>
+        <div class="next-desc" style="margin-top:8px;">Thema wird spontan aus der Gruppe entwickelt. Kostenlos, offen für alle.</div>
+        <a href="https://anny.eu/de-formal/explore/lhwzukunftswerk/resources" target="_blank" style="display:inline-block; margin-top:10px; font-size:12px; color:#962B3F; text-decoration:none;">→ Zur Anmeldung</a>
+      </div>
+    </div>
+
+    <!-- LLMs -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #962B3F;"></div>
+        Sprachmodelle (LLMs)
+      </div>
+      <a href="https://chatgpt.com/" target="_blank" class="resource-link">
+        <div><div>ChatGPT</div><div class="resource-link-sub">OpenAI</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://claude.ai/" target="_blank" class="resource-link">
+        <div><div>Claude</div><div class="resource-link-sub">Anthropic</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://copilot.microsoft.com/" target="_blank" class="resource-link">
+        <div><div>Co-Pilot</div><div class="resource-link-sub">Microsoft 365 · kostenlos</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://notebooklm.google.com/" target="_blank" class="resource-link">
+        <div><div>NotebookLM</div><div class="resource-link-sub">Google · Podcasts, Audio-Overview</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://vibe.mistral.ai/" target="_blank" class="resource-link">
+        <div><div>Vibe (Mistral)</div><div class="resource-link-sub">Custom Bots möglich</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://lumo.proton.me/guest" target="_blank" class="resource-link">
+        <div><div>Lumo (Proton)</div><div class="resource-link-sub">DSGVO · kein Login · europäisch</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.perplexity.ai/" target="_blank" class="resource-link">
+        <div><div>Perplexity</div><div class="resource-link-sub">Mit Quellenangaben</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://aistudio.google.com/" target="_blank" class="resource-link">
+        <div><div>Google AI Studio</div><div class="resource-link-sub">Gemini, Veo, Stream</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.kimi.com/" target="_blank" class="resource-link">
+        <div><div>Kimi K3</div><div class="resource-link-sub">Moonshot AI · Chinesisches Modell</div></div>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- Tools -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #A3C770;"></div>
+        Tools &amp; Anwendungen
+      </div>
+      <a href="https://napkin.ai/" target="_blank" class="resource-link">
+        <div><div>Napkin</div><div class="resource-link-sub">Grafiken aus Text</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://gamma.app/" target="_blank" class="resource-link">
+        <div><div>Gamma</div><div class="resource-link-sub">Präsentationen</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://lovable.ai/" target="_blank" class="resource-link">
+        <div><div>Lovable</div><div class="resource-link-sub">App-Entwicklung per Prompt</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://goblin.tools/" target="_blank" class="resource-link">
+        <div><div>Goblin Tools</div><div class="resource-link-sub">Magic ToDo, Formalizer, Chef</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://www.genspark.ai/" target="_blank" class="resource-link">
+        <div><div>Genspark</div><div class="resource-link-sub">Super-Agent, Präsentationen</div></div>
+        <span class="arrow">↗</span>
+      </a>
+      <a href="https://poe.com/FemAiLia" target="_blank" class="resource-link">
+        <div><div>FemAiLia</div><div class="resource-link-sub">KI-Lernassistentin des Labs</div></div>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- Prompt snippet -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #F0762B;"></div>
+        Prompt-Schnipsel
+      </div>
+      <div class="prompt-label">AIM Framework</div>
+      <div class="prompt-box">Actor: Wer soll die KI sein?
+Input: Kontext und Daten
+Mission: Was soll getan werden?</div>
+      <div class="prompt-label" style="margin-top:4px;">5 Tipps</div>
+      <div style="padding: 0 12px 12px;">
+        <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.8;">
+          1. Experten konkret benennen<br>
+          2. Chain of Thought: "Schritt für Schritt"<br>
+          3. Verifier: "Stelle 3 Rückfragen zuerst"<br>
+          4. Counter Evidence: nach Gegenargumenten fragen<br>
+          5. Cross-Model: Prompt in mehreren LLMs testen
+        </div>
+      </div>
+    </div>
+
+    <!-- Community -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #A3C770;"></div>
+        Community &amp; Newsletter
+      </div>
+      <div class="community-links">
+        <a href="https://www.ainauten.com" target="_blank" class="community-pill">AINauten</a>
+        <a href="https://ai-first.ai" target="_blank" class="community-pill">AI First</a>
+        <a href="https://www.thefemaleaiclub.com/" target="_blank" class="community-pill">Female AI Club</a>
+        <a href="https://ki-campus.org/" target="_blank" class="community-pill">KI Campus</a>
+        <a href="https://jens.marketing/" target="_blank" class="community-pill">Jens Polomski</a>
+        <a href="https://www.juliajunge.de/" target="_blank" class="community-pill">Julia Junge</a>
+        <a href="https://theresanaiforthat.com/" target="_blank" class="community-pill">There's An AI For That</a>
+        <a href="https://www.unidigital.news/" target="_blank" class="community-pill">Matthias Kindt</a>
+        <a href="https://youtu.be/Wxlhmk_xAVs" target="_blank" class="community-pill">Erklärvideo (NotebookLM)</a>
+      </div>
+    </div>
+
+    <!-- QR Codes -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">
+        <div class="sidebar-card-dot" style="background: #962B3F;"></div>
+        QR Codes
+      </div>
+      <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">LinkedIn Gruppe</div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://www.linkedin.com/groups/13202295/" alt="LinkedIn QR Code" style="border: 0.5px solid var(--border); border-radius: 6px; width: 100%;">
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">Onboarding</div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://www.easyerklaert.de/femailab-onboarding-v4.html" alt="Onboarding QR Code" style="border: 0.5px solid var(--border); border-radius: 6px; width: 100%;">
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">WhatsApp Gruppe</div>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&amp;data=https://chat.whatsapp.com/Da03K3lzmqzEpYJ4lvaTRU%3Fs%3Dsh%26p%3Da%26mlu%3D0%26amv%3D1" alt="WhatsApp QR Code" style="border: 0.5px solid var(--border); border-radius: 6px; width: 100%;">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function filterCluster(cluster, btn) {
+    document.querySelectorAll('.cluster-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.session-item').forEach(item => {
+      if (cluster === 'all' || item.dataset.cluster === cluster) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
