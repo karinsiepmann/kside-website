@@ -136,7 +136,7 @@ export default function TerminePage() {
             </div>
 
             {/* Info Grid */}
-            <div className="bg-slate-50 p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div className="bg-slate-50 p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 mb-8">
               <div>
                 <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
                   📍 Ort
@@ -171,6 +171,22 @@ export default function TerminePage() {
                   Für KI-Erfahrene
                 </p>
               </div>
+            </div>
+
+            {/* Anmeldungs-CTA */}
+            <div className="bg-gradient-to-r from-emerald-500 to-rose-500 rounded-lg p-8 text-center text-white mb-8">
+              <h3 className="text-2xl font-semibold mb-3">Bereit dabei zu sein?</h3>
+              <p className="mb-6 opacity-95">
+                Sichert euch euren Platz im AI Open Learning Lab
+              </p>
+              <a
+                href="https://anny.eu/book/lab-for-women"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-white text-rose-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
+              >
+                Zur Anmeldung
+              </a>
             </div>
           </div>
 
@@ -236,24 +252,6 @@ export default function TerminePage() {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* CTA Section */}
-        <div
-          className="bg-gradient-to-r from-emerald-500 to-orange-500 text-white p-8 text-center"
-        >
-          <h3 className="text-2xl font-semibold mb-3">Interessiert?</h3>
-          <p className="mb-6 opacity-95">
-            Sichert euch euren Platz im AI Open Learning Lab
-          </p>
-          <a
-            href="https://anny.eu/book/lab-for-women"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-white text-rose-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-          >
-            Zur Anmeldung
-          </a>
         </div>
       </div>
     </div>
