@@ -30,14 +30,22 @@ export default function FemAiLab() {
             <p className="text-gray-700 leading-relaxed mb-8">
               Jede ist willkommen mit ihren individuellen Lernzielen und die Teilnehmerinnen lernen mit und voneinander praktische Fähigkeiten und bauen <strong>individuelle Kompetenzen</strong> im Umgang mit neuen Technologien auf.
             </p>
-            <a
-              href="https://www.linkedin.com/groups/13202295/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-6 py-3 rounded-full text-white font-semibold hover:opacity-90 transition-opacity bg-burgundy"
-            >
-              Weitere Informationen
-            </a>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="https://www.linkedin.com/groups/13202295/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-3 rounded-full text-white font-semibold hover:opacity-90 transition-opacity bg-burgundy"
+              >
+                Weitere Informationen
+              </a>
+              <a
+                href="/termine"
+                className="inline-block px-6 py-3 rounded-full text-white font-semibold hover:opacity-90 transition-opacity bg-orange-500"
+              >
+                Aktuelle Termine
+              </a>
+            </div>
           </div>
 
         </div>
