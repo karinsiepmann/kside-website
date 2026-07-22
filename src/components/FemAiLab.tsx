@@ -25,7 +25,7 @@ export default function FemAiLab() {
               Das Ai Open Learning Lab for Women ist ein <strong>offenes Lernlabor</strong> speziell für Frauen, die KI-Anwendungen in einem geschützten Rahmen erkunden möchten.
             </p>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Wir treffen uns jeden Montag ab 16 Uhr im Zukunftswerk der Stadt Wiesbaden (SmartCity Referat).
+              Wir treffen uns jeden Montag ab 17 Uhr im Zukunftswerk der Stadt Wiesbaden (SmartCity Referat).
             </p>
             <p className="text-gray-700 leading-relaxed mb-8">
               Jede ist willkommen mit ihren individuellen Lernzielen und die Teilnehmerinnen lernen mit und voneinander praktische Fähigkeiten und bauen <strong>individuelle Kompetenzen</strong> im Umgang mit neuen Technologien auf.
