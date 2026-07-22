@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FemAiLab Dashboard — [kside]//openlabs",
+  title: "AI Open Learning Lab Dashboard — [kside]//openlabs",
   robots: { index: false, follow: false },
 };
 
@@ -11,7 +11,7 @@ export default function FemAiLabDashboard() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">FemAiLab Dashboard</h1>
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">AI Open Learning Lab</h1>
           <p className="text-xl text-gray-600">
             Community of Practice für Frauen in der KI-Bildung
           </p>
@@ -41,9 +41,9 @@ export default function FemAiLabDashboard() {
           <div className="lg:col-span-2 space-y-8">
             {/* About */}
             <div className="bg-white rounded-lg p-8 shadow-md">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Über das FemAiLab</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Über das AI Open Learning Lab</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Das <strong>Ai Open Learning Lab for Women</strong> ist ein offenes Lernlabor speziell für Frauen, die KI-Anwendungen in einem geschützten Rahmen erkunden möchten.
+                Das <strong>AI Open Learning Lab for Women</strong> ist ein offenes Lernlabor speziell für Frauen, die KI-Anwendungen in einem geschützten Rahmen erkunden möchten.
               </p>
               <p className="text-gray-700 leading-relaxed">
                 Wir arbeiten nach dem <strong>Community of Practice</strong> Ansatz: Teilnehmerinnen teilen ihre Erfahrungen, lernen voneinander und entwickeln gemeinsam praktische Lösungen für den Einsatz von KI im beruflichen und privaten Alltag.

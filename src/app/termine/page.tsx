@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Aktuelle Termine — [kside]//openlabs",
   description:
-    "Alle kommenden Termine für das AI Open Learning Lab for Women und Scala Campus Morgenimpulse",
+    "Alle kommenden Termine für das AI Open Learning Lab for Women und SkalaCampus Morgenimpulse",
 };
 
 export default function TerminePage() {
@@ -15,7 +15,7 @@ export default function TerminePage() {
           className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center"
         >
           <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026</h1>
-          <p className="text-lg opacity-95">FemAILab & Scala Campus</p>
+          <p className="text-lg opacity-95">AI Open Learning Lab & SkalaCampus</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">
             Wiesbaden · Online
           </div>
@@ -23,7 +23,7 @@ export default function TerminePage() {
 
         {/* Content */}
         <div className="p-12">
-          {/* FemAILab Section */}
+          {/* AI Open Learning Lab Section */}
           <div className="mb-12">
             <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
               <div className="text-2xl mr-4">🏢</div>
@@ -177,12 +177,12 @@ export default function TerminePage() {
           {/* Divider */}
           <div className="border-t-2 border-gray-200 py-8"></div>
 
-          {/* Scala Campus Section */}
+          {/* SkalaCampus Section */}
           <div>
             <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
               <div className="text-2xl mr-4">🎤</div>
               <h2 className="text-2xl font-bold text-gray-900">
-                Scala Campus Morgenimpulse
+                SkalaCampus Morgenimpulse
               </h2>
             </div>
 
@@ -253,7 +253,7 @@ export default function TerminePage() {
             rel="noopener noreferrer"
             className="inline-block bg-white text-rose-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
           >
-            Zur Anmeldung FemAILab
+            Zur Anmeldung
           </a>
         </div>
       </div>
