@@ -190,26 +190,25 @@ export default function TerminePage() {
               {[
                 {
                   date: "20.08.2026",
-                  title: "KI Tools im Arbeitsalltag",
+                  title: "KI-Tools im Arbeitsalltag",
                   time: "9:00 – 10:00 Uhr",
                   link: "https://www.skala-campus.org/event/ki-tools-arbeitsalltag/",
                 },
                 {
                   date: "22.09.2026",
-                  title: "KI Skills",
+                  title: "KI-Skills: Wie du deine KI individuell anpassen kannst",
                   time: "9:00 – 10:00 Uhr",
                   link: "https://www.skala-campus.org/event/ki-skills/",
                 },
                 {
                   date: "06.10.2026",
-                  title:
-                    "Komplexe & spröde Themen mittels KI greifbar machen – DSGVO & EU-AI-Act",
+                  title: "Von kompliziert zu verständlich: KI als Wissensübersetzer",
                   time: "9:00 – 10:00 Uhr",
                   link: "https://www.skala-campus.org",
                 },
                 {
                   date: "27.10.2026",
-                  title: "AI-OS: KI Operating System",
+                  title: "AI-OS: Was ist ein KI Operating System?",
                   time: "9:00 – 10:00 Uhr",
                   link: "https://www.skala-campus.org",
                 },
