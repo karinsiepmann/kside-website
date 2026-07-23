@@ -55,6 +55,7 @@ export default function TerminePage() {
                   { date: "31.08", day: "Mo" },
                   { date: "07.09", day: "Mo" },
                   { date: "14.09", day: "Mo" },
+                  { date: "10.08", day: "Mo", special: true, title: "Usability Testessen: KI & Führerscheinantrag", link: "https://anny.eu/book/usability-testessen" },
                 ].map((item) => (
                   <div
                     key={item.date}
@@ -64,9 +65,26 @@ export default function TerminePage() {
                       {item.date}
                     </div>
                     <div className="text-sm text-gray-600">{item.day}</div>
-                    <span className="inline-block bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full mt-2">
-                      Präsenz
-                    </span>
+                    {item.special ? (
+                      <>
+                        <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full mt-2 mr-2">
+                          Sondertermin
+                        </span>
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full mt-2 hover:bg-rose-200 transition"
+                        >
+                          Anmelden →
+                        </a>
+                        <p className="text-xs text-gray-700 mt-2 font-medium">{item.title}</p>
+                      </>
+                    ) : (
+                      <span className="inline-block bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full mt-2">
+                        Präsenz
+                      </span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -84,7 +102,6 @@ export default function TerminePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { date: "10.08", day: "Mo" },
                   { date: "21.09", day: "Mo" },
                   { date: "28.09", day: "Mo" },
                 ].map((item) => (
