@@ -7,6 +7,9 @@ export default function Nav() {
       <a href="#portfolio" className="px-5 py-2 rounded-full text-sm font-semibold text-white bg-green-dark hover:opacity-90 transition-opacity">
         Portfolio
       </a>
+      <a href="/termine" className="px-5 py-2 rounded-full text-sm font-semibold text-white bg-rose-700 hover:opacity-90 transition-opacity">
+        Aktuelle Termine
+      </a>
     </nav>
   );
 }
