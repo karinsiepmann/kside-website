@@ -237,7 +237,7 @@ export default function TerminePage() {
                   date: "06.10.2026",
                   title: "Von kompliziert zu verständlich: KI als Wissensübersetzer",
                   time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org",
+                  link: "https://www.skala-campus.org/event/komplexes-wissen-mit-ki-greifbar-machen/",
                 },
                 {
                   date: "27.10.2026",
