@@ -243,7 +243,7 @@ export default function TerminePage() {
                   date: "27.10.2026",
                   title: "AI-OS: Was ist ein KI Operating System?",
                   time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org",
+                  link: "https://www.skala-campus.org/event/ai-os/",
                 },
               ].map((event, idx) => (
                 <a
