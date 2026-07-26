@@ -15,7 +15,7 @@ export default function TerminePage() {
           className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center"
         >
           <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026</h1>
-          <p className="text-lg opacity-95">AI Open Learning Lab & SkalaCampus</p>
+          <p className="text-lg opacity-95">AI Open Learning Lab & SKalaCAMPUS</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">
             Wiesbaden · Online
           </div>
@@ -43,9 +43,19 @@ export default function TerminePage() {
                 <h3 className="text-xl font-semibold text-gray-900">
                   🏢 Live im Zukunftswerk
                 </h3>
-                <span className="text-sm text-gray-600 font-medium">
-                  17:00 – 20:00 Uhr
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-gray-600 font-medium">
+                    17:00 – 20:00 Uhr
+                  </span>
+                  <a
+                    href="https://anny.eu/book/lab-for-women"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold text-white bg-rose-700 px-3 py-1 rounded-full hover:opacity-90 transition-opacity"
+                  >
+                    Anmelden →
+                  </a>
+                </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
