@@ -285,6 +285,16 @@ export default function TerminePage() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <div className="bg-gray-50 border-t border-gray-200 p-8 text-center">
+          <a
+            href="https://kside.de/"
+            className="inline-block text-rose-700 font-semibold hover:text-rose-800 transition"
+          >
+            ← Zurück zur Startseite
+          </a>
+        </div>
       </div>
     </div>
   );
