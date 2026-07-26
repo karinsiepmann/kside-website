@@ -214,9 +214,14 @@ export default function TerminePage() {
           <div>
             <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
               <div className="text-2xl mr-4">🎤</div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                SkalaCampus Morgenimpulse
-              </h2>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  SKalaCAMPUS Morgenimpulse
+                </h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  Die Lern-Plattform für sozial Engagierte
+                </p>
+              </div>
             </div>
 
             <div className="space-y-4">
