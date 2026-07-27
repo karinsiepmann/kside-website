@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 export const metadata: Metadata = {
   title: "SKalaCAMPUS Morgenimpulse — [kside]//openlabs",
   description:
@@ -8,25 +9,25 @@ export const metadata: Metadata = {
 export default function SkalaCampusPage() {
   const events = [
     {
-      date: "20.08.2026",
+      date: "20.08",
       title: "KI-Tools im Arbeitsalltag",
       time: "9:00 – 10:00 Uhr",
       link: "https://www.skala-campus.org/event/ki-tools-arbeitsalltag/",
     },
     {
-      date: "22.09.2026",
+      date: "22.09",
       title: "KI-Skills: Wie du deine KI individuell anpassen kannst",
       time: "9:00 – 10:00 Uhr",
       link: "https://www.skala-campus.org/event/ki-skills/",
     },
     {
-      date: "06.10.2026",
+      date: "06.10",
       title: "Von kompliziert zu verständlich: KI als Wissensübersetzer",
       time: "9:00 – 10:00 Uhr",
       link: "https://www.skala-campus.org/event/komplexes-wissen-mit-ki-greifbar-machen/",
     },
     {
-      date: "27.10.2026",
+      date: "27.10",
       title: "AI-OS: Was ist ein KI Operating System?",
       time: "9:00 – 10:00 Uhr",
       link: "https://www.skala-campus.org/event/ai-os/",
@@ -47,20 +48,51 @@ export default function SkalaCampusPage() {
 
         {/* Content */}
         <div className="p-12">
-          {/* Intro */}
-          <div className="mb-10">
-            <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
-              <div className="text-2xl mr-4">🎤</div>
+          {/* Intro + Info */}
+          <div className="mb-8">
+            <p className="text-gray-700 mb-6">
+              SKalaCAMPUS ist die Online-Lernplattform von Skala für gemeinnützige Organisationen.
+              In vier Morgenimpulsen zeige ich, wie KI konkret im Non-Profit-Alltag eingesetzt werden kann —
+              praxisnah, kostenlos und ohne Vorkenntnisse.
+            </p>
+
+            <div className="bg-blue-50 p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Alle Termine 2026
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  Die Lern-Plattform für sozial Engagierte · Anmeldung direkt über SKalaCAMPUS
+                <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+                  🖥️ Format
+                </h4>
+                <p className="text-gray-900">
+                  Online-Morgenimpuls
+                  <br />
+                  60 Minuten
+                </p>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+                  💰 Kosten
+                </h4>
+                <p className="text-gray-900">
+                  Kostenfrei
+                  <br />
+                  Anmeldung erforderlich
+                </p>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+                  👥 Zielgruppe
+                </h4>
+                <p className="text-gray-900">
+                  Sozial Engagierte
+                  <br />
+                  NGOs & Non-Profits
                 </p>
               </div>
             </div>
+          </div>
 
+          {/* Events */}
+          <div className="border-t-2 border-slate-100 pt-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Alle Termine 2026</h2>
             <div className="space-y-4">
               {events.map((event, idx) => (
                 <a
@@ -86,40 +118,6 @@ export default function SkalaCampusPage() {
               ))}
             </div>
           </div>
-
-          {/* Info */}
-          <div className="bg-blue-50 p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div>
-              <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
-                📍 Format
-              </h4>
-              <p className="text-gray-900">
-                Online-Morgenimpuls
-                <br />
-                60 Minuten
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
-                💰 Kosten
-              </h4>
-              <p className="text-gray-900">
-                Kostenfrei
-                <br />
-                Anmeldung erforderlich
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
-                👥 Zielgruppe
-              </h4>
-              <p className="text-gray-900">
-                Sozial Engagierte
-                <br />
-                NGOs & Non-Profits
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Footer */}
@@ -134,7 +132,7 @@ export default function SkalaCampusPage() {
             href="https://kside.de/"
             className="inline-block text-rose-700 font-semibold hover:text-rose-800 transition"
           >
-            Zur Startseite
+            Zur Startseite →
           </a>
         </div>
       </div>

@@ -22,18 +22,6 @@ export default function TerminePage() {
         <div className="p-12">
           {/* AI Open Learning Lab Section */}
           <div className="mb-12">
-            <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
-              <div className="text-2xl mr-4">🏢</div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">
-                  AI Open Learning Lab for Women
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  Wiesbaden · Zukunftswerk
-                </p>
-              </div>
-            </div>
-
             {/* Live im Zukunftswerk */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
@@ -57,12 +45,12 @@ export default function TerminePage() {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
                   { date: "03.08", day: "Mo" },
+                  { date: "10.08", day: "Mo", special: true, title: "Usability Testessen: KI & Führerscheinantrag", link: "https://anny.eu/book/usability-testessen" },
                   { date: "17.08", day: "Mo" },
                   { date: "24.08", day: "Mo" },
                   { date: "31.08", day: "Mo" },
                   { date: "07.09", day: "Mo" },
                   { date: "14.09", day: "Mo" },
-                  { date: "10.08", day: "Mo", special: true, title: "Usability Testessen: KI & Führerscheinantrag", link: "https://anny.eu/book/usability-testessen" },
                 ].map((item) => (
                   <div
                     key={item.date}
