@@ -50,10 +50,15 @@ export default function SkalaCampusPage() {
         <div className="p-12">
           {/* Intro + Info */}
           <div className="mb-8">
-            <p className="text-gray-700 mb-6">
-              SKalaCAMPUS ist die Online-Lernplattform von Skala für gemeinnützige Organisationen.
-              In vier Morgenimpulsen zeige ich, wie KI konkret im Non-Profit-Alltag eingesetzt werden kann —
-              praxisnah, kostenlos und ohne Vorkenntnisse.
+            <p className="mb-6">
+              <a
+                href="https://www.skala-campus.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-700 font-semibold hover:text-blue-900 transition"
+              >
+                Alle Infos zu SKalaCAMPUS →
+              </a>
             </p>
 
             <div className="bg-blue-50 p-6 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-6">
