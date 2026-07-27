@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Aktuelle Termine — [kside]//openlabs",
   description:
-    "Alle kommenden Termine für das AI Open Learning Lab for Women und SkalaCampus Morgenimpulse",
+    "Alle kommenden Termine für das AI Open Learning Lab for Women im Zukunftswerk Wiesbaden",
 };
 
 export default function TerminePage() {
@@ -11,13 +12,20 @@ export default function TerminePage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-white py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
-        <div
-          className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center"
-        >
+        <div className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center">
+          <div className="flex justify-center mb-6">
+            <Image
+              src="/logo-kside.png"
+              alt="[kside]//openlabs Logo"
+              width={160}
+              height={60}
+              className="object-contain brightness-0 invert"
+            />
+          </div>
           <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026</h1>
-          <p className="text-lg opacity-95">AI Open Learning Lab & SKalaCAMPUS</p>
+          <p className="text-lg opacity-95">AI Open Learning Lab for Women</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">
-            Wiesbaden · Online
+            Wiesbaden · Zukunftswerk
           </div>
         </div>
 
@@ -217,72 +225,27 @@ export default function TerminePage() {
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="border-t-2 border-gray-200 py-8"></div>
-
-          {/* SkalaCampus Section */}
-          <div>
-            <div className="flex items-center mb-6 pb-4 border-b-2 border-slate-100">
-              <div className="text-2xl mr-4">🎤</div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">
-                  SKalaCAMPUS Morgenimpulse
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  Die Lern-Plattform für sozial Engagierte
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                {
-                  date: "20.08.2026",
-                  title: "KI-Tools im Arbeitsalltag",
-                  time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org/event/ki-tools-arbeitsalltag/",
-                },
-                {
-                  date: "22.09.2026",
-                  title: "KI-Skills: Wie du deine KI individuell anpassen kannst",
-                  time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org/event/ki-skills/",
-                },
-                {
-                  date: "06.10.2026",
-                  title: "Von kompliziert zu verständlich: KI als Wissensübersetzer",
-                  time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org/event/komplexes-wissen-mit-ki-greifbar-machen/",
-                },
-                {
-                  date: "27.10.2026",
-                  title: "AI-OS: Was ist ein KI Operating System?",
-                  time: "9:00 – 10:00 Uhr",
-                  link: "https://www.skala-campus.org/event/ai-os/",
-                },
-              ].map((event, idx) => (
-                <a
-                  key={idx}
-                  href={event.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <div className="font-semibold text-blue-900">
-                        {event.date}
-                      </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mt-1">
-                        {event.title}
-                      </h4>
-                      <p className="text-sm text-gray-600 mt-1">{event.time}</p>
-                    </div>
-                    <span className="text-blue-600 font-semibold">→</span>
+          {/* SkalaCampus Teaser */}
+          <div className="border-t-2 border-gray-200 pt-8">
+            <a
+              href="/skala-campus"
+              className="block p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition group"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="text-3xl">🎤</div>
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition">
+                      SKalaCAMPUS Morgenimpulse
+                    </h2>
+                    <p className="text-sm text-gray-600 mt-1">
+                      4 Termine · Aug – Okt 2026 · Die Lern-Plattform für sozial Engagierte
+                    </p>
                   </div>
-                </a>
-              ))}
-            </div>
+                </div>
+                <span className="text-blue-600 font-bold text-xl group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </a>
           </div>
         </div>
 
