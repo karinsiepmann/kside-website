@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-
 export const metadata: Metadata = {
   title: "SKalaCAMPUS Morgenimpulse — [kside]//openlabs",
   description:
@@ -40,15 +38,6 @@ export default function SkalaCampusPage() {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-700 to-indigo-600 text-white p-12 text-center">
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/logo-kside.png"
-              alt="[kside]//openlabs Logo"
-              width={160}
-              height={60}
-              className="object-contain brightness-0 invert"
-            />
-          </div>
           <h1 className="text-4xl font-bold mb-2">SKalaCAMPUS Morgenimpulse</h1>
           <p className="text-lg opacity-95">KI-Impulse für sozial Engagierte</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">

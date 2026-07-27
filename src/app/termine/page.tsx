@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-
 export const metadata: Metadata = {
   title: "Aktuelle Termine — [kside]//openlabs",
   description:
@@ -13,15 +11,6 @@ export default function TerminePage() {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center">
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/logo-kside.png"
-              alt="[kside]//openlabs Logo"
-              width={160}
-              height={60}
-              className="object-contain brightness-0 invert"
-            />
-          </div>
           <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026</h1>
           <p className="text-lg opacity-95">AI Open Learning Lab for Women</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">
