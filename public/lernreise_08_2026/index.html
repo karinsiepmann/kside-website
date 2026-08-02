@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI Lernreise – Steuerkanzlei Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rot:    #962B3F;
+    --orange: #F0762B;
+    --gruen:  #6b9a36;
+    --lila:   #7a4f8c;
+    --bg:     #faf9f5;
+    --bg2:    #f0ede6;
+    --text:   #141413;
+    --muted:  #6b6860;
+    --border: #ddd9d0;
+    --white:  #ffffff;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ─── Top stripe ─── */
+  .top-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, var(--rot) 0%, var(--orange) 50%, var(--gruen) 100%);
+  }
+
+  .page {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+  }
+
+  /* ─── Header ─── */
+  header { text-align: center; margin-bottom: 48px; }
+
+  .badge {
+    display: inline-block;
+    background: var(--rot);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    color: var(--rot);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  h1 span { color: var(--orange); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .info-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* ─── Journey path ─── */
+  .journey {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 36px;
+    gap: 0;
+  }
+
+  .j-stop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .j-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid var(--c);
+    background: var(--white);
+    color: var(--c);
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .j-stop:hover .j-dot,
+  .j-dot.done {
+    background: var(--c);
+    color: white;
+  }
+
+  .j-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--c);
+    opacity: 0.7;
+  }
+
+  .j-line {
+    flex: 1;
+    max-width: 80px;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 5px, transparent 5px, transparent 10px);
+    margin: 0 4px;
+    margin-bottom: 22px;
+  }
+
+  .j1 { --c: var(--rot); }
+  .j2 { --c: var(--orange); }
+  .j3 { --c: var(--gruen); }
+  .j4 { --c: var(--lila); }
+
+  /* ─── Instruction ─── */
+  .instruction {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-left: 4px solid var(--orange);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .instruction strong { color: var(--text); }
+
+  /* ─── Progress ─── */
+  .progress-bar-wrap {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-label { font-size: 12px; font-weight: 700; color: var(--muted); flex-shrink: 0; text-transform: uppercase; letter-spacing: 1px; }
+  .progress-track { flex: 1; height: 7px; background: var(--bg2); border-radius: 4px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--rot), var(--orange)); border-radius: 4px; transition: width 0.5s ease; width: 0%; }
+  .progress-count { font-size: 13px; font-weight: 800; color: var(--rot); flex-shrink: 0; }
+
+  /* ─── Mission cards ─── */
+  .missions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 44px;
+  }
+
+  .mission-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-top: 4px solid var(--c);
+    border-radius: 12px;
+    padding: 28px 26px 22px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .mission-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .mission-card.completed { opacity: 0.65; }
+
+  .mc1 { --c: var(--rot); }
+  .mc2 { --c: var(--orange); }
+  .mc3 { --c: var(--gruen); }
+  .mc4 { --c: var(--lila); }
+
+  .mission-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .mission-icon {
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .mission-number {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--c);
+    margin-bottom: 4px;
+  }
+
+  .mission-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .mission-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  .mission-tools {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .tool-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 11px;
+    border-radius: 30px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+  }
+
+  .mission-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .difficulty {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .diff-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .diff-dot.filled { background: var(--c); }
+
+  .diff-label {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+  }
+
+  .open-btn {
+    background: var(--c);
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: opacity 0.18s;
+    letter-spacing: 0.3px;
+  }
+  .open-btn:hover { opacity: 0.82; }
+
+  /* ─── Tools footer ─── */
+  .tools-footer {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 0;
+  }
+
+  .tools-footer h3 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .tool-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tool-link {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .tool-link:hover { border-color: var(--rot); color: var(--rot); }
+
+  /* ─── Footer ─── */
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding-top: 32px;
+    margin-top: 40px;
+    border-top: 1.5px solid var(--border);
+    font-weight: 500;
+  }
+
+  footer strong { color: var(--rot); }
+
+  /* ─── Modal overlay ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 20, 19, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-top: 5px solid var(--c);
+    border-radius: 16px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 87vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.28s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(24px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-top {
+    padding: 28px 28px 20px;
+    border-bottom: 1.5px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  .modal-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--c);
+    margin-bottom: 8px;
+  }
+
+  .modal-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .modal-body { padding: 24px 28px 28px; }
+
+  .modal-section { margin-bottom: 24px; }
+
+  .modal-section h3 {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .modal-section p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  .code-block {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-left: 3px solid var(--c);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.75;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .step-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .step-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--c);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .question-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .question-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .question-list li::before {
+    content: '→';
+    color: var(--c);
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  .tip-box {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-left: 3px solid var(--c);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  .tip-box strong { color: var(--c); font-weight: 700; }
+
+  .modal-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: var(--bg2);
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    font-size: 16px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .modal-close:hover { background: var(--border); color: var(--text); }
+
+  .done-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--c);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity 0.18s;
+    letter-spacing: 0.3px;
+  }
+  .done-btn:hover { opacity: 0.82; }
+
+  /* ─── Modal color vars ─── */
+  #modal1 .modal, #modal1 { --c: var(--rot); }
+  #modal2 .modal, #modal2 { --c: var(--orange); }
+  #modal3 .modal, #modal3 { --c: var(--gruen); }
+  #modal4 .modal, #modal4 { --c: var(--lila); }
+
+  /* ─── Toast ─── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(70px);
+    background: var(--rot);
+    color: white;
+    padding: 12px 26px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 200;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(150,43,63,0.35);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ─── Scrollbar ─── */
+  .modal::-webkit-scrollbar { width: 5px; }
+  .modal::-webkit-scrollbar-track { background: transparent; }
+  .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="badge">🚀 KI Workshop · 06. August 2026</div>
+    <h1>Deine KI-<span>Lernreise</span></h1>
+    <p class="subtitle">Wähle eine oder mehrere Missionen aus – und entdecke, was KI in deinem Arbeitsalltag leisten kann.</p>
+    <div class="info-bar">
+      <span>🗓 Steuerkanzlei Workshop</span>
+      <span>⏱ ca. 15–30 Min. pro Mission</span>
+      <span>🎯 Freie Auswahl</span>
+    </div>
+  </header>
+
+  <!-- Journey path -->
+  <div class="journey">
+    <div class="j-stop j1" onclick="openModal(1)">
+      <div class="j-dot" id="jd1">1</div>
+      <div class="j-label">Erkunden</div>
+    </div>
+    <div class="j-line"></div>
+    <div class="j-stop j2" onclick="openModal(2)">
+      <div class="j-dot" id="jd2">2</div>
+      <div class="j-label">Personalisieren</div>
+    </div>
+    <div class="j-line"></div>
+    <div class="j-stop j3" onclick="openModal(3)">
+      <div class="j-dot" id="jd3">3</div>
+      <div class="j-label">Automatisieren</div>
+    </div>
+    <div class="j-line"></div>
+    <div class="j-stop j4" onclick="openModal(4)">
+      <div class="j-dot" id="jd4">4</div>
+      <div class="j-label">Agenten</div>
+    </div>
+  </div>
+
+  <!-- Instruction -->
+  <div class="instruction">
+    <strong>So funktioniert's:</strong> Klick auf eine Mission und entdecke alle Details, Aufgaben und Prompts. Wähle, was dich interessiert – keine Reihenfolge nötig!
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-bar-wrap">
+    <span class="progress-label">Fortschritt</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <span class="progress-count" id="progressCount">0 / 4</span>
+  </div>
+
+  <!-- Mission Cards -->
+  <div class="missions">
+
+    <!-- Mission 1 -->
+    <div class="mission-card mc1" id="card1">
+      <div class="mission-header">
+        <div class="mission-icon">🧪</div>
+        <div>
+          <div class="mission-number">Mission 1</div>
+          <div class="mission-title">KI-Modelle erkunden & Prompts ausprobieren</div>
+        </div>
+      </div>
+      <p class="mission-desc">Teste verschiedene KI-Modelle, experimentiere mit Prompts und erlebe live, wie kleine Änderungen in der Formulierung große Wirkung haben.</p>
+      <div class="mission-tools">
+        <span class="tool-tag">🤖 Arena.ai</span>
+        <span class="tool-tag">eigene KI</span>
+        <span class="tool-tag">Fragen aus dem Arbeitsalltag</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Einsteiger</span>
+        </div>
+        <button class="open-btn" onclick="openModal(1)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 2 -->
+    <div class="mission-card mc2" id="card2">
+      <div class="mission-header">
+        <div class="mission-icon">⚙️</div>
+        <div>
+          <div class="mission-number">Mission 2</div>
+          <div class="mission-title">ChatGPT personalisieren & anpassen</div>
+        </div>
+      </div>
+      <p class="mission-desc">Tauche in die Personalisierungs-Einstellungen von ChatGPT ein: Stil, Tonfall, Memory und eigene Anweisungen – mach die KI zu deiner eigenen.</p>
+      <div class="mission-tools">
+        <span class="tool-tag">💬 ChatGPT</span>
+        <span class="tool-tag">Einstellungen</span>
+        <span class="tool-tag">Custom Instructions</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Mittel</span>
+        </div>
+        <button class="open-btn" onclick="openModal(2)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 3 -->
+    <div class="mission-card mc3" id="card3">
+      <div class="mission-header">
+        <div class="mission-icon">⏰</div>
+        <div>
+          <div class="mission-number">Mission 3</div>
+          <div class="mission-title">Geplante Aufgaben einrichten – SteuerRadar</div>
+        </div>
+      </div>
+      <p class="mission-desc">Richte eine wöchentlich automatische Recherche in Mistral ein. Einmal einrichten – und die KI liefert dir jeden Montag einen Steuerrechtsbericht.</p>
+      <div class="mission-tools">
+        <span class="tool-tag">⚡ Mistral</span>
+        <span class="tool-tag">Geplante Aufgaben</span>
+        <span class="tool-tag">SteuerRadar</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Mittel</span>
+        </div>
+        <button class="open-btn" onclick="openModal(3)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 4 -->
+    <div class="mission-card mc4" id="card4">
+      <div class="mission-header">
+        <div class="mission-icon">📊</div>
+        <div>
+          <div class="mission-number">Mission 4</div>
+          <div class="mission-title">Paper-to-Dashboard: Studien visuell aufbereiten</div>
+        </div>
+      </div>
+      <p class="mission-desc">Lade ein PDF hoch und lass einen KI-Agenten daraus ein interaktives Dashboard erstellen – komplexe Wissenschaft in verständliche Sprache verwandelt.</p>
+      <div class="mission-tools">
+        <span class="tool-tag">⚡ Mistral</span>
+        <span class="tool-tag">PDF-Upload</span>
+        <span class="tool-tag">Agent</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <span class="diff-label">Fortgeschritten</span>
+        </div>
+        <button class="open-btn" onclick="openModal(4)">Mission starten →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tool links -->
+  <div class="tools-footer">
+    <h3>🔗 Alle Tools auf einen Blick</h3>
+    <div class="tool-links">
+      <a class="tool-link" href="https://lmarena.ai/" target="_blank">🤖 Arena.ai</a>
+      <a class="tool-link" href="https://chatgpt.com/" target="_blank">💬 ChatGPT</a>
+      <a class="tool-link" href="https://mistral.ai/" target="_blank">⚡ Mistral</a>
+      <a class="tool-link" href="https://napkin.ai/" target="_blank">✏️ Napkin</a>
+      <a class="tool-link" href="https://gamma.app/" target="_blank">🎨 Gamma</a>
+      <a class="tool-link" href="https://notebooklm.google.com/" target="_blank">📒 NotebookLM</a>
+      <a class="tool-link" href="https://claude.ai/" target="_blank">🧠 Claude</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <strong>[kside]</strong>//openlabs · KI Grundlagen Workshop · karin.siepmann@gmail.com
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+<!-- Modal 1 -->
+<div class="modal-overlay" id="modal1">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(1)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">🧪 Mission 1</div>
+      <div class="modal-title">KI-Modelle erkunden & Prompts ausprobieren</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du erlebst live, wie sich KI-Antworten verändern, wenn du anders formulierst, mehr Kontext gibst oder ein anderes Modell fragst.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div>Öffne <strong>Arena.ai</strong> (lmarena.ai) oder die KI deiner Wahl.</div></li>
+          <li><div class="step-num">2</div><div>Starte mit einer echten Frage aus deinem Arbeitsalltag.</div></li>
+          <li><div class="step-num">3</div><div>Probiere die Experimente unten aus – und schau, was sich ändert.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Experimente – Was passiert wenn ich …</h3>
+        <ul class="question-list">
+          <li>anders prompte? (länger, kürzer, andere Wörter)</li>
+          <li>einen neuen Chat starte?</li>
+          <li>eine andere KI frage?</li>
+          <li>mehr Kontext über mich und meine Arbeit gebe?</li>
+          <li>sage, wie die KI antworten soll?</li>
+          <li>die KI bitte, meinen Prompt professioneller zu formulieren?</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Tipp:</strong> In Arena.ai siehst du zwei KI-Antworten nebeneinander – perfekt um direkt zu vergleichen, ohne zwischen Apps zu wechseln.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(1)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2 -->
+<div class="modal-overlay" id="modal2">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(2)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">⚙️ Mission 2</div>
+      <div class="modal-title">ChatGPT personalisieren & anpassen</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du entdeckst die Personalisierungs-Einstellungen von ChatGPT und machst die KI zu deiner eigenen – mit dem richtigen Stil, Tonfall und Gedächtnis.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Einstellungen erkunden</h3>
+        <p>Gehe in ChatGPT zu <strong>Einstellungen → Personalisierung</strong> und probiere aus:</p>
+        <ul class="question-list">
+          <li>Basisstil und Tonfall einstellen</li>
+          <li>Memory-Funktion ein- / ausschalten</li>
+          <li>Memory gezielt löschen oder ergänzen</li>
+          <li>Chats löschen oder exportieren</li>
+          <li>Sprachstil einstellen</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Beispiel: Individuelle Anweisungen (Custom Instructions)</h3>
+        <p>Unter <strong>Einstellungen → Personalisierung → Individuelle Anweisungen</strong> kannst du der KI einmalig sagen, wie sie immer antworten soll:</p>
+        <div class="code-block">## Expertise & Stil
+Sei ein fähiger Experte. Nutze "du"-Anrede.
+Verwende Markdown zur Strukturierung.
+Gib komplexe Prozesse schrittweise wieder.
+
+## Problemlösung
+Denke zuerst nach, gehe Schritt für Schritt vor.
+Zerlege komplexe Probleme in Teilaufgaben.
+Biete Analogien an um Themen zu vereinfachen.
+
+## Effizienz
+Frage direkt nach bei Unklarheiten.
+Kein "Als KI..." — keine Entschuldigungen.
+Priorisiere den Kern der Antwort.
+Motivierend und freundlich bleiben.
+
+## Shorthands
+/e → ergänze Text mit Emojis für LinkedIn</div>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Tipp:</strong> Diese Anweisungen wirken in jedem Chat – du musst sie nur einmal einrichten. Je besser du erklärst wer du bist und was du brauchst, desto hilfreicher wird die KI.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(2)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3 -->
+<div class="modal-overlay" id="modal3">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(3)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">⏰ Mission 3</div>
+      <div class="modal-title">Geplante Aufgaben einrichten – SteuerRadar</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du richtest eine automatische Aufgabe ein, die wöchentlich für dich läuft. Einmal einrichten – dauerhaft profitieren.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's in Mistral</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div>Öffne <strong>Mistral</strong> (mistral.ai) und melde dich an.</div></li>
+          <li><div class="step-num">2</div><div>Navigiere zu <strong>„Geplante Aufgaben"</strong> im Menü.</div></li>
+          <li><div class="step-num">3</div><div>Neue Aufgabe erstellen und Prompt einfügen.</div></li>
+          <li><div class="step-num">4</div><div>Zeitplan wählen: z.B. <strong>jeden Montag, 8:00 Uhr</strong>.</div></li>
+          <li><div class="step-num">5</div><div>Speichern – ab jetzt recherchiert die KI automatisch für dich.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 SteuerRadar – Prompt</h3>
+        <div class="code-block">Recherchiere die wichtigsten steuerlichen Neuerungen
+der vergangenen Woche. Berücksichtige insbesondere neue
+BMF-Schreiben, BFH-Urteile, relevante Gesetzesänderungen
+und wichtige Informationen für Steuerkanzleien.
+
+Erstelle einen kurzen Bericht mit:
+- Die 5 wichtigsten Neuerungen
+- Kurze Zusammenfassung (2–3 Sätze)
+- Warum ist das wichtig?
+- Welche Mandanten könnten betroffen sein?
+- Konkrete Handlungsempfehlungen für die Kanzlei?
+
+Schreibe klar, prägnant und ohne Fachchinesisch.
+Ergänze Quellen.</div>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 Bonus: DATEV & KI-Usecases für LinkedIn</h3>
+        <div class="code-block">Nutze Websuche, um mir eine wöchentliche Zusammenfassung
+zu KI-Nutzung in Steuerkanzleien in Deutschland zu geben.
+Konzentriere dich auf News und Usecases für Mitarbeitende.
+Recherchiere auch KI-Anwendungen von DATEV.
+Füge Links zu relevanten Quellen hinzu.
+Erstelle außerdem einen kurzen LinkedIn-Text mit Emojis.</div>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Ideen für eigene geplante Aufgaben:</strong> Wöchentlicher Branchenüberblick · Mandanten-Newsletter-Entwurf · Neue DATEV-Updates · Tagesagenda aus dem Kalender
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(3)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 4 -->
+<div class="modal-overlay" id="modal4">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(4)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">📊 Mission 4</div>
+      <div class="modal-title">Paper-to-Dashboard: Studien interaktiv aufbereiten</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du lädst ein PDF hoch – und der KI-Agent verwandelt es in ein übersichtliches Dashboard auf verständlichem Deutsch.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div>Öffne <strong>Mistral</strong> und wechsle in den Agenten-Bereich.</div></li>
+          <li><div class="step-num">2</div><div>Neuen Agenten erstellen und den Systemprompt unten einfügen.</div></li>
+          <li><div class="step-num">3</div><div>Ein beliebiges PDF hochladen – Studie, Fachartikel, Bericht.</div></li>
+          <li><div class="step-num">4</div><div>Einfach schreiben: <strong>„Hier ist mein Dokument, bitte erstelle das Dashboard."</strong></div></li>
+          <li><div class="step-num">5</div><div>Im Chat-Modus Rückfragen stellen – der Agent antwortet!</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 Systemprompt für den Agenten</h3>
+        <div class="code-block">Du analysierst wissenschaftliche Studien (PDF-Uploads)
+und visualisierst die Ergebnisse als kompaktes Dashboard
+auf Deutsch (Sprachniveau B1/B2).
+
+Dashboard-Struktur:
+1. Header: Titel, Autoren, Jahr, One-Liner
+2. Key Takeaways (3 wichtigste Erkenntnisse)
+3. Kernfrage & Ergebnis (fette Schrift als Anker)
+4. Zahlen & Fakten (kompakte Tabelle)
+5. Praktische Bedeutung für den Alltag
+6. Hilfe-Chat-Box: "Fragen zur Studie? Tippe hier."
+
+Sprache: aktive Verben, Fachbegriffe direkt erklären,
+Limitationen der Studie offen benennen.
+
+Workflow: Eingang bestätigen → analysieren →
+Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Inspiration:</strong> Matthias Kindt (unidigital) hat dieses Konzept entwickelt – <a href="https://www.unidigital.news/paper-2-dashboard-mit-einem-ki-assistenten-und-zero-prompt-ein-interaktives-dashboard-generieren/" target="_blank" style="color:var(--lila);font-weight:600;">hier zum Artikel →</a>
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(4)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  const completed = new Set();
+  const jColors = { 1: '#962B3F', 2: '#F0762B', 3: '#6b9a36', 4: '#7a4f8c' };
+
+  function openModal(n) {
+    document.getElementById('modal' + n).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(n) {
+    document.getElementById('modal' + n).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  function markDone(n) {
+    completed.add(n);
+    const card = document.getElementById('card' + n);
+    card.classList.add('completed');
+
+    const dot = document.getElementById('jd' + n);
+    dot.classList.add('done');
+    dot.textContent = '✓';
+    dot.style.setProperty('--c', jColors[n]);
+    dot.style.background = jColors[n];
+    dot.style.color = 'white';
+    dot.style.borderColor = jColors[n];
+
+    updateProgress();
+    showToast('✓ Mission ' + n + ' abgeschlossen!');
+    closeModal(n);
+  }
+
+  function updateProgress() {
+    const c = completed.size;
+    document.getElementById('progressFill').style.width = (c / 4 * 100) + '%';
+    document.getElementById('progressCount').textContent = c + ' / 4';
+    if (c === 4) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>
