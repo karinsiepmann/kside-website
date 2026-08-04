@@ -34,6 +34,36 @@
     background: linear-gradient(90deg, var(--rot) 0%, var(--orange) 50%, var(--gruen) 100%);
   }
 
+  .qr-container {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .qr-container img {
+    display: block;
+    width: 100px;
+    height: 100px;
+  }
+
+  @media (max-width: 640px) {
+    .qr-container {
+      width: 70px;
+      padding: 8px;
+      top: 16px;
+      right: 16px;
+    }
+    .qr-container img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
   .page {
     max-width: 940px;
     margin: 0 auto;
@@ -585,11 +615,23 @@
   .modal::-webkit-scrollbar { width: 5px; }
   .modal::-webkit-scrollbar-track { background: transparent; }
   .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ─── Inline links styling ─── */
+  a {
+    transition: opacity 0.2s;
+  }
+  a:hover {
+    opacity: 0.7;
+  }
 </style>
 </head>
 <body>
 
 <div class="top-stripe"></div>
+
+<div class="qr-container">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kside.de/lernreise_08_2026/" alt="QR Code zur Lernreise">
+</div>
 
 <div class="page">
 
@@ -656,7 +698,7 @@
       </div>
       <p class="mission-desc">Teste verschiedene KI-Modelle, experimentiere mit Prompts und erlebe live, wie kleine Änderungen in der Formulierung große Wirkung haben.</p>
       <div class="mission-tools">
-        <span class="tool-tag">🤖 Arena.ai</span>
+        <a class="tool-tag" href="https://lmarena.ai/" target="_blank">🤖 Arena.ai</a>
         <span class="tool-tag">eigene KI</span>
         <span class="tool-tag">Fragen aus dem Arbeitsalltag</span>
       </div>
@@ -682,7 +724,7 @@
       </div>
       <p class="mission-desc">Tauche in die Personalisierungs-Einstellungen von ChatGPT ein: Stil, Tonfall, Memory und eigene Anweisungen – mach die KI zu deiner eigenen.</p>
       <div class="mission-tools">
-        <span class="tool-tag">💬 ChatGPT</span>
+        <a class="tool-tag" href="https://chatgpt.com/" target="_blank">💬 ChatGPT</a>
         <span class="tool-tag">Einstellungen</span>
         <span class="tool-tag">Custom Instructions</span>
       </div>
@@ -708,7 +750,7 @@
       </div>
       <p class="mission-desc">Richte eine wöchentlich automatische Recherche in Mistral ein. Einmal einrichten – und die KI liefert dir jeden Montag einen Steuerrechtsbericht.</p>
       <div class="mission-tools">
-        <span class="tool-tag">⚡ Mistral</span>
+        <a class="tool-tag" href="https://mistral.ai/" target="_blank">⚡ Mistral</a>
         <span class="tool-tag">Geplante Aufgaben</span>
         <span class="tool-tag">SteuerRadar</span>
       </div>
@@ -734,7 +776,7 @@
       </div>
       <p class="mission-desc">Lade ein PDF hoch und lass einen KI-Agenten daraus ein interaktives Dashboard erstellen – komplexe Wissenschaft in verständliche Sprache verwandelt.</p>
       <div class="mission-tools">
-        <span class="tool-tag">⚡ Mistral</span>
+        <a class="tool-tag" href="https://mistral.ai/" target="_blank">⚡ Mistral</a>
         <span class="tool-tag">PDF-Upload</span>
         <span class="tool-tag">Agent</span>
       </div>
@@ -769,7 +811,7 @@
 
 <!-- Footer -->
 <footer>
-  <strong>[kside]</strong>//openlabs · KI Grundlagen Workshop · karin.siepmann@gmail.com
+  <strong><a href="https://kside.de/" target="_blank" style="color:var(--rot);text-decoration:none;">[kside]</a></strong>//openlabs · KI Grundlagen Workshop · <a href="mailto:karin.siepmann@gmail.com" style="color:var(--rot);text-decoration:none;">karin.siepmann@gmail.com</a>
 </footer>
 
 <!-- Toast -->
@@ -796,7 +838,7 @@
       <div class="modal-section">
         <h3>So geht's</h3>
         <ul class="step-list">
-          <li><div class="step-num">1</div><div>Öffne <strong>Arena.ai</strong> (lmarena.ai) oder die KI deiner Wahl.</div></li>
+          <li><div class="step-num">1</div><div>Öffne <strong><a href="https://lmarena.ai/" target="_blank" style="color:var(--rot);text-decoration:none;">Arena.ai</a></strong> (lmarena.ai) oder die KI deiner Wahl.</div></li>
           <li><div class="step-num">2</div><div>Starte mit einer echten Frage aus deinem Arbeitsalltag.</div></li>
           <li><div class="step-num">3</div><div>Probiere die Experimente unten aus – und schau, was sich ändert.</div></li>
         </ul>
@@ -842,7 +884,7 @@
 
       <div class="modal-section">
         <h3>Einstellungen erkunden</h3>
-        <p>Gehe in ChatGPT zu <strong>Einstellungen → Personalisierung</strong> und probiere aus:</p>
+        <p>Gehe in <strong><a href="https://chatgpt.com/" target="_blank" style="color:var(--orange);text-decoration:none;">ChatGPT</a></strong> zu <strong>Einstellungen → Personalisierung</strong> und probiere aus:</p>
         <ul class="question-list">
           <li>Basisstil und Tonfall einstellen</li>
           <li>Memory-Funktion ein- / ausschalten</li>
@@ -904,7 +946,7 @@ Motivierend und freundlich bleiben.
       <div class="modal-section">
         <h3>So geht's in Mistral</h3>
         <ul class="step-list">
-          <li><div class="step-num">1</div><div>Öffne <strong>Mistral</strong> (mistral.ai) und melde dich an.</div></li>
+          <li><div class="step-num">1</div><div>Öffne <strong><a href="https://mistral.ai/" target="_blank" style="color:var(--gruen);text-decoration:none;">Mistral</a></strong> (mistral.ai) und melde dich an.</div></li>
           <li><div class="step-num">2</div><div>Navigiere zu <strong>„Geplante Aufgaben"</strong> im Menü.</div></li>
           <li><div class="step-num">3</div><div>Neue Aufgabe erstellen und Prompt einfügen.</div></li>
           <li><div class="step-num">4</div><div>Zeitplan wählen: z.B. <strong>jeden Montag, 8:00 Uhr</strong>.</div></li>
@@ -969,7 +1011,7 @@ Erstelle außerdem einen kurzen LinkedIn-Text mit Emojis.</div>
       <div class="modal-section">
         <h3>So geht's</h3>
         <ul class="step-list">
-          <li><div class="step-num">1</div><div>Öffne <strong>Mistral</strong> und wechsle in den Agenten-Bereich.</div></li>
+          <li><div class="step-num">1</div><div>Öffne <strong><a href="https://mistral.ai/" target="_blank" style="color:var(--lila);text-decoration:none;">Mistral</a></strong> und wechsle in den Agenten-Bereich.</div></li>
           <li><div class="step-num">2</div><div>Neuen Agenten erstellen und den Systemprompt unten einfügen.</div></li>
           <li><div class="step-num">3</div><div>Ein beliebiges PDF hochladen – Studie, Fachartikel, Bericht.</div></li>
           <li><div class="step-num">4</div><div>Einfach schreiben: <strong>„Hier ist mein Dokument, bitte erstelle das Dashboard."</strong></div></li>
