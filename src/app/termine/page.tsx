@@ -2,8 +2,21 @@
 
 import { useState } from "react";
 
+interface OnlineTerm {
+  date: string;
+  day: string;
+  time: string;
+  zoomLink: string;
+}
+
 export default function TerminePage() {
   const [showZoomModal, setShowZoomModal] = useState(false);
+  const [selectedTerm, setSelectedTerm] = useState<OnlineTerm | null>(null);
+
+  const openZoomModal = (term: OnlineTerm) => {
+    setSelectedTerm(term);
+    setShowZoomModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-white py-12 px-4">
@@ -95,44 +108,29 @@ export default function TerminePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { date: "24.08", day: "Mo", special: true, title: "AI Open Learning Lab", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                  { date: "21.09", day: "Mo" },
-                  { date: "28.09", day: "Mo" },
+                  { date: "24.08", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
+                  { date: "21.09", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
+                  { date: "28.09", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
                 ].map((item) => (
                   <div
                     key={item.date}
-                    className={`p-4 rounded-lg border-l-4 hover:transition ${
-                      item.special
-                        ? "bg-gradient-to-br from-purple-50 to-violet-50 border-purple-600 hover:shadow-md hover:shadow-purple-200"
-                        : "bg-slate-50 border-orange-500 hover:bg-slate-100"
-                    }`}
+                    className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 hover:bg-orange-100 transition"
                   >
                     <div className="text-lg font-bold text-gray-900">
                       {item.date}
                     </div>
                     <div className="text-sm text-gray-600">{item.day}</div>
-                    {item.special ? (
-                      <>
-                        <div className="flex gap-2 mt-2 flex-wrap">
-                          <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
-                            Online
-                          </span>
-                          <span className="inline-block bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">
-                            Special
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => setShowZoomModal(true)}
-                          className="inline-block bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full mt-2 hover:bg-purple-700 transition"
-                        >
-                          Zoom-Link →
-                        </button>
-                      </>
-                    ) : (
-                      <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full mt-2">
+                    <div className="flex gap-2 mt-2 flex-wrap">
+                      <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
                         Online
                       </span>
-                    )}
+                      <button
+                        onClick={() => openZoomModal(item)}
+                        className="inline-block bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-orange-700 transition"
+                      >
+                        Zoom →
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -150,20 +148,28 @@ export default function TerminePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { date: "11.08", day: "Di" },
-                  { date: "08.09", day: "Di" },
+                  { date: "11.08", day: "Di", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
+                  { date: "08.09", day: "Di", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
                 ].map((item) => (
                   <div
                     key={item.date}
-                    className="bg-slate-50 p-4 rounded-lg border-l-4 border-emerald-600 hover:bg-slate-100 transition"
+                    className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 hover:bg-orange-100 transition"
                   >
                     <div className="text-lg font-bold text-gray-900">
                       {item.date}
                     </div>
                     <div className="text-sm text-gray-600">{item.day}</div>
-                    <span className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full mt-2">
-                      Online
-                    </span>
+                    <div className="flex gap-2 mt-2 flex-wrap">
+                      <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
+                        Online
+                      </span>
+                      <button
+                        onClick={() => openZoomModal(item)}
+                        className="inline-block bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-orange-700 transition"
+                      >
+                        Zoom →
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -260,7 +266,7 @@ export default function TerminePage() {
       </div>
 
       {/* Zoom Modal */}
-      {showZoomModal && (
+      {showZoomModal && selectedTerm && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
           onClick={() => setShowZoomModal(false)}
@@ -275,31 +281,31 @@ export default function TerminePage() {
             </div>
 
             <p className="text-gray-600 mb-6">
-              Termin: <span className="font-semibold text-purple-700">24.08.2026</span>
+              Termin: <span className="font-semibold text-orange-700">{selectedTerm.date}.2026 ({selectedTerm.day})</span>
               <br/>
-              Uhrzeit: <span className="font-semibold">18:00 – 19:30 Uhr</span>
+              Uhrzeit: <span className="font-semibold">{selectedTerm.time} Uhr</span>
               <br/>
-              Format: <span className="font-semibold text-emerald-600">🌐 Nur Online (Zoom)</span>
+              Format: <span className="font-semibold text-emerald-600">🌐 Online (Zoom)</span>
             </p>
 
-            <div className="bg-purple-50 rounded-lg p-4 mb-6 border border-purple-200">
-              <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-2">Zoom-Meeting Link:</p>
+            <div className="bg-orange-50 rounded-lg p-4 mb-6 border border-orange-200">
+              <p className="text-xs font-semibold text-orange-600 uppercase tracking-wide mb-2">Zoom-Meeting Link:</p>
               <a
-                href="https://us02web.zoom.us/j/81062781038"
+                href={selectedTerm.zoomLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="break-all text-sm font-mono bg-white p-3 rounded border border-purple-300 text-purple-700 hover:bg-purple-50 transition block"
+                className="break-all text-sm font-mono bg-white p-3 rounded border border-orange-300 text-orange-700 hover:bg-orange-50 transition block"
               >
-                https://us02web.zoom.us/j/81062781038
+                {selectedTerm.zoomLink}
               </a>
             </div>
 
             <div className="flex gap-3">
               <a
-                href="https://us02web.zoom.us/j/81062781038"
+                href={selectedTerm.zoomLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-purple-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-purple-700 transition text-center"
+                className="flex-1 bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-orange-700 transition text-center"
               >
                 Zum Meeting →
               </a>
