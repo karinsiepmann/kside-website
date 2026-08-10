@@ -13,6 +13,8 @@
     --orange: #F0762B;
     --gruen:  #6b9a36;
     --lila:   #7a4f8c;
+    --blau:   #1B6EC2;
+    --mauve:  #A64D79;
     --bg:     #faf9f5;
     --bg2:    #f0ede6;
     --text:   #141413;
@@ -179,6 +181,8 @@
   .j2 { --c: var(--orange); }
   .j3 { --c: var(--gruen); }
   .j4 { --c: var(--lila); }
+  .j5 { --c: var(--blau); }
+  .j6 { --c: var(--mauve); }
 
   /* ─── Instruction ─── */
   .instruction {
@@ -240,6 +244,8 @@
   .mc2 { --c: var(--orange); }
   .mc3 { --c: var(--gruen); }
   .mc4 { --c: var(--lila); }
+  .mc5 { --c: var(--blau); }
+  .mc6 { --c: var(--mauve); }
 
   .mission-header {
     display: flex;
@@ -589,6 +595,8 @@
   #modal2 .modal, #modal2 { --c: var(--orange); }
   #modal3 .modal, #modal3 { --c: var(--gruen); }
   #modal4 .modal, #modal4 { --c: var(--lila); }
+  #modal5 .modal, #modal5 { --c: var(--blau); }
+  #modal6 .modal, #modal6 { --c: var(--mauve); }
 
   /* ─── Toast ─── */
   .toast {
@@ -668,6 +676,16 @@
       <div class="j-dot" id="jd4">4</div>
       <div class="j-label">Agenten</div>
     </div>
+    <div class="j-line"></div>
+    <div class="j-stop j5" onclick="openModal(5)">
+      <div class="j-dot" id="jd5">5</div>
+      <div class="j-label">Visualisieren</div>
+    </div>
+    <div class="j-line"></div>
+    <div class="j-stop j6" onclick="openModal(6)">
+      <div class="j-dot" id="jd6">6</div>
+      <div class="j-label">Notebook</div>
+    </div>
   </div>
 
   <!-- Instruction -->
@@ -681,7 +699,7 @@
     <div class="progress-track">
       <div class="progress-fill" id="progressFill"></div>
     </div>
-    <span class="progress-count" id="progressCount">0 / 4</span>
+    <span class="progress-count" id="progressCount">0 / 6</span>
   </div>
 
   <!-- Mission Cards -->
@@ -788,6 +806,58 @@
           <span class="diff-label">Fortgeschritten</span>
         </div>
         <button class="open-btn" onclick="openModal(4)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 5 -->
+    <div class="mission-card mc5" id="card5">
+      <div class="mission-header">
+        <div class="mission-icon">🎨</div>
+        <div>
+          <div class="mission-number">Mission 5</div>
+          <div class="mission-title">Visualisiere mit Napkin oder Gamma</div>
+        </div>
+      </div>
+      <p class="mission-desc">Wähle ein Thema deiner Wahl und verwandle Text in eine visuelle Grafik – mit einfachen Prompts oder einer Vorlage aus der App.</p>
+      <div class="mission-tools">
+        <a class="tool-tag" href="https://napkin.ai/" target="_blank">✏️ Napkin</a>
+        <a class="tool-tag" href="https://gamma.app/" target="_blank">🎨 Gamma</a>
+        <span class="tool-tag">Visuelle Kommunikation</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Einsteiger</span>
+        </div>
+        <button class="open-btn" onclick="openModal(5)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 6 -->
+    <div class="mission-card mc6" id="card6">
+      <div class="mission-header">
+        <div class="mission-icon">📚</div>
+        <div>
+          <div class="mission-number">Mission 6</div>
+          <div class="mission-title">Erstelle ein Notebook in Google NotebookLM</div>
+        </div>
+      </div>
+      <p class="mission-desc">Wähle ein Thema deiner Wahl, füge Quellen hinzu und erkunde die Studio-Funktionen – Audio-Overviews, Mind Maps, Flashcards und mehr.</p>
+      <div class="mission-tools">
+        <a class="tool-tag" href="https://notebooklm.google.com/" target="_blank">📒 NotebookLM</a>
+        <span class="tool-tag">Studio-Funktionen</span>
+        <span class="tool-tag">Quellen & Analyse</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Mittel</span>
+        </div>
+        <button class="open-btn" onclick="openModal(6)">Mission starten →</button>
       </div>
     </div>
 
@@ -1056,11 +1126,107 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
   </div>
 </div>
 
+<!-- Modal 5 -->
+<div class="modal-overlay" id="modal5">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(5)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">🎨 Mission 5</div>
+      <div class="modal-title">Visualisiere mit Napkin oder Gamma</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du lernst, wie KI komplexe Inhalte in verständliche, visuelle Grafiken umwandelt – schnell und ohne Design-Kenntnisse.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div>Wähle ein Thema deiner Wahl (z.B. ein Geschäftskonzept, ein Prozess, eine Idee).</div></li>
+          <li><div class="step-num">2</div><div>Öffne <strong><a href="https://napkin.ai/" target="_blank" style="color:var(--blau);text-decoration:none;">Napkin</a></strong> oder <strong><a href="https://gamma.app/" target="_blank" style="color:var(--blau);text-decoration:none;">Gamma</a></strong>.</div></li>
+          <li><div class="step-num">3</div><div>Beschreibe dein Thema in Stichworten oder schreibe einen Text.</div></li>
+          <li><div class="step-num">4</div><div>Lass die KI eine Grafik generieren und bearbeite sie nach deinem Geschmack.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Was du ausprobieren kannst</h3>
+        <ul class="question-list">
+          <li>Ein Business-Modell visualisieren (Napkin: Skizzenstil)</li>
+          <li>Eine Präsentation über einen Prozess erstellen (Gamma: Slides)</li>
+          <li>Die Auto-Layout Funktion testen</li>
+          <li>Farben, Fonts und Stil anpassen</li>
+          <li>Mit verschiedenen Prompts experimentieren</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Unterschied:</strong> Napkin ist schnell, skizzenhaft und perfekt für Brainstorming. Gamma ist mehr für professionelle Präsentationen – beide sind großartig, je nach Use-Case.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(5)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 6 -->
+<div class="modal-overlay" id="modal6">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(6)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">📚 Mission 6</div>
+      <div class="modal-title">Erstelle ein Notebook in Google NotebookLM</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du entdeckst NotebookLM und die vielfältigen Studio-Funktionen – ein Tool das deine Quellen automatisch analysiert und mehrere Formate generiert.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div>Öffne <strong><a href="https://notebooklm.google.com/" target="_blank" style="color:var(--mauve);text-decoration:none;">Google NotebookLM</a></strong> und erstelle ein neues Notebook.</div></li>
+          <li><div class="step-num">2</div><div>Füge Quellen hinzu: URLs, Dokumente, PDFs, oder Text.</div></li>
+          <li><div class="step-num">3</div><div>Starte den Chat und stelle Fragen zu deinen Quellen.</div></li>
+          <li><div class="step-num">4</div><div>Gehe ins Studio und probiere verschiedene Funktionen aus.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Studio-Funktionen zum Ausprobieren</h3>
+        <ul class="question-list">
+          <li><strong>Audio Overview:</strong> Lass die KI einen Podcast-ähnlichen Überblick über deine Quellen erstellen</li>
+          <li><strong>Mind Map:</strong> Visualisiere die Struktur und Beziehungen deiner Inhalte</li>
+          <li><strong>Flashcards:</strong> Automatisch generierte Lernkarten zum Üben</li>
+          <li><strong>Infografiken:</strong> Komplexe Daten als visuelle Grafiken darstellen</li>
+          <li><strong>Slide Deck:</strong> Eine vollständige Präsentation generieren</li>
+          <li><strong>Data Table:</strong> Strukturierte Daten aus deinen Quellen extrahieren</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Tipps</h3>
+        <div class="tip-box">
+          <strong>🎯 Beste Use-Cases:</strong> Artikel zusammenfassen, Forschungspapiere analysieren, Trainingsmaterialien erstellen, Lerngruppen-Vorbereitung.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(6)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
 
 <!-- ═══════════════ SCRIPTS ═══════════════ -->
 <script>
   const completed = new Set();
-  const jColors = { 1: '#962B3F', 2: '#F0762B', 3: '#6b9a36', 4: '#7a4f8c' };
+  const jColors = { 1: '#962B3F', 2: '#F0762B', 3: '#6b9a36', 4: '#7a4f8c', 5: '#1B6EC2', 6: '#A64D79' };
 
   function openModal(n) {
     document.getElementById('modal' + n).classList.add('open');
@@ -1110,9 +1276,9 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
 
   function updateProgress() {
     const c = completed.size;
-    document.getElementById('progressFill').style.width = (c / 4 * 100) + '%';
-    document.getElementById('progressCount').textContent = c + ' / 4';
-    if (c === 4) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
+    document.getElementById('progressFill').style.width = (c / 6 * 100) + '%';
+    document.getElementById('progressCount').textContent = c + ' / 6';
+    if (c === 6) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
   }
 
   function showToast(msg) {
