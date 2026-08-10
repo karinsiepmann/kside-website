@@ -1,13 +1,6 @@
 'use client';
 
-import type { Metadata } from "next";
 import { useState } from "react";
-
-export const metadata: Metadata = {
-  title: "Aktuelle Termine — [kside]//openlabs",
-  description:
-    "Alle kommenden Termine für das AI Open Learning Lab for Women im Zukunftswerk Wiesbaden",
-};
 
 export default function TerminePage() {
   const [showZoomModal, setShowZoomModal] = useState(false);
