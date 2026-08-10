@@ -1,4 +1,8 @@
+'use client';
+
 import type { Metadata } from "next";
+import { useState } from "react";
+
 export const metadata: Metadata = {
   title: "Aktuelle Termine — [kside]//openlabs",
   description:
@@ -6,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function TerminePage() {
+  const [showZoomModal, setShowZoomModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-white py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -47,20 +53,41 @@ export default function TerminePage() {
                   { date: "03.08", day: "Mo" },
                   { date: "10.08", day: "Mo", special: true, title: "Usability Testessen: KI & Führerscheinantrag", link: "https://anny.eu/book/usability-testessen" },
                   { date: "17.08", day: "Mo" },
-                  { date: "24.08", day: "Mo" },
+                  { date: "24.08", day: "Mo", hybrid: true, zoomLink: "https://us02web.zoom.us/j/81062781038" },
                   { date: "31.08", day: "Mo" },
                   { date: "07.09", day: "Mo" },
                   { date: "14.09", day: "Mo" },
                 ].map((item) => (
                   <div
                     key={item.date}
-                    className="bg-slate-50 p-4 rounded-lg border-l-4 border-rose-700 hover:bg-slate-100 transition"
+                    className={`p-4 rounded-lg border-l-4 hover:transition ${
+                      item.hybrid
+                        ? "bg-gradient-to-br from-violet-50 to-purple-50 border-l-4 border-purple-600 hover:shadow-md hover:shadow-purple-200"
+                        : "bg-slate-50 border-l-4 border-rose-700 hover:bg-slate-100"
+                    }`}
                   >
                     <div className="text-lg font-bold text-gray-900">
                       {item.date}
                     </div>
                     <div className="text-sm text-gray-600">{item.day}</div>
-                    {item.special ? (
+                    {item.hybrid ? (
+                      <>
+                        <div className="flex gap-2 mt-2 flex-wrap">
+                          <span className="inline-block bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">
+                            Hybrid
+                          </span>
+                          <span className="inline-block bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
+                            + Online
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => setShowZoomModal(true)}
+                          className="inline-block bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full mt-2 hover:bg-purple-700 transition"
+                        >
+                          Zoom-Link →
+                        </button>
+                      </>
+                    ) : item.special ? (
                       <>
                         <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full mt-2 mr-2">
                           Sondertermin
@@ -236,6 +263,63 @@ export default function TerminePage() {
           </a>
         </div>
       </div>
+
+      {/* Zoom Modal */}
+      {showZoomModal && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          onClick={() => setShowZoomModal(false)}
+        >
+          <div
+            className="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full animate-in fade-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="text-3xl">🎥</div>
+              <h2 className="text-2xl font-bold text-gray-900">Zoom-Meeting</h2>
+            </div>
+
+            <p className="text-gray-600 mb-6">
+              Termin: <span className="font-semibold text-purple-700">24.08.2026</span>
+              <br/>
+              Uhrzeit: <span className="font-semibold">17:00 – 20:00 Uhr</span>
+            </p>
+
+            <div className="bg-purple-50 rounded-lg p-4 mb-6 border border-purple-200">
+              <p className="text-xs font-semibold text-purple-600 uppercase tracking-wide mb-2">Zoom-Meeting Link:</p>
+              <a
+                href="https://us02web.zoom.us/j/81062781038"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="break-all text-sm font-mono bg-white p-3 rounded border border-purple-300 text-purple-700 hover:bg-purple-50 transition block"
+              >
+                https://us02web.zoom.us/j/81062781038
+              </a>
+            </div>
+
+            <div className="flex gap-3">
+              <a
+                href="https://us02web.zoom.us/j/81062781038"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-purple-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-purple-700 transition text-center"
+              >
+                Zum Meeting →
+              </a>
+              <button
+                onClick={() => setShowZoomModal(false)}
+                className="flex-1 bg-gray-200 text-gray-900 font-semibold py-3 px-4 rounded-lg hover:bg-gray-300 transition"
+              >
+                Schließen
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              Hinweis: Bitte nutze auch die Anmeldung über anny.eu für den Präsenz-Termin
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
