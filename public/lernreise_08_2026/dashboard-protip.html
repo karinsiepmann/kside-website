@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Pro-Tip: KI-Prompt-Trick</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rot:    #962B3F;
+      --orange: #F0762B;
+      --gruen:  #6b9a36;
+      --lila:   #7a4f8c;
+      --blau:   #1B6EC2;
+      --bg:     #faf9f5;
+      --bg2:    #f0ede6;
+      --text:   #141413;
+      --muted:  #6b6860;
+      --border: #ddd9d0;
+      --white:  #ffffff;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .top-stripe {
+      height: 5px;
+      background: linear-gradient(90deg, var(--rot) 0%, var(--orange) 50%, var(--gruen) 100%);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--lila);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 30px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--lila);
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    .intro-box {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--lila);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .prompt-box {
+      background: var(--bg2);
+      border: 2px dashed var(--lila);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 16px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--lila);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h3 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--lila);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 280px;
+      margin-top: 12px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      padding: 12px 18px;
+      border: none;
+      background: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1.5px;
+      transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .tab-btn:hover {
+      color: var(--lila);
+    }
+
+    .tab-btn.active {
+      color: var(--lila);
+      border-bottom-color: var(--lila);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: var(--bg2);
+      padding: 12px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text);
+      border-bottom: 1.5px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    tr:hover td {
+      background: var(--bg2);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pill.high {
+      background: rgba(150, 43, 63, 0.1);
+      color: var(--rot);
+    }
+
+    .pill.medium {
+      background: rgba(240, 118, 43, 0.1);
+      color: var(--orange);
+    }
+
+    .pill.low {
+      background: rgba(107, 154, 54, 0.1);
+      color: var(--gruen);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding-top: 32px;
+      margin-top: 48px;
+      border-top: 1.5px solid var(--border);
+    }
+
+    footer a {
+      color: var(--lila);
+      text-decoration: none;
+    }
+
+    .insight-box {
+      background: linear-gradient(135deg, rgba(122, 79, 140, 0.08) 0%, rgba(122, 79, 140, 0.02) 100%);
+      border: 1.5px solid var(--lila);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .insight-box strong {
+      color: var(--lila);
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--lila);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      transition: gap 0.2s;
+    }
+
+    .back-link:hover {
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<div class="container">
+
+  <a href="index.html" class="back-link">← Zurück zur Lernreise</a>
+
+  <header>
+    <div class="badge">🚀 Pro-Tip Demo</div>
+    <h1>Der universelle Dashboard-<span style="color:var(--orange);">Trick</span></h1>
+    <p class="subtitle">Wie du mit einem einfachen Satz jede KI-Antwort in ein interaktives Dashboard verwandelst.</p>
+  </header>
+
+  <div class="intro-box">
+    <strong>Das Geheimnis:</strong> Statt einen komplexen Agenten zu bauen (wie in Mission 4), kannst du JEDEN Prompt mit diesem Satz verlängern:
+    <div class="prompt-box">
+      "mache ein interaktives dashboard als html daraus."
+    </div>
+    <p style="margin-top:12px;">Die KI generiert dir daraus sofort funktionierende HTML-Visualisierungen. Funktioniert mit ChatGPT, Mistral, Claude – überall.</p>
+  </div>
+
+  <!-- Dashboard Start -->
+  <div class="dashboard-grid">
+
+    <!-- KPI Cards -->
+    <div class="card">
+      <h3>📊 Datensätze</h3>
+      <div class="stat-value">1.247</div>
+      <div class="stat-label">Analysiert und visualisiert</div>
+    </div>
+
+    <div class="card">
+      <h3>⏱️ Zeitersparnis</h3>
+      <div class="stat-value">4h 30m</div>
+      <div class="stat-label">pro Projekt (vs. manuell)</div>
+    </div>
+
+    <div class="card">
+      <h3>✨ Genauigkeit</h3>
+      <div class="stat-value">98,5%</div>
+      <div class="stat-label">bei automatischer Erkennung</div>
+    </div>
+
+    <!-- Charts -->
+    <div class="card full-width">
+      <h3>📈 Adoption über Zeit</h3>
+      <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📊 Nutzung nach Typ</h3>
+      <div class="chart-container">
+        <canvas id="typeChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎯 Performance Score</h3>
+      <div class="chart-container">
+        <canvas id="performanceChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tabelle mit Tabs -->
+  <div class="card full-width">
+    <h3>📋 Detaillierte Daten</h3>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'use-cases')">Use Cases</button>
+      <button class="tab-btn" onclick="switchTab(event, 'prompts')">Prompt-Beispiele</button>
+      <button class="tab-btn" onclick="switchTab(event, 'vergleich')">Vergleich: Agent vs. Trick</button>
+    </div>
+
+    <!-- Use Cases Tab -->
+    <div id="use-cases" class="tab-content active">
+      <table>
+        <thead>
+          <tr>
+            <th>Use Case</th>
+            <th>Eingabe</th>
+            <th>Output</th>
+            <th>Aufwand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Studienergebnis visualisieren</strong></td>
+            <td>PDF hochladen</td>
+            <td>Interaktive Grafiken</td>
+            <td><span class="pill low">Niedrig</span></td>
+          </tr>
+          <tr>
+            <td><strong>Geschäftsdaten analysieren</strong></td>
+            <td>CSV/Tabelle kopieren</td>
+            <td>Dashboard mit Charts</td>
+            <td><span class="pill low">Niedrig</span></td>
+          </tr>
+          <tr>
+            <td><strong>Bericht aufbereiten</strong></td>
+            <td>Text beschreiben</td>
+            <td>Visuelles Dashboard</td>
+            <td><span class="pill medium">Mittel</span></td>
+          </tr>
+          <tr>
+            <td><strong>Komplexe KI-Agent einrichten</strong></td>
+            <td>Agent-Prompt schreiben</td>
+            <td>Vollständige Automation</td>
+            <td><span class="pill high">Hoch</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Prompts Tab -->
+    <div id="prompts" class="tab-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Szenario</th>
+            <th>Dein Prompt</th>
+            <th>Trick-Ergänzung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Quartals-Report</strong></td>
+            <td>"Analysiere diese Verkaufszahlen für Q3 2024..."</td>
+            <td><code style="color:var(--lila);">+ "mache ein interaktives dashboard als html daraus."</code></td>
+          </tr>
+          <tr>
+            <td><strong>Konkurrenz-Analyse</strong></td>
+            <td>"Vergleiche diese 5 Konkurrenten nach Preis, Features..."</td>
+            <td><code style="color:var(--lila);">+ "mache ein interaktives dashboard als html daraus."</code></td>
+          </tr>
+          <tr>
+            <td><strong>Kundenumfrage</strong></td>
+            <td>"Fasse diese 200 Umfrage-Antworten zusammen..."</td>
+            <td><code style="color:var(--lila);">+ "mache ein interaktives dashboard als html daraus."</code></td>
+          </tr>
+          <tr>
+            <td><strong>Marktforschung</strong></td>
+            <td>"Erkläre den Trend zu XYZ im Markt..."</td>
+            <td><code style="color:var(--lila);">+ "mache ein interaktives dashboard als html daraus."</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Vergleich Tab -->
+    <div id="vergleich" class="tab-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Aspekt</th>
+            <th>Mit Agent (Mission 4)</th>
+            <th>Mit diesem Trick</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Setup-Zeit</strong></td>
+            <td>5–10 Min. (Agent konfigurieren)</td>
+            <td>0 Min. (sofort nutzen)</td>
+          </tr>
+          <tr>
+            <td><strong>Komplexität</strong></td>
+            <td>Hoch (Systemprompt schreiben)</td>
+            <td>Niedrig (nur Satz anhängen)</td>
+          </tr>
+          <tr>
+            <td><strong>Automatisierung</strong></td>
+            <td>Wiederkehrend (zeitplan möglich)</td>
+            <td>Einmalig</td>
+          </tr>
+          <tr>
+            <td><strong>Für wen geeignet</strong></td>
+            <td>Profis, regelmäßige Nutzung</td>
+            <td>Jeden, schnelle Ad-hoc-Dashboards</td>
+          </tr>
+          <tr>
+            <td><strong>Best Practice</strong></td>
+            <td>Steuern Sie Dashboards automatisch</td>
+            <td>Schnelle Prototypen & Demos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Insight Box -->
+  <div class="insight-box" style="margin-top:36px;">
+    <strong>💡 Praktischer Tipp:</strong> Nutze den <strong>Trick</strong> für schnelle, ad-hoc Dashboards. Wenn du merkst, dass du immer wieder ähnliche Dashboards brauchst – wechsel auf die <strong>Agent-Methode</strong> (Mission 4) und automatisiere es. Best of both worlds!
+  </div>
+
+</div>
+
+<footer>
+  <strong><a href="https://kside.de/" target="_blank">[kside]</a></strong>//openlabs · KI Workshop · <a href="mailto:karin.siepmann@gmail.com">karin.siepmann@gmail.com</a>
+</footer>
+
+<script>
+  // Chart 1: Trend
+  const trendCtx = document.getElementById('trendChart').getContext('2d');
+  new Chart(trendCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug'],
+      datasets: [{
+        label: 'Dashboard-Generierungen',
+        data: [12, 28, 45, 67, 89, 124, 156, 203],
+        borderColor: '#7a4f8c',
+        backgroundColor: 'rgba(122, 79, 140, 0.08)',
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 4,
+        pointBackgroundColor: '#7a4f8c',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#e0dcd3' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Chart 2: Pie
+  const typeCtx = document.getElementById('typeChart').getContext('2d');
+  new Chart(typeCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Berichte', 'Analysen', 'Studien', 'Vergleiche'],
+      datasets: [{
+        data: [28, 35, 22, 15],
+        backgroundColor: ['#962B3F', '#F0762B', '#6b9a36', '#7a4f8c'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 15 } } }
+    }
+  });
+
+  // Chart 3: Bar
+  const perfCtx = document.getElementById('performanceChart').getContext('2d');
+  new Chart(perfCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Rapidität', 'Genauigkeit', 'Design', 'Flexibilität'],
+      datasets: [{
+        label: 'Score',
+        data: [98, 97, 92, 95],
+        backgroundColor: ['#7a4f8c', '#7a4f8c', '#7a4f8c', '#7a4f8c'],
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { min: 0, max: 100, ticks: { callback: v => v + '%' } } }
+    }
+  });
+
+  // Tab switching
+  function switchTab(e, tabName) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+    e.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
