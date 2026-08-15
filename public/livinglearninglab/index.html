@@ -801,7 +801,7 @@
   <header>
     <div class="badge">🚀 Living Learning Lab · Selbstgesteuert</div>
     <h1>Dein KI-<span>Lernlabor</span></h1>
-    <p class="subtitle">Wähle eine oder mehrere Missionen aus – und entdecke, was KI in deinem Alltag leisten kann. Für NGOs, Stiftungen, Social Impact.</p>
+    <p class="subtitle">Wähle eine oder mehrere Missionen aus – und entdecke, was KI in deinem Alltag leisten kann.</p>
     <div class="info-bar">
       <span>🌍 Für alle Zielgruppen</span>
       <span>⏱ ca. 15–30 Min. pro Mission</span>
@@ -1015,12 +1015,23 @@
       </div>
     </div>
 
-    <!-- Mystery Card (Coming Soon) -->
-    <div class="mission-card mystery" id="card-mystery">
-      <div style="text-align:center;">
-        <div class="mystery-text">🤔</div>
-        <p style="text-align:center; color:var(--muted); font-size:14px; font-weight:600;">Was kommt nächstes Mal?</p>
-        <p style="text-align:center; color:var(--muted); font-size:12px; margin-top:8px;">Eine neue Mission ist unterwegs...</p>
+    <!-- What's Next Card with Contact Form -->
+    <div class="mission-card mystery" id="card-mystery" style="grid-column: 1 / -1;">
+      <div style="text-align:center; max-width: 560px; margin: 0 auto;">
+        <div class="mystery-text" style="margin-bottom: 24px;">🚀</div>
+        <h3 style="font-size:18px; font-weight:800; color:var(--text); margin-bottom:10px;">Was kommt als nächste?</h3>
+        <p style="color:var(--muted); font-size:14px; line-height:1.65; margin-bottom:24px;">Hier erscheint bald die nächste Mission – welche würde dich interessieren? Schreib mir eine Nachricht!</p>
+
+        <form id="nextMissionForm" style="display:flex; flex-direction:column; gap:14px; margin-top:24px;">
+          <textarea name="message" placeholder="Deine Idee, Anregung, Kommentare, Wünsche..." style="width:100%; min-height:100px; padding:12px; border:1.5px solid var(--border); border-radius:8px; font-family:'Montserrat', sans-serif; font-size:13px; color:var(--text); resize:vertical;" required></textarea>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <input type="text" name="name" placeholder="Dein Name (optional)" style="padding:10px; border:1.5px solid var(--border); border-radius:8px; font-family:'Montserrat', sans-serif; font-size:13px; color:var(--text);" />
+            <input type="email" name="email" placeholder="Deine E-Mail (optional)" style="padding:10px; border:1.5px solid var(--border); border-radius:8px; font-family:'Montserrat', sans-serif; font-size:13px; color:var(--text);" />
+          </div>
+
+          <button type="submit" class="open-btn" style="background:var(--orange); align-self:flex-start; margin-top:8px;">Abschicken →</button>
+        </form>
       </div>
     </div>
 
@@ -1040,45 +1051,12 @@
     </div>
   </div>
 
-  <!-- Historische Abbildung / Unsere Lernreise -->
-  <div class="history-section">
-    <h3>📖 Unsere gemeinsame Lernreise</h3>
-    <h2>Wie wir zusammen KI erkunden</h2>
-    <p>Das Living Learning Lab ist kein statischer Kurs – es ist eine Gemeinschaft, die gemeinsam lernt. Jede neue Mission ist ein Schritt in eine Zukunft, in der KI-Kompetenz selbstbestimmt, experimentell und für alle zugänglich ist.</p>
 
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker">1</div>
-        <div class="timeline-content">
-          <strong>Start: Die Idee</strong> – KI sollte nicht elitär sein. Niedrigschwellig, praktisch, selbstbestimmt.
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">2</div>
-        <div class="timeline-content">
-          <strong>Experimentieren</strong> – Erste Missionen entstehen. Lernen durch Ausprobieren, nicht durch Frontalunterricht.
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">3</div>
-        <div class="timeline-content">
-          <strong>Wachsen</strong> – Neue Missionen kommen regelmäßig hinzu. Das Lab lebt, es ist nicht abgeschlossen.
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-marker">4</div>
-        <div class="timeline-content">
-          <strong>Gemeinsam lernen</strong> – Jede Person nimmt mit, was sie gerade braucht. Lebenslanges Lernen im eigenen Tempo.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Coffee Section -->
+  <!-- Appreciation & Connection Section -->
   <div class="coffee-section">
-    <h3>☕ Wertschätzung für offene Lernkultur</h3>
-    <p>Wenn dir das Living Learning Lab hilft und du die Arbeit unterstützen möchtest – gerne! Jede Unterstützung hilft, die Plattform zu erweitern und mehr kostenlosen Content zu schaffen.</p>
-    <a href="https://ko-fi.com/karinsiepmann" target="_blank" class="coffee-btn">Unterstütze das Projekt ☕</a>
+    <h3>🤝 Wertschätzung für offene Lernkultur</h3>
+    <p>Das Living Learning Lab lebt von Feedback und Austausch. Wenn dir das Projekt gefällt, würde ich mich freuen, wenn du dich mit mir verbindest!</p>
+    <a href="https://www.linkedin.com/in/karinsiepmann/" target="_blank" class="coffee-btn">Verbinde dich mit mir auf LinkedIn 🔗</a>
   </div>
 
 </div>
@@ -1474,6 +1452,24 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Handle contact form submission
+  const contactForm = document.getElementById('nextMissionForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      const message = this.querySelector('[name="message"]').value;
+      const name = this.querySelector('[name="name"]').value || '(kein Name angegeben)';
+      const email = this.querySelector('[name="email"]').value || '(keine E-Mail angegeben)';
+
+      const mailtoLink = `mailto:karin.siepmann@gmail.com?subject=Neue Mission – Feedback vom Living Learning Lab&body=Idee/Kommentar:%0A${encodeURIComponent(message)}%0A%0AVon: ${encodeURIComponent(name)}%0AKontakt: ${encodeURIComponent(email)}`;
+
+      window.location.href = mailtoLink;
+      showToast('✓ Danke für dein Feedback!');
+      setTimeout(() => {
+        this.reset();
+      }, 500);
+    });
   }
 </script>
 </body>
