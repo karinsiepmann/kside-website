@@ -5,6 +5,7 @@ import Offers from "@/components/Offers";
 import FuerWen from "@/components/FuerWen";
 import FemAiLab from "@/components/FemAiLab";
 import Community from "@/components/Community";
+import LivingLearningLab from "@/components/LivingLearningLab";
 import About from "@/components/About";
 import Referenzen from "@/components/Referenzen";
 import FAQ from "@/components/FAQ";
@@ -84,6 +85,7 @@ export default function Home() {
       <FuerWen />
       <FemAiLab />
       <Community />
+      <LivingLearningLab />
       <About />
       <Referenzen />
       <FAQ />
