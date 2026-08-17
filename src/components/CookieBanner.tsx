@@ -27,7 +27,7 @@ export default function CookieBanner() {
       <div className="max-w-6xl mx-auto px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
         <p className="text-sm text-gray-600 leading-relaxed max-w-2xl">
           Diese Website verwendet technisch notwendige Cookies für den Betrieb.
-          Weitere Informationen finden Sie in unserer{" "}
+          Weitere Informationen findest du in unserer{" "}
           <Link href="/datenschutz" className="text-green-dark underline hover:no-underline">
             Datenschutzerklärung
           </Link>.

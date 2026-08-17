@@ -10,7 +10,7 @@ export default function LivingLearningLab() {
               Living Learning Lab – Deine offene Lernreise
             </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Das <strong>Living Learning Lab</strong> ist eine regelmäßig aktualisierte Lernplattform für alle, die KI praktisch erkunden möchten – ohne Druck, ohne feste Agenda.
+              Das <strong>Living Learning Lab</strong> ist ein regelmäßig aktualisierter offener Lernraum für alle, die KI praktisch erkunden möchten – ohne Druck, ohne feste Agenda.
             </p>
             <p className="text-gray-700 leading-relaxed mb-4">
               Wähle dir spontan die Mission aus, die dich gerade reizt. Von KI-Basics bis zu spannenden Experimenten – alles auf deinem Tempo, in deiner Reihenfolge.
