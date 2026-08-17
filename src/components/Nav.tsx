@@ -1,7 +1,7 @@
 export default function Nav() {
   return (
     <nav className="w-full bg-white border-b border-gray-100 flex items-center justify-end gap-3 px-8 py-4">
-      <a href="/livinglearninglab/" className="px-5 py-2 rounded-full text-sm font-semibold text-white bg-purple-600 hover:opacity-90 transition-opacity">
+      <a href="/livinglearninglab/" className="px-5 py-2 rounded-full text-sm font-semibold text-white bg-[#F0762B] hover:opacity-90 transition-opacity">
         Living Learning Lab
       </a>
       <a href="#femailab" className="px-5 py-2 rounded-full text-sm font-semibold text-white bg-burgundy hover:opacity-90 transition-opacity">
