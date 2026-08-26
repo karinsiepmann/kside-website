@@ -243,6 +243,16 @@
     min-height: auto;
   }
 
+  .mystery-wrap {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .mystery-wrap .mission-card.mystery {
+    width: 100%;
+    max-width: 680px;
+  }
+
   .mission-card .mission-cta { margin-top: auto; }
 
   .mission-card:hover {
@@ -1058,7 +1068,10 @@
       </div>
     </div>
 
-    <!-- What's Next Card with Contact Form -->
+  </div>
+
+    <!-- What's Next Card with Contact Form (eigene Zeile, außerhalb des Mission-Grids) -->
+    <div class="mystery-wrap">
     <div class="mission-card mystery" id="card-mystery">
       <div style="text-align:center; max-width: 560px; margin: 0 auto;">
         <div class="mystery-text" style="margin-bottom: 24px;">🚀</div>
@@ -1077,8 +1090,7 @@
         </form>
       </div>
     </div>
-
-  </div>
+    </div>
 
   <!-- Tool links -->
   <div class="tools-footer">
