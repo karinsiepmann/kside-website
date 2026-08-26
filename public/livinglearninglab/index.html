@@ -184,6 +184,7 @@
   .j4 { --c: var(--lila); }
   .j5 { --c: var(--blau); }
   .j6 { --c: var(--mauve); }
+  .j7 { --c: #2F7D7D; }
 
   /* ─── Instruction ─── */
   .instruction {
@@ -271,6 +272,7 @@
   .mc4 { --c: var(--lila); }
   .mc5 { --c: var(--blau); }
   .mc6 { --c: var(--mauve); }
+  .mc7 { --c: #2F7D7D; }
 
   .mission-header {
     display: flex;
@@ -840,6 +842,10 @@
       <div class="j-dot" id="jd6">6</div>
       <div class="j-label">Notebook</div>
     </div>
+    <div class="j-stop j7" onclick="openModal(7)">
+      <div class="j-dot" id="jd7">7</div>
+      <div class="j-label">HTML</div>
+    </div>
   </div>
 
   <!-- Instruction -->
@@ -1012,6 +1018,32 @@
           <span class="diff-label">Mittel</span>
         </div>
         <button class="open-btn" onclick="openModal(6)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 7 Card -->
+    <div class="mission-card mc7 new" id="card7">
+      <div class="mission-header">
+        <div class="mission-icon">🌐</div>
+        <div>
+          <div class="mission-number">Mission 7</div>
+          <div class="mission-title">Präsentation als HTML-Seite bauen</div>
+        </div>
+      </div>
+      <p class="mission-desc">Statt der nächsten Folien in PowerPoint, Gamma oder Canva: lass dir deine Präsentation als echte Webseite von einer KI schreiben – ein Link, fertig zum Verschicken. Idee inspiriert von Fatima/easyerklärt.</p>
+      <div class="mission-tools">
+        <a class="tool-tag" href="https://easyerklärt.de/" target="_blank">💡 easyerklärt</a>
+        <span class="tool-tag">HTML &amp; KI</span>
+        <span class="tool-tag">Link statt Datei</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Mittel</span>
+        </div>
+        <button class="open-btn" onclick="openModal(7)">Mission starten →</button>
       </div>
     </div>
 
@@ -1457,9 +1489,9 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
 
   function updateProgress() {
     const c = completed.size;
-    document.getElementById('progressFill').style.width = (c / 6 * 100) + '%';
-    document.getElementById('progressCount').textContent = c + ' / 6';
-    if (c === 6) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
+    document.getElementById('progressFill').style.width = (c / 7 * 100) + '%';
+    document.getElementById('progressCount').textContent = c + ' / 7';
+    if (c === 7) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
   }
 
   function showToast(msg) {
@@ -1486,6 +1518,69 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
       }, 500);
     });
   }
-</script>
+
+  // ─── Modal 7: Präsentation als HTML ───
+  // (Markup siehe unten vor </body>)
+  </script>
+
+<!-- Modal 7 -->
+<div class="modal-overlay" id="modal7">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(7)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">🌐 Mission 7</div>
+      <div class="modal-title">Präsentation als HTML-Seite bauen</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du baust deine nächste Präsentation nicht in PowerPoint, Gamma oder Canva – sondern als echte HTML-Webseite, geschrieben von einer KI. Ein Link, den du verschickst, statt einer Datei. Die Idee dazu kommt von <strong><a href="https://easyerklärt.de/" target="_blank" style="color:var(--c);text-decoration:none;">Fatima / easyerklärt</a></strong>, die ihre Decks & Website komplett in HTML baut.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div><strong>Inhalte sammeln:</strong> Titel, 3–5 Kernpunkte, evtl. Bildwunsch.</div></li>
+          <li><div class="step-num">2</div><div><strong>Prompt schreiben</strong> (siehe unten) und an eine KI geben.</div></li>
+          <li><div class="step-num">3</div><div>Code erzeugen lassen – die KI gibt dir einen HTML-Block zurück.</div></li>
+          <li><div class="step-num">4</div><div>Code in eine Datei <code style="background:var(--bg2);padding:1px 5px;border-radius:4px;">praesentation.html</code> kopieren, im Browser öffnen.</div></li>
+          <li><div class="step-num">5</div><div>Hochladen (z. B. GitHub Pages, Netlify Drop) → Link verschicken.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 Prompt-Beispiel (Basis)</h3>
+        <div class="code-block">Erstelle eine Präsentation als einzelne HTML-Seite
+für den Titel "[DEIN THEMA]".
+Stil: clean, moderne Webseite, keine PowerPoint-Optik.
+Farbschema: Rot #962B3F, Orange #F0762B.
+Inhalt: Titel-Sektion, dann 4 Abschnitte mit je einer
+Überschrift und 2–3 Sätzen, am Ende ein Call-to-Action.
+Alles in einer Datei, responsiv, CSS im &lt;style&gt;-Block.
+Kein externes Framework.</div>
+      </div>
+
+      <div class="modal-section">
+        <h3>Für wen?</h3>
+        <ul class="question-list">
+          <li>Menschen, die Präsentationen regelmäßig verschicken statt live vortragen</li>
+          <li>Alle, die mal eine andere Präsentation machen wollen als klassische PPT</li>
+          <li>Lernreise-Teilnehmende, die einen Blick hinter's Coden wollen</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Tipp – verschiedene Chatbots ausprobieren:</strong> Gib denselben Prompt an <strong>Mistral</strong>, <strong>ChatGPT</strong> und <strong>Gemini</strong>. Die Unterschiede im Code, im Look und im Umgang mit deinem Prompt sind lehrreich – so merkst du, welcher Bot für dich passt.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(7)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+</body>
 </body>
 </html>
