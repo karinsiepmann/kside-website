@@ -392,7 +392,7 @@ export default function TerminePage() {
         </div>
       )}
 
-      {/* Info Modal für Gast-Termine */}
+      {/* Info Modal für Zu Gast bei */}
       {showInfoModal && selectedTerm && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
