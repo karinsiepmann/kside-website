@@ -2,20 +2,31 @@
 
 import { useState } from "react";
 
-interface OnlineTerm {
+interface Term {
   date: string;
   day: string;
   time: string;
-  zoomLink: string;
+  type?: "online" | "guest";
+  zoomLink?: string;
+  locationName?: string;
+  locationAddress?: string;
 }
 
 export default function TerminePage() {
   const [showZoomModal, setShowZoomModal] = useState(false);
-  const [selectedTerm, setSelectedTerm] = useState<OnlineTerm | null>(null);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedTerm, setSelectedTerm] = useState<Term | null>(null);
 
-  const openZoomModal = (term: OnlineTerm) => {
+  const openZoomModal = (term: Term) => {
+    if (!term.zoomLink) return;
     setSelectedTerm(term);
     setShowZoomModal(true);
+  };
+
+  const openInfoModal = (term: Term) => {
+    if (term.zoomLink) return;
+    setSelectedTerm(term);
+    setShowInfoModal(true);
   };
 
   return (
@@ -109,7 +120,6 @@ export default function TerminePage() {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
                   { date: "24.08", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                  { date: "21.09", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
                   { date: "28.09", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
                 ].map((item) => (
                   <div
@@ -131,6 +141,64 @@ export default function TerminePage() {
                         Zoom →
                       </button>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Zu Gast bei Seibert */}
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  🤝 Zu Gast bei
+                </h3>
+                <a
+                  href="https://de.seibert.group/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition"
+                >
+                  Seibert Group →
+                </a>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {[
+                  {
+                    date: "21.09",
+                    day: "Mo",
+                    time: "17:00 Uhr",
+                    locationName: "Seibert Group",
+                    locationAddress: "Luisenstraße 37-39, 1. OG, Wiesbaden",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.date}
+                    onClick={() => openInfoModal(item)}
+                    className="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-600 hover:bg-indigo-100 transition cursor-pointer"
+                  >
+                    <div className="text-lg font-bold text-gray-900">
+                      {item.date}
+                    </div>
+                    <div className="text-sm text-gray-600">{item.day}</div>
+                    <div className="flex gap-2 mt-2 flex-wrap">
+                      <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full">
+                        Zu Gast bei
+                      </span>
+                      <span className="inline-block bg-indigo-200 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">
+                        Präsenz
+                      </span>
+                    </div>
+                    <a
+                      href="https://de.seibert.group/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs font-semibold text-indigo-700 hover:text-indigo-900 mt-2 transition"
+                    >
+                      {item.locationName} ↗
+                    </a>
+                    <p className="text-xs text-gray-700 mt-1 leading-relaxed">
+                      {item.locationAddress}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -319,6 +387,67 @@ export default function TerminePage() {
 
             <p className="text-xs text-gray-500 text-center mt-4">
               Zoom-Link wird zum Veranstaltungszeitpunkt aktiv
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Info Modal für Gast-Termine */}
+      {showInfoModal && selectedTerm && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          onClick={() => setShowInfoModal(false)}
+        >
+          <div
+            className="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full animate-in fade-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="text-3xl">🤝</div>
+              <h2 className="text-2xl font-bold text-gray-900">Zu Gast bei</h2>
+            </div>
+
+            <p className="text-gray-600 mb-6">
+              Termin: <span className="font-semibold text-indigo-700">{selectedTerm.date}.2026 ({selectedTerm.day})</span>
+              <br/>
+              Uhrzeit: <span className="font-semibold">{selectedTerm.time} Uhr</span>
+              <br/>
+              Format: <span className="font-semibold text-indigo-600">📍 Präsenz</span>
+            </p>
+
+            <div className="bg-indigo-50 rounded-lg p-4 mb-6 border border-indigo-200">
+              <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-2">Ort:</p>
+              <p className="text-sm font-semibold text-gray-900">{selectedTerm.locationName}</p>
+              <a
+                href="https://de.seibert.group/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-indigo-700 hover:text-indigo-900 mt-1 inline-block"
+              >
+                {selectedTerm.locationName} ↗
+              </a>
+              <p className="text-sm text-gray-700 mt-2">{selectedTerm.locationAddress}</p>
+            </div>
+
+            <div className="flex gap-3">
+              <a
+                href="https://de.seibert.group/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-indigo-700 transition text-center"
+              >
+                Zum Unternehmen →
+              </a>
+              <button
+                onClick={() => setShowInfoModal(false)}
+                className="flex-1 bg-gray-200 text-gray-900 font-semibold py-3 px-4 rounded-lg hover:bg-gray-300 transition"
+              >
+                Schließen
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              Treffpunkt: {selectedTerm.locationName}, {selectedTerm.locationAddress}
             </p>
           </div>
         </div>
