@@ -154,6 +154,61 @@
     margin-bottom: 8px;
   }
 
+  .vibe-box {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-left: 6px solid var(--orange);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  .vibe-box h2 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .vibe-steps {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .vibe-step {
+    flex: 1;
+    min-width: 180px;
+    padding: 4px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .vibe-step + .vibe-step { border-left: 1px solid var(--border); }
+
+  .vibe-step .nr {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--rot);
+    line-height: 1;
+  }
+
+  .vibe-step h3 {
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .vibe-step p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
   .challenge-box {
     background: var(--white);
     border: 2px solid var(--border);
@@ -372,6 +427,27 @@
     <div class="head">
       <span class="badge">AI Open Learning Lab - zu Gast bei Seibert</span>
       <h1>Du kannst es dir <span>vorstellen</span> -<br>dann kannst du es auch <span>bauen</span> (lassen).</h1>
+    </div>
+
+    <div class="vibe-box">
+      <h2>Heute als Vibe Learning</h2>
+      <div class="vibe-steps">
+        <div class="vibe-step">
+          <span class="nr">1</span>
+          <h3>Challenge</h3>
+          <p>Wir starten gemeinsam mit der Aufgabe.</p>
+        </div>
+        <div class="vibe-step">
+          <span class="nr">2</span>
+          <h3>30 Minuten Zeit</h3>
+          <p>Du arbeitest in deinem Tempo an deinem Thema.</p>
+        </div>
+        <div class="vibe-step">
+          <span class="nr">3</span>
+          <h3>Austausch in der Gruppe</h3>
+          <p>Wir schauen uns gemeinsam an, was entstanden ist.</p>
+        </div>
+      </div>
     </div>
 
     <div class="challenge-box">
