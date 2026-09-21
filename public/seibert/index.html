@@ -353,30 +353,59 @@
     border: 2px solid var(--border);
     border-left: 6px solid var(--gruen);
     border-radius: 12px;
-    padding: 18px 22px;
     margin: 0 0 48px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    overflow: hidden;
   }
 
-  .tip-box svg { flex-shrink: 0; margin-top: 2px; }
+  .tip-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+  }
 
-  .tip-box .tip-text {
+  .tip-toggle svg { flex-shrink: 0; }
+
+  .tip-toggle .tip-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    flex-grow: 1;
+  }
+
+  .tip-toggle .chevron {
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .tip-box.open .chevron { transform: rotate(180deg); }
+
+  .tip-content {
+    display: none;
+    padding: 0 22px 20px 68px;
+  }
+
+  .tip-box.open .tip-content { display: block; }
+
+  .tip-content .tip-text {
     font-size: 14px;
     line-height: 1.65;
     color: var(--muted);
   }
 
-  .tip-box .tip-text strong { color: var(--text); font-weight: 700; }
-
-  .tip-box .tip-text .quote {
+  .tip-content .tip-text .quote {
     color: var(--gruen);
     font-weight: 800;
   }
 
-  .tip-box .tip-source {
+  .tip-content .tip-source {
     display: block;
     font-size: 12px;
     margin-top: 6px;
@@ -515,19 +544,27 @@
       </div>
     </div>
 
-    <div class="tip-box">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="hatchTip" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-            <line x1="0" y1="0" x2="0" y2="4" stroke="#7D6B56" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <path d="M16 3 L26 16 L16 29 L6 16 Z" fill="#ffffff" stroke="#7D6B56" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M11 16 L14.5 12 L17.5 20 L21 16" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="tip-text">
-        <strong>Extra-Tipp:</strong> Erg&auml;nze jeden Prompt mit dem Zusatz <span class="quote">&raquo;und mach mir daraus eine interaktive HTML-Seite&laquo;</span> - schon wird aus einer Antwort etwas Klickbares.
-        <span class="tip-source">(frei nach Jens Polomski)</span>
+    <div class="tip-box" id="tipBox">
+      <button class="tip-toggle" onclick="toggleTip()" aria-expanded="false" aria-controls="tipContent">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hatchTip" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="4" stroke="#7D6B56" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <path d="M16 3 L26 16 L16 29 L6 16 Z" fill="#ffffff" stroke="#7D6B56" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M11 16 L14.5 12 L17.5 20 L21 16" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="tip-title">Extra-Tipp - hier klicken</span>
+        <svg class="chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 8 L10 13 L15 8" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="tip-content" id="tipContent">
+        <div class="tip-text">
+          Erg&auml;nze jeden Prompt mit dem Zusatz <span class="quote">&raquo;und mach mir daraus eine interaktive HTML-Seite&laquo;</span> - schon wird aus einer Antwort etwas Klickbares.
+          <span class="tip-source">(frei nach Jens Polomski)</span>
+        </div>
       </div>
     </div>
 
@@ -550,6 +587,12 @@
     document.getElementById('challengeScreen').classList.remove('visible');
     document.getElementById('sloganScreen').classList.remove('hidden');
     window.scrollTo(0, 0);
+  }
+  function toggleTip() {
+    var box = document.getElementById('tipBox');
+    var btn = box.querySelector('.tip-toggle');
+    var isOpen = box.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 </script>
 
