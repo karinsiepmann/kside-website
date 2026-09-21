@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Du kannst es dir vorstellen - dann kannst du es auch bauen</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rot:    #962B3F;
+    --orange: #F0762B;
+    --gruen:  #6b9a36;
+    --lila:   #7a4f8c;
+    --bg:     #faf9f5;
+    --bg2:    #f0ede6;
+    --text:   #141413;
+    --muted:  #6b6860;
+    --border: #ddd9d0;
+    --white:  #ffffff;
+    --sketch: #7D6B56;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .top-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, var(--rot) 0%, var(--orange) 50%, var(--gruen) 100%);
+  }
+
+  .qr-container {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    z-index: 10;
+  }
+
+  .qr-container img {
+    display: block;
+    width: 100px;
+    height: 100px;
+  }
+
+  @media (max-width: 640px) {
+    .qr-container {
+      width: 70px;
+      padding: 8px;
+      top: 16px;
+      right: 16px;
+    }
+    .qr-container img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 72px;
+  }
+
+  /* ─── Slogan screen ─── */
+  .slogan-screen {
+    min-height: calc(100vh - 5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 48px 0;
+  }
+
+  .slogan-screen.hidden { display: none; }
+
+  .badge {
+    display: inline-block;
+    background: var(--rot);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 30px;
+    margin-bottom: 26px;
+  }
+
+  .slogan {
+    font-size: clamp(34px, 6.5vw, 64px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--rot);
+    margin-bottom: 20px;
+  }
+
+  .slogan span { color: var(--orange); }
+
+  .tap-hint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 40px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .tap-hint svg { flex-shrink: 0; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  /* ─── Challenge screen ─── */
+  .challenge-screen { display: none; padding-top: 48px; }
+  .challenge-screen.visible { display: block; }
+
+  .challenge-screen .head {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .challenge-screen h1 {
+    font-size: clamp(26px, 4.5vw, 40px);
+    font-weight: 800;
+    color: var(--rot);
+    line-height: 1.2;
+  }
+
+  .challenge-screen h1 span { color: var(--orange); }
+
+  .kicker {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .challenge-box {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-left: 6px solid var(--orange);
+    border-radius: 14px;
+    padding: 32px 34px;
+    margin-bottom: 48px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  .challenge-box h2 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+  }
+
+  .challenge-box p {
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 600;
+  }
+
+  .challenge-box p em {
+    font-style: normal;
+    color: var(--rot);
+    font-weight: 800;
+  }
+
+  .challenge-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 56px;
+  }
+
+  .step {
+    background: var(--bg2);
+    border-radius: 12px;
+    padding: 22px 20px;
+  }
+
+  .step svg { margin-bottom: 12px; }
+
+  .step h3 {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .step p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ─── Examples ─── */
+  .examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .example-card {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    min-height: 240px;
+  }
+
+  .example-card svg { align-self: flex-start; }
+
+  .example-card .tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #fff;
+  }
+
+  .example-card h3 {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .example-card p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--muted);
+    flex-grow: 1;
+  }
+
+  .example-card a.cta {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--rot);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .example-card a.cta:hover { background: var(--orange); }
+
+  .example-card.mc1 { border-top: 5px solid var(--gruen); }
+  .example-card.mc1 .tag { background: var(--gruen); }
+  .example-card.mc2 { border-top: 5px solid var(--lila); }
+  .example-card.mc2 .tag { background: var(--lila); }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+
+  .back-link:hover { color: var(--rot); }
+
+  .tip-box {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-left: 6px solid var(--gruen);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 0 0 48px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  }
+
+  .tip-box svg { flex-shrink: 0; margin-top: 2px; }
+
+  .tip-box .tip-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .tip-box .tip-text strong { color: var(--text); font-weight: 700; }
+
+  .tip-box .tip-text .quote {
+    color: var(--gruen);
+    font-weight: 800;
+  }
+
+  .tip-box .tip-source {
+    display: block;
+    font-size: 12px;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  footer a { color: var(--rot); text-decoration: none; font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .challenge-box { padding: 26px 22px; }
+    .challenge-box p { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<div class="qr-container">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kside.de/seibert/" alt="QR Code zu dieser Seite">
+</div>
+
+<div class="page">
+
+  <!-- ─── Screen 1: Slogan ─── -->
+  <section class="slogan-screen" id="sloganScreen" onclick="revealChallenge()">
+    <span class="badge">AI Open Learning Lab - zu Gast bei Seibert</span>
+    <h1 class="slogan">Du kannst es dir <span>vorstellen</span> -<br>dann kannst du es auch <span>bauen</span> (lassen).</h1>
+    <div class="tap-hint">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="13" cy="13" r="11" stroke="#7D6B56" stroke-width="1.8"/>
+        <line x1="13" y1="7" x2="13" y2="13" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="13" cy="17" r="0.8" fill="#7D6B56"/>
+      </svg>
+      Klicken zum Aufdecken
+    </div>
+  </section>
+
+  <!-- ─── Screen 2: Challenge ─── -->
+  <section class="challenge-screen" id="challengeScreen">
+    <div class="head">
+      <p class="kicker">AI Open Learning Lab - zu Gast bei Seibert</p>
+      <h1>Du kannst es dir <span>vorstellen</span> -<br>dann kannst du es auch <span>bauen</span> (lassen).</h1>
+    </div>
+
+    <div class="challenge-box">
+      <h2>Die Herausforderung</h2>
+      <p>Such dir einen <em>KI-Chatbot oder eine Anwendung deiner Wahl</em> und formuliere die Erstellung einer <em>interaktiven Seite oder eines Dashboards</em> zu einem <em>Thema deiner Wahl</em>.</p>
+    </div>
+
+    <div class="challenge-steps">
+      <div class="step">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="8" width="28" height="24" rx="2" stroke="#7D6B56" stroke-width="1.8"/>
+          <line x1="6" y1="15" x2="34" y2="15" stroke="#7D6B56" stroke-width="1.8"/>
+          <circle cx="11" cy="11.5" r="1" fill="#7D6B56"/>
+          <circle cx="15.5" cy="11.5" r="1" fill="#7D6B56"/>
+          <defs>
+            <pattern id="hatch1" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="4" stroke="#7D6B56" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect x="10" y="19" width="9" height="9" fill="url(#hatch1)" stroke="#7D6B56" stroke-width="1.8"/>
+        </svg>
+        <h3>1. Thema w&auml;hlen</h3>
+        <p>Was besch&auml;ftigt dich gerade? Reisekosten, Trainingspl&auml;ne, Projektdaten - dein Thema, deine Seite.</p>
+      </div>
+      <div class="step">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 5 L33 12 L33 28 L20 35 L7 28 L7 12 Z" stroke="#7D6B56" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M7 12 L20 19 L33 12 M20 19 L20 35" stroke="#7D6B56" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M14 8.5 L27 15.5" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <h3>2. Chatbot ansprechen</h3>
+        <p>Schreibe oder sprich in eigenen Worten, was die Seite k&ouml;nnen soll. Iteriere, frag nach, verfeinere.</p>
+      </div>
+      <div class="step">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="hatch2" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="4" stroke="#7D6B56" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect x="6" y="5" width="28" height="30" rx="2" fill="#ffffff" stroke="#7D6B56" stroke-width="1.8"/>
+          <rect x="10" y="10" width="20" height="8" fill="url(#hatch2)" stroke="#7D6B56" stroke-width="1.8"/>
+          <line x1="10" y1="23" x2="30" y2="23" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="10" y1="28" x2="24" y2="28" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <h3>3. Ausprobieren</h3>
+        <p>&Ouml;ffne die Seite, teste sie, zeig sie herum. Fehler sind Zwischenschritte, kein Ende.</p>
+      </div>
+    </div>
+
+    <p class="kicker">Beispiele - so kann das aussehen</p>
+    <br>
+    <div class="examples">
+      <div class="example-card mc1">
+        <span class="tag">Beispiel 1</span>
+        <h3>Erasmus-Reisekostenrechner</h3>
+        <p>Ein interaktiver Rechner, der Pauschalen und Reisekosten f&uuml;r Erasmus+-Projekte direkt im Browser zusammenrechnet - gebaut im Dialog mit einem KI-Chatbot.</p>
+        <a class="cta" href="https://bebrnnpd.gensparkspace.com/" target="_blank" rel="noopener">Zum Rechner</a>
+      </div>
+      <div class="example-card mc2">
+        <span class="tag">Beispiel 2</span>
+        <h3>Vom PDF zur interaktiven Seite</h3>
+        <p>Aus einem statischen PDF wird eine interaktive Webseite: derselbe Inhalt, aber klickbar, durchsuchbar und lebendig - ein Beispiel daf&uuml;r, wie viel in vorhandenen Materialien steckt.</p>
+        <a class="cta" href="https://gemini.google.com/gem/63f9146f7617/e41f699c1a4d4fc7" target="_blank" rel="noopener">Zur interaktiven Seite</a>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="hatchTip" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="4" stroke="#7D6B56" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <path d="M16 3 L26 16 L16 29 L6 16 Z" fill="#ffffff" stroke="#7D6B56" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M11 16 L14.5 12 L17.5 20 L21 16" stroke="#7D6B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="tip-text">
+        <strong>Extra-Tipp:</strong> Erg&auml;nze jeden Prompt mit dem Zusatz <span class="quote">&raquo;und mach mir daraus eine interaktive HTML-Seite&laquo;</span> - schon wird aus einer Antwort etwas Klickbares.
+        <span class="tip-source">(frei nach Jens Polomski)</span>
+      </div>
+    </div>
+
+    <a class="back-link" onclick="backToSlogan()">&#8592;&nbsp;Zur&uuml;ck zum Slogan</a>
+
+    <footer>
+      <a href="https://kside.de">[kside]//openlabs</a> &nbsp;&middot;&nbsp; AI Open Learning Lab &nbsp;&middot;&nbsp; <a href="https://kside.de/livinglearninglab/">Alle Missionen</a>
+    </footer>
+  </section>
+
+</div>
+
+<script>
+  function revealChallenge() {
+    document.getElementById('sloganScreen').classList.add('hidden');
+    document.getElementById('challengeScreen').classList.add('visible');
+    window.scrollTo(0, 0);
+  }
+  function backToSlogan() {
+    document.getElementById('challengeScreen').classList.remove('visible');
+    document.getElementById('sloganScreen').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
