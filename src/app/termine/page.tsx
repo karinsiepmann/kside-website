@@ -71,6 +71,13 @@ export default function TerminePage() {
                   { date: "12.10", day: "Mo" },
                   { date: "19.10", day: "Mo" },
                   { date: "26.10", day: "Mo" },
+                  { date: "02.11", day: "Mo" },
+                  { date: "09.11", day: "Mo" },
+                  { date: "16.11", day: "Mo" },
+                  { date: "23.11", day: "Mo" },
+                  { date: "30.11", day: "Mo" },
+                  { date: "07.12", day: "Mo" },
+                  { date: "14.12", day: "Mo" },
                 ] as Array<{ date: string; day: string; special?: boolean; title?: string; link?: string }>).map((item) => (
                   <div
                     key={item.date}
