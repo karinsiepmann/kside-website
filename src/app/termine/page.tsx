@@ -67,12 +67,10 @@ export default function TerminePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { date: "03.08", day: "Mo" },
-                  { date: "10.08", day: "Mo", special: true, title: "Usability Testessen: KI & Führerscheinantrag", link: "https://anny.eu/book/usability-testessen" },
-                  { date: "17.08", day: "Mo" },
-                  { date: "31.08", day: "Mo" },
-                  { date: "07.09", day: "Mo" },
-                  { date: "14.09", day: "Mo" },
+                  { date: "05.10", day: "Mo" },
+                  { date: "12.10", day: "Mo" },
+                  { date: "19.10", day: "Mo" },
+                  { date: "26.10", day: "Mo" },
                 ].map((item) => (
                   <div
                     key={item.date}
