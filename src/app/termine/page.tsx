@@ -66,12 +66,12 @@ export default function TerminePage() {
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
+                {([
                   { date: "05.10", day: "Mo" },
                   { date: "12.10", day: "Mo" },
                   { date: "19.10", day: "Mo" },
                   { date: "26.10", day: "Mo" },
-                ].map((item) => (
+                ] as Array<{ date: string; day: string; special?: boolean; title?: string; link?: string }>).map((item) => (
                   <div
                     key={item.date}
                     className="bg-slate-50 p-4 rounded-lg border-l-4 border-rose-700 hover:bg-slate-100 transition"
