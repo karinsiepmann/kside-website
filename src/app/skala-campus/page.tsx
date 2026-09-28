@@ -25,6 +25,7 @@ export default function SkalaCampusPage() {
       title: "Von kompliziert zu verständlich: KI als Wissensübersetzer",
       time: "9:00 – 10:00 Uhr",
       link: "https://www.skala-campus.org/event/komplexes-wissen-mit-ki-greifbar-machen/",
+      teaser: "/teaser-komplexes-wissen/",
     },
     {
       date: "27.10",
@@ -100,26 +101,37 @@ export default function SkalaCampusPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Alle Termine 2026</h2>
             <div className="space-y-4">
               {events.map((event, idx) => (
-                <a
-                  key={idx}
-                  href={event.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition group"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <div className="font-semibold text-blue-900 text-sm">
-                        {event.date}
+                <div key={idx}>
+                  <a
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition group"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-semibold text-blue-900 text-sm">
+                          {event.date}
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 mt-1">
+                          {event.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 mt-1">{event.time} · Online</p>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mt-1">
-                        {event.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 mt-1">{event.time} · Online</p>
+                      <span className="text-blue-600 font-bold text-lg group-hover:translate-x-1 transition-transform mt-1">→</span>
                     </div>
-                    <span className="text-blue-600 font-bold text-lg group-hover:translate-x-1 transition-transform mt-1">→</span>
-                  </div>
-                </a>
+                  </a>
+                  {event.teaser && (
+                    <p className="text-sm mt-1 mb-2">
+                      <a
+                        href={event.teaser}
+                        className="text-rose-700 font-semibold hover:text-rose-900 transition"
+                      >
+                        ▶ Teaser ansehen
+                      </a>
+                    </p>
+                  )}
+                </div>
               ))}
             </div>
           </div>

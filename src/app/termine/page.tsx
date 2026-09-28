@@ -324,6 +324,14 @@ export default function TerminePage() {
                 <span className="text-blue-600 font-bold text-xl group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </a>
+            <p className="text-sm mt-2">
+              <a
+                href="/teaser-komplexes-wissen/"
+                className="text-rose-700 font-semibold hover:text-rose-900 transition"
+              >
+                ▶ Teaser zum Morgenimpuls am 06.10. ansehen
+              </a>
+            </p>
           </div>
         </div>
 
