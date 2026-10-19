@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KI-Adventskalender – [kside]//openlabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f5; --text:#141413; --muted:#666666; --surface:#ffffff; --inside:#f1ece3;
+  --line:#3a3530; --rot:#962B3F; --orange:#F0762B; --gruen:#A3C770; --braun:#8C6A4B;
+  --rot-text:#962B3F; --focus:#F0762B;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1c1a18; --text:#f2eee8; --muted:#b5aea4; --surface:#262320; --inside:#302b27;
+    --line:#d8d0c4; --rot-text:#e0849a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1c1a18; --text:#f2eee8; --muted:#b5aea4; --surface:#262320; --inside:#302b27;
+  --line:#d8d0c4; --rot-text:#e0849a; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Montserrat,Inter,"Open Sans",Arial,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 24px 64px}
+
+/* Kopf */
+header.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
+.wordmark{font-weight:700;font-size:18px;letter-spacing:0;margin:0 0 28px;text-decoration:none;display:inline-block}
+.wordmark .k{color:var(--rot-text)} .wordmark .o{color:var(--orange)} .wordmark .l{color:#7fa64a}
+h1{font-size:clamp(32px,6vw,52px);line-height:1.08;margin:0 0 16px;color:var(--rot-text);font-weight:700}
+.intro{max-width:56ch;margin:0;color:var(--text)}
+.status{margin:16px 0 0;color:var(--muted);font-size:14px}
+.legend{list-style:none;margin:0;padding:20px;border:1.5px solid var(--line);border-radius:3px 9px 4px 7px;display:grid;gap:10px;font-size:14px;background:var(--surface)}
+.legend li{display:flex;align-items:center;gap:12px}
+.legend svg{flex:none}
+.legend b{font-weight:600}
+.preview-bar{background:var(--orange);color:#141413;padding:10px 16px;border-radius:4px;font-size:14px;font-weight:600;margin-bottom:24px}
+.preview-bar[hidden]{display:none}
+
+/* Fassade */
+.facade{position:relative;padding:28px;border:1.5px solid var(--line);border-radius:4px 10px 6px 3px;background:var(--surface);overflow:hidden}
+.facade-art{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.grid{position:relative;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(92px,auto);grid-auto-flow:dense;gap:14px}
+.door{position:relative;border:0;padding:0;background:transparent;cursor:pointer;perspective:900px;font:inherit;color:inherit;min-height:92px;border-radius:3px}
+.door.w2{grid-column:span 2} .door.h2{grid-row:span 2}
+.door:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.inside{position:absolute;inset:0;background:var(--inside);border:1.5px solid var(--line);border-radius:3px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:10px 12px;text-align:left}
+.inside .mini{font-size:13px;font-weight:600;line-height:1.3;color:var(--text)}
+.inside .lvl{font-size:12px;color:var(--muted)}
+.front{position:absolute;inset:0;border:1.5px solid var(--line);border-radius:3px;transform-origin:left center;transition:transform .7s cubic-bezier(.3,.7,.2,1);display:flex;align-items:flex-start;justify-content:flex-start;padding:8px 12px;backface-visibility:hidden;overflow:hidden}
+.front .num{font-weight:700;font-size:30px;line-height:1;position:relative}
+.door.h2 .front .num,.door.w2 .front .num{font-size:42px}
+.front .pane{position:absolute;opacity:.45}
+.front.c-rot{background:var(--rot);color:#fff}
+.front.c-orange{background:var(--orange);color:#141413}
+.front.c-gruen{background:var(--gruen);color:#141413}
+.front.c-braun{background:var(--braun);color:#141413}
+.door.open .front{transform:rotateY(-108deg)}
+.door.locked .front::after{content:"";position:absolute;right:10px;bottom:10px;width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;opacity:.7}
+.door.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 18px;border-radius:4px;font-size:14px;max-width:min(90vw,420px);text-align:center;z-index:20}
+.toast[hidden]{display:none}
+
+/* Dialog */
+dialog{border:1.5px solid var(--line);border-radius:4px 12px 6px 4px;padding:0;max-width:min(640px,calc(100vw - 32px));width:100%;background:var(--surface);color:var(--text)}
+dialog::backdrop{background:rgba(28,26,24,.55)}
+.dlg{padding:28px 28px 24px;max-height:85vh;overflow:auto}
+.dlg-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;color:var(--muted);font-size:14px}
+.dlg h2{font-size:28px;line-height:1.2;margin:0 0 14px;color:var(--rot-text)}
+.dlg p{margin:0 0 16px;max-width:65ch}
+.dlg h3{font-size:16px;margin:20px 0 8px;font-weight:600}
+.promptbox{background:var(--inside);border-left:4px solid var(--orange);padding:14px 16px;border-radius:2px;white-space:pre-wrap;font-size:15px;margin:0 0 10px}
+.btn{font:inherit;font-weight:600;font-size:15px;border:1.5px solid var(--line);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:4px;cursor:pointer}
+.btn:hover{background:var(--inside)}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.btn.primary{background:var(--rot);color:#fff;border-color:var(--rot)}
+.btn.primary:hover{filter:brightness(1.1)}
+.dlg-actions{display:flex;justify-content:flex-end;margin-top:24px}
+.quiz{display:grid;gap:10px;margin:8px 0 6px}
+.opt{text-align:left;font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:var(--surface);color:var(--text);cursor:pointer}
+.opt:hover:not(:disabled){background:var(--inside)}
+.opt:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.opt.right{background:var(--gruen);color:#141413;border-color:var(--gruen)}
+.opt.wrong{background:var(--inside);text-decoration:line-through;color:var(--muted)}
+.opt:disabled{cursor:default}
+.feedback{padding:12px 14px;border-radius:4px;background:var(--inside);margin-top:6px}
+.feedback[hidden]{display:none}
+
+footer{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:baseline;color:var(--muted);font-size:14px}
+footer a{color:var(--rot-text);font-weight:600}
+
+@media (max-width:760px){
+  header.hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(4,1fr);gap:10px}
+  .facade{padding:16px}
+  .dlg{padding:22px 20px 20px}
+}
+@media (max-width:420px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  .front{transition:none}
+  .door.shake{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="preview-bar" id="previewBar" hidden>Vorschau-Modus: Alle Türchen sind geöffnet. Besucher*innen sehen nur die Tage bis heute.</div>
+
+  <header class="hero">
+    <div>
+      <a class="wordmark" href="https://kside.de"><span class="k">[kside]</span><span class="o">//open</span><span class="l">labs</span></a>
+      <h1>24 kleine KI-Übungen bis Weihnachten</h1>
+      <p class="intro">Jeden Tag ein Türchen, jeden Tag 5 bis 15 Minuten: mal ein Prompt zum Ausprobieren, mal ein Wissenshappen, mal ein kurzes Quiz. Für Einsteiger*innen und alle, die schon etwas weiter sind. Du brauchst nur ein KI-Tool deiner Wahl.</p>
+      <p class="status" id="status"></p>
+    </div>
+    <ul class="legend" aria-label="Übungsarten">
+      <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="3" width="16" height="16" fill="#F0762B" fill-opacity=".5" stroke="#3a3530" stroke-width="1.3"/></svg><span><b>Prompt</b> zum Kopieren und Ausprobieren</span></li>
+      <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="#A3C770" fill-opacity=".55" stroke="#3a3530" stroke-width="1.3"/></svg><span><b>Wissen</b> und eine kleine Aufgabe</span></li>
+      <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3 L19.5 19 L2.5 19 Z" fill="#962B3F" fill-opacity=".5" stroke="#3a3530" stroke-width="1.3" stroke-linejoin="round"/></svg><span><b>Quiz</b> zum Mitraten</span></li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="facade" aria-label="Adventskalender">
+      <svg class="facade-art" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="40,700 40,180 260,60 330,700" fill="#962B3F" fill-opacity=".08"/>
+        <polygon points="300,700 420,120 620,240 560,700" fill="#F0762B" fill-opacity=".08"/>
+        <polygon points="600,700 700,30 960,200 960,700" fill="#A3C770" fill-opacity=".1"/>
+        <polygon points="0,420 520,300 1000,520 1000,700 0,700" fill="#8C6A4B" fill-opacity=".06"/>
+        <path d="M40 180 L262 58 M420 120 L622 242 M700 30 L962 202" stroke="#3a3530" stroke-opacity=".25" stroke-width="1.4" fill="none"/>
+      </svg>
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Ein Lernangebot von [kside]//openlabs. Kostenlos, ohne Anmeldung. Besonders freue ich mich über deine Wünsche, Anregungen und Ideen. 🌱</span>
+    <a href="https://kside.de">Zu kside.de</a>
+  </footer>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg" id="dlgBody"></div>
+</dialog>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+  var YEAR = 2026;
+  var STORE_KEY = "kside-advent-" + YEAR;
+
+  var DAYS = [
+    {d:1,t:"prompt",l:"Einstieg",m:5,title:"Hallo KI, lern mich kennen",text:"Fang ganz einfach an: Lass dich von der KI befragen, statt selbst nach der perfekten Frage zu suchen.",prompt:"Ich möchte lernen, KI sinnvoll in meinem Alltag einzusetzen. Stell mir drei kurze Fragen zu meiner Arbeit. Schlag mir danach eine konkrete Aufgabe vor, bei der du mir diese Woche helfen kannst.",task:"Beantworte die Fragen ehrlich und probier den Vorschlag direkt aus."},
+    {d:2,t:"wissen",l:"Einstieg",m:5,title:"Wie „denkt“ ein Sprachmodell?",text:"Ein Sprachmodell berechnet, welches Wort am wahrscheinlichsten als nächstes passt - Wort für Wort. Es hat kein Wissen im menschlichen Sinn, sondern Muster aus riesigen Textmengen. Deshalb klingt es oft überzeugend, auch wenn es danebenliegt.",task:"Gib der KI den Satzanfang „Im Dezember freue ich mich am meisten auf …“ und lass ihn dreimal neu vervollständigen. Was ändert sich, was bleibt gleich?"},
+    {d:3,t:"quiz",l:"Einstieg",m:3,title:"Was gehört nicht in den Chat?",text:"Kurzer Check zum sicheren Umgang mit KI-Tools.",quiz:{q:"Welche Information solltest du nicht in ein öffentliches KI-Tool eingeben?",o:["Eine allgemeine Frage zur Planung einer Weihnachtsfeier","Namen und Gesundheitsdaten von Teilnehmenden","Einen selbst geschriebenen Textentwurf ohne Personenbezug"],c:1,e:"Personenbezogene und besonders sensible Daten gehören nicht in öffentliche KI-Tools. Anonymisiere vorher oder nutze ein Tool, das deine Organisation datenschutzkonform freigegeben hat."}},
+    {d:4,t:"prompt",l:"Einstieg",m:7,title:"Rolle, Ziel, Kontext",text:"Gute Prompts haben drei Zutaten: Wer soll die KI sein? Was willst du erreichen? Was muss sie wissen?",prompt:"Du bist eine erfahrene Kommunikationsberaterin. Schreib einen kurzen, herzlichen Jahresabschlussgruß an mein Team aus [Anzahl] Personen. Wir haben dieses Jahr besonders [ein Erfolg] geschafft. Ton: warm, persönlich, nicht kitschig. Maximal 80 Wörter.",task:"Füll die Klammern aus. Lass danach testweise eine der drei Zutaten weg. Wie verändert sich das Ergebnis?"},
+    {d:5,t:"wissen",l:"Einstieg",m:6,title:"Wenn KI flunkert",text:"KI kann Fakten, Zahlen oder Quellen erfinden, die echt aussehen. Das nennt man Halluzination. Je spezieller die Frage, desto größer das Risiko.",task:"Frag die KI nach drei Quellen zu einem Thema, in dem du dich gut auskennst. Prüfe mindestens eine davon selbst: Gibt es sie wirklich, und steht dort, was behauptet wird?"},
+    {d:6,t:"quiz",l:"Vertiefung",m:3,title:"Nikolaus-Quiz: Schritt für Schritt",text:"Ein kleiner Satz mit großer Wirkung.",quiz:{q:"Was bewirkt der Zusatz „Geh Schritt für Schritt vor“ in einem Prompt meistens?",o:["Die KI antwortet schneller","Die KI legt ihren Lösungsweg offen und macht oft weniger Denkfehler","Die KI greift auf das Internet zu"],c:1,e:"Bei mehrstufigen Aufgaben hilft es, die KI ihren Weg zerlegen zu lassen. So kannst du jeden Schritt nachvollziehen und Fehler leichter entdecken."}},
+    {d:7,t:"prompt",l:"Vertiefung",m:8,title:"Zeigen statt erklären",text:"Statt deinen Stil lange zu beschreiben, gib der KI ein oder zwei Beispiele. Das nennt man Few-Shot-Prompting.",prompt:"Hier sind zwei Beispiele, wie ich Veranstaltungen ankündige:\n\nBeispiel 1: [dein Text]\nBeispiel 2: [dein Text]\n\nSchreib im gleichen Stil eine Ankündigung für: [neue Veranstaltung].",task:"Nimm zwei echte Texte von dir. Wie nah kommt die KI an deine Stimme heran?"},
+    {d:8,t:"wissen",l:"Einstieg",m:5,title:"Warum KI manchmal vergisst",text:"KI-Tools können nur eine begrenzte Textmenge gleichzeitig im Blick behalten, das sogenannte Kontextfenster. In sehr langen Chats geraten frühe Infos aus dem Fokus.",task:"Lass dir am Ende eines langen Chats die wichtigsten Punkte zusammenfassen. Starte damit einen neuen Chat und vergleiche die Antwortqualität."},
+    {d:9,t:"prompt",l:"Vertiefung",m:10,title:"Lass dich interviewen",text:"Du hast eine Idee, aber sie ist noch unscharf? Dreh den Spieß um: Die KI stellt die Fragen.",prompt:"Ich habe eine Idee für [kurze Beschreibung]. Interview mich dazu. Stell mir immer nur eine Frage auf einmal und warte auf meine Antwort. Nach fünf Fragen fasst du meine Idee in drei Sätzen zusammen und nennst die größte offene Lücke.",task:"Nimm ein echtes Vorhaben fürs neue Jahr."},
+    {d:10,t:"quiz",l:"Einstieg",m:3,title:"Ein Blick in die Einstellungen",text:"Datenschutz beginnt oft mit einem Klick.",quiz:{q:"Was lohnt sich in den Einstellungen deines KI-Tools besonders zu prüfen?",o:["Ob deine Chats zum Training des Modells verwendet werden dürfen","Welche Schriftart der Chat nutzt","Ob der Dunkelmodus aktiv ist"],c:0,e:"Viele Anbieter lassen dich festlegen, ob deine Daten fürs Training genutzt werden. Schau nach, wie es bei deinem Tool eingestellt ist."}},
+    {d:11,t:"prompt",l:"Einstieg",m:6,title:"Einfach gesagt",text:"KI ist eine starke Helferin, wenn Texte zugänglicher werden sollen.",prompt:"Schreib den folgenden Text in Einfacher Sprache um: kurze Sätze, bekannte Wörter, ein Gedanke pro Satz. Erkläre Fachbegriffe direkt im Text.\n\n[Text einfügen]",task:"Nimm einen Text aus deinem Alltag, zum Beispiel eine Einladung oder ein Infoblatt. Was würdest du übernehmen?"},
+    {d:12,t:"wissen",l:"Vertiefung",m:7,title:"Wer steckt in den Daten?",text:"KI lernt aus Texten und Bildern, die Menschen erstellt haben, samt deren Schieflagen. Stereotype über Geschlecht, Herkunft oder Alter können so in Antworten auftauchen.",task:"Bitte die KI um eine kurze Geschichte über „eine Führungskraft, eine Pflegekraft und eine Person aus der IT“. Welche Namen, Pronomen und Eigenschaften vergibt sie? Bitte sie danach, ihre Geschichte selbst auf Klischees zu prüfen."},
+    {d:13,t:"prompt",l:"Einstieg",m:7,title:"Weiterfeilen statt neu anfangen",text:"Die erste Antwort ist ein Entwurf, kein Endergebnis. Gib Feedback wie einer Kollegin.",prompt:"Das ist ein guter Anfang. Bitte überarbeite die Antwort: Mach sie [kürzer/konkreter/persönlicher], streich [Teil] und ergänze ein Beispiel aus [Bereich].",task:"Geh mit einer Antwort von heute drei Feedback-Runden. Wann ist sie wirklich gut?"},
+    {d:14,t:"quiz",l:"Vertiefung",m:3,title:"Bausteine der Sprache",text:"Ein Begriff, der dir oft begegnet.",quiz:{q:"Was ist ein „Token“ bei Sprachmodellen?",o:["Ein Passwort für den KI-Zugang","Ein Textstück, oft ein Wort oder Wortteil, in das die KI Text zerlegt","Eine Kryptowährung"],c:1,e:"Sprachmodelle verarbeiten Text in Tokens. Darüber werden auch Grenzen wie das Kontextfenster und oft die Kosten berechnet."}},
+    {d:15,t:"prompt",l:"Vertiefung",m:8,title:"Form gibt Halt",text:"Wenn du ein Format vorgibst, bekommst du Ergebnisse, mit denen du direkt weiterarbeiten kannst.",prompt:"Plan mir einen 90-minütigen Workshop zum Thema [Thema] für [Zielgruppe]. Gib das Ergebnis als Tabelle mit den Spalten Zeit, Phase, Methode und Material aus. Plane eine aktivierende Übung und eine Pause ein.",task:"Probier danach ein anderes Format: Checkliste oder Einladungsmail an die Teilnehmenden."},
+    {d:16,t:"wissen",l:"Einstieg",m:6,title:"KI kann auch sehen",text:"Viele Tools verstehen inzwischen Bilder: Fotos, Screenshots, handschriftliche Notizen. Das nennt man multimodal.",task:"Fotografiere etwas ohne Personen darauf, zum Beispiel deinen Schreibtisch, eine Notiz oder ein Plätzchenrezept. Lade es hoch und frag: „Was siehst du, und was könnte ich damit machen?“"},
+    {d:17,t:"prompt",l:"Vertiefung",m:8,title:"Die kritische Freundin",text:"KI neigt dazu, dir zuzustimmen. Bitte sie gezielt um Widerspruch.",prompt:"Hier ist mein Plan: [Plan]. Nimm die Rolle einer kritischen, aber wohlwollenden Freundin ein. Nenne die drei größten Schwachstellen und zu jeder eine Frage, die ich mir stellen sollte. Keine Komplimente.",task:"Welche Schwachstelle hattest du selbst schon auf dem Schirm, welche nicht?"},
+    {d:18,t:"quiz",l:"Vertiefung",m:3,title:"KI und Recht",text:"Die EU-KI-Verordnung betrifft auch kleine Organisationen.",quiz:{q:"Seit wann verlangt die EU-KI-Verordnung, dass Organisationen, die KI einsetzen, für ausreichende KI-Kompetenz ihrer Mitarbeitenden sorgen?",o:["Seit Februar 2025","Ab 2030","Gar nicht, das ist nur eine Empfehlung"],c:0,e:"Artikel 4 der KI-Verordnung gilt seit dem 2. Februar 2025. Ein guter Grund, Lernen mit KI ernst zu nehmen, zum Beispiel mit diesem Kalender. 😊"}},
+    {d:19,t:"prompt",l:"Vertiefung",m:8,title:"KI verbessert deinen Prompt",text:"Du musst nicht alles allein formulieren. Lass die KI an deiner Frage mitarbeiten.",prompt:"Ich möchte folgenden Prompt verwenden: [dein Prompt]. Bevor du ihn beantwortest: Stell mir bis zu drei Rückfragen, die das Ergebnis deutlich verbessern würden. Schreib danach eine verbesserte Version des Prompts.",task:"Speichere die verbesserte Version als Vorlage für später."},
+    {d:20,t:"wissen",l:"Vertiefung",m:8,title:"Deine eigene Assistentin",text:"Viele Tools erlauben dauerhafte Anweisungen: als persönliche Einstellungen, Projekte oder eigene Assistenten. So musst du deinen Kontext nicht jedes Mal neu erklären.",task:"Schreib fünf Sätze, die eine Assistentin über dich wissen sollte: deine Rolle, deine Zielgruppe, deinen bevorzugten Ton und was sie vermeiden soll. Schau nach, wo du das in deinem Tool hinterlegen kannst."},
+    {d:21,t:"prompt",l:"Einstieg",m:10,title:"Kürzester Tag, langer Blick zurück",text:"Zur Wintersonnenwende: Nutz die KI als Reflexionspartnerin.",prompt:"Hilf mir, auf mein Jahr zurückzuschauen. Stell mir nacheinander Fragen zu: Was ist gut gelaufen? Was habe ich gelernt? Was lasse ich los? Was nehme ich mit? Fasse am Ende meine Antworten in fünf Sätzen zusammen.",task:"Nimm dir eine ruhige Viertelstunde mit Tee. ☕"},
+    {d:22,t:"quiz",l:"Einstieg",m:3,title:"Prompt-Check",text:"Was hast du in den letzten Wochen mitgenommen?",quiz:{q:"Welcher Prompt bringt vermutlich das brauchbarste Ergebnis?",o:["„Schreib was über KI.“","„Schreib einen Text über KI, mach ihn gut.“","„Schreib für unseren Vereins-Newsletter einen Absatz (ca. 100 Wörter) darüber, wie KI Ehrenamtlichen Zeit sparen kann. Ton: ermutigend, mit einem konkreten Beispiel.“"],c:2,e:"Ziel, Zielgruppe, Umfang, Ton und der Wunsch nach etwas Konkretem: Je klarer der Rahmen, desto besser die Antwort."}},
+    {d:23,t:"prompt",l:"Vertiefung",m:12,title:"Kleine Kette, große Wirkung",text:"Zerleg eine größere Aufgabe in Schritte und lass die KI sie nacheinander bearbeiten.",prompt:"Wir arbeiten in drei Schritten. Mach nach jedem Schritt eine Pause und warte auf mein OK.\n1. Sammle 8 Ideen zu [Thema].\n2. Bewerte sie in einer Tabelle nach Aufwand und Wirkung.\n3. Schreib für die beste Idee einen kurzen Umsetzungsplan.",task:"Greif nach jedem Schritt ein: Was würdest du ändern, bevor es weitergeht?"},
+    {d:24,t:"prompt",l:"Einstieg",m:10,title:"Dein Lernplan fürs neue Jahr 🌱",text:"24 Türchen geschafft! Wie geht es weiter? Lass dir einen Lernplan bauen, der zu dir passt.",prompt:"Ich habe im Dezember jeden Tag eine kleine KI-Übung gemacht. Erstell mir einen Lernplan für die ersten vier Wochen im neuen Jahr: pro Woche ein Schwerpunkt und zwei kurze Übungen à 15 Minuten. Mein Ziel: [dein Ziel]. Mein Vorwissen: [deine Einschätzung].",task:"Frohe Feiertage! Ich freue mich über deine Wünsche, Anregungen und Ideen fürs nächste Jahr."}
+  ];
+
+  // Anordnung auf der Fassade (bewusst durcheinander, wie bei einem echten Kalender)
+  var ORDER = [7,18,3,12,24,1,15,9,21,5,11,19,2,14,23,8,17,4,10,20,6,13,22,16];
+  var SIZE = {24:"w2 h2",6:"w2",1:"h2",13:"h2",18:"w2",9:"w2"};
+  var COLORS = {1:"rot",2:"orange",3:"rot",4:"braun",5:"rot",6:"rot",7:"gruen",8:"rot",9:"orange",10:"rot",11:"braun",12:"rot",13:"gruen",14:"rot",15:"orange",16:"rot",17:"rot",18:"gruen",19:"rot",20:"braun",21:"rot",22:"orange",23:"rot",24:"rot"};
+  var TYPE_NAME = {prompt:"Prompt",wissen:"Wissen",quiz:"Quiz"};
+
+  var params = new URLSearchParams(location.search);
+  var preview = params.get("vorschau") === "1";
+  if (preview) document.getElementById("previewBar").hidden = false;
+
+  function today(){
+    var t = params.get("datum"); // nur zum Testen: ?datum=2026-12-05
+    if (t && preview) { var p = t.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+    return new Date();
+  }
+  var now = today();
+  function isUnlocked(d){ return preview || now >= new Date(YEAR, 11, d); }
+
+  var opened = {};
+  try { var raw = localStorage.getItem(STORE_KEY); if (raw) opened = JSON.parse(raw) || {}; } catch(e){ opened = {}; }
+  function save(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(opened)); } catch(e){} }
+
+  function icon(t, size){
+    size = size || 20;
+    if (t === "prompt") return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="3" width="16" height="16" fill="#F0762B" fill-opacity=".55" stroke="#3a3530" stroke-width="1.3"/></svg>';
+    if (t === "wissen") return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="#A3C770" fill-opacity=".6" stroke="#3a3530" stroke-width="1.3"/></svg>';
+    return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3 L19.5 19 L2.5 19 Z" fill="#962B3F" fill-opacity=".55" stroke="#3a3530" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+  }
+
+  function panes(d){
+    // kleine transluzente Flächen auf jeder Tür, je nach Tag leicht verschoben
+    var a = (d*37)%60, b = (d*53)%50;
+    return '<span class="pane" style="left:'+(30+a/2)+'%;top:'+(20+b/2)+'%;width:46%;height:60%;background:#faf9f5;opacity:.18;transform:skewX(-12deg)"></span>'+
+           '<span class="pane" style="right:-10%;bottom:-20%;width:55%;height:55%;border-radius:50%;background:#faf9f5;opacity:.12"></span>';
+  }
+
+  var grid = document.getElementById("grid");
+  var byDay = {}; DAYS.forEach(function(x){ byDay[x.d] = x; });
+
+  ORDER.forEach(function(d){
+    var info = byDay[d];
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "door " + (SIZE[d] || "");
+    b.dataset.day = d;
+    b.innerHTML =
+      '<span class="inside">'+ icon(info.t) +
+        '<span><span class="mini">'+ info.title +'</span><br><span class="lvl">'+ info.l +' · '+ info.m +' Min.</span></span>'+
+      '</span>'+
+      '<span class="front c-'+ COLORS[d] +'">'+ panes(d) +'<span class="num">'+ d +'</span></span>';
+    updateDoor(b, d);
+    b.addEventListener("click", function(){ onDoor(b, d); });
+    grid.appendChild(b);
+  });
+
+  function updateDoor(b, d){
+    var unlocked = isUnlocked(d);
+    var isOpen = unlocked && (opened[d] || preview);
+    b.classList.toggle("open", !!isOpen);
+    b.classList.toggle("locked", !unlocked);
+    b.setAttribute("aria-label", unlocked
+      ? (isOpen ? d + ". Dezember: " + byDay[d].title + " (geöffnet)" : d + ". Dezember öffnen")
+      : d + ". Dezember, noch verschlossen");
+  }
+
+  var toastEl = document.getElementById("toast"), toastT;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.hidden = true; }, 2600);
+  }
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function onDoor(b, d){
+    if (!isUnlocked(d)) {
+      b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+      toast("Noch ein bisschen Geduld 😊 Dieses Türchen öffnet sich am " + d + ". Dezember.");
+      return;
+    }
+    if (!opened[d] && !preview) {
+      opened[d] = true; save(); updateDoor(b, d);
+      setTimeout(function(){ showDay(d); }, reduce ? 0 : 650);
+    } else {
+      showDay(d);
+    }
+  }
+
+  var dlg = document.getElementById("dlg"), body = document.getElementById("dlgBody");
+
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function showDay(d){
+    var x = byDay[d];
+    var h = '<div class="dlg-top">'+ icon(x.t, 22) +'<span>'+ d +'. Dezember · '+ TYPE_NAME[x.t] +' · '+ x.l +' · ca. '+ x.m +' Minuten</span></div>';
+    h += '<h2 id="dlgTitle">'+ esc(x.title) +'</h2>';
+    h += '<p>'+ esc(x.text) +'</p>';
+    if (x.prompt) {
+      h += '<h3>Dein Prompt für heute</h3><div class="promptbox" id="promptText">'+ esc(x.prompt) +'</div>';
+      h += '<button class="btn" type="button" id="copyBtn">Prompt kopieren</button>';
+    }
+    if (x.quiz) {
+      h += '<h3>'+ esc(x.quiz.q) +'</h3><div class="quiz" id="quiz">';
+      x.quiz.o.forEach(function(o, i){ h += '<button type="button" class="opt" data-i="'+ i +'">'+ esc(o) +'</button>'; });
+      h += '</div><div class="feedback" id="fb" hidden></div>';
+    }
+    if (x.task) h += '<h3>'+ (x.d === 24 ? 'Zum Schluss' : 'Deine Aufgabe') +'</h3><p>'+ esc(x.task) +'</p>';
+    h += '<div class="dlg-actions"><button class="btn primary" type="button" id="closeBtn">Schließen</button></div>';
+    body.innerHTML = h;
+
+    var cb = document.getElementById("copyBtn");
+    if (cb) cb.addEventListener("click", function(){ copy(x.prompt, cb); });
+    var q = document.getElementById("quiz");
+    if (q) q.addEventListener("click", function(ev){
+      var btn = ev.target.closest(".opt"); if (!btn) return;
+      var i = +btn.dataset.i, ok = i === x.quiz.c;
+      var fb = document.getElementById("fb");
+      if (ok) {
+        q.querySelectorAll(".opt").forEach(function(o){ o.disabled = true; });
+        btn.classList.add("right");
+        fb.innerHTML = "<b>Richtig!</b> " + esc(x.quiz.e);
+      } else {
+        btn.classList.add("wrong"); btn.disabled = true;
+        fb.innerHTML = "<b>Nicht ganz.</b> Probier es noch einmal.";
+      }
+      fb.hidden = false;
+    });
+    document.getElementById("closeBtn").addEventListener("click", function(){ dlg.close(); });
+
+    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
+  }
+  dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
+
+  function copy(text, btn){
+    function done(){ btn.textContent = "Kopiert ✓"; setTimeout(function(){ btn.textContent = "Prompt kopieren"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else fallback();
+    function fallback(){
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){ toast("Kopieren hat nicht geklappt. Markier den Text einfach von Hand."); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  // Statuszeile
+  var status = document.getElementById("status");
+  var start = new Date(YEAR, 11, 1), end = new Date(YEAR, 11, 25);
+  if (preview) status.textContent = "Vorschau: alle 24 Übungen sichtbar.";
+  else if (now < start) status.textContent = "Das erste Türchen öffnet sich am 1. Dezember. Schau dann vorbei! 🌱";
+  else if (now < end) {
+    var n = Object.keys(opened).length;
+    status.textContent = "Heute ist der " + now.getDate() + ". Dezember. Du hast " + n + (n === 1 ? " Türchen" : " Türchen") + " geöffnet.";
+  } else status.textContent = "Alle 24 Türchen sind offen. Stöbere gern noch einmal durch.";
+})();
+</script>
+</body>
+</html>
