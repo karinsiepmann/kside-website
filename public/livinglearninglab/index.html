@@ -185,6 +185,7 @@
   .j5 { --c: var(--blau); }
   .j6 { --c: var(--mauve); }
   .j7 { --c: #2F7D7D; }
+  .j8 { --c: #A87A1C; }
 
   /* ─── Instruction ─── */
   .instruction {
@@ -294,6 +295,7 @@
   .mc5 { --c: var(--blau); }
   .mc6 { --c: var(--mauve); }
   .mc7 { --c: #2F7D7D; }
+  .mc8 { --c: #A87A1C; }
 
   .mission-header {
     display: flex;
@@ -774,6 +776,8 @@
   #modal4 .modal, #modal4 { --c: var(--lila); }
   #modal5 .modal, #modal5 { --c: var(--blau); }
   #modal6 .modal, #modal6 { --c: var(--mauve); }
+  #modal7 .modal, #modal7 { --c: #2F7D7D; }
+  #modal8 .modal, #modal8 { --c: #A87A1C; }
 
   /* ─── Toast ─── */
   .toast {
@@ -868,6 +872,11 @@
       <div class="j-dot" id="jd7">7</div>
       <div class="j-label">HTML</div>
     </div>
+    <div class="j-line"></div>
+    <div class="j-stop j8" onclick="openModal(8)">
+      <div class="j-dot" id="jd8">8</div>
+      <div class="j-label">Advent</div>
+    </div>
   </div>
 
   <!-- Instruction -->
@@ -881,7 +890,7 @@
     <div class="progress-track">
       <div class="progress-fill" id="progressFill"></div>
     </div>
-    <span class="progress-count" id="progressCount">0 / 7</span>
+    <span class="progress-count" id="progressCount">0 / 8</span>
   </div>
 
   <!-- Mission Cards -->
@@ -1066,6 +1075,32 @@
           <span class="diff-label">Mittel</span>
         </div>
         <button class="open-btn" onclick="openModal(7)">Mission starten →</button>
+      </div>
+    </div>
+
+    <!-- Mission 8 Card -->
+    <div class="mission-card mc8" id="card8">
+      <div class="mission-header">
+        <div class="mission-icon">🎄</div>
+        <div>
+          <div class="mission-number">Mission 8</div>
+          <div class="mission-title">Interaktiven Adventskalender bauen</div>
+        </div>
+      </div>
+      <p class="mission-desc">24 Türchen, ein Link: Lass dir von der KI einen interaktiven Adventskalender als HTML-Seite bauen - für deine Community, dein Team oder deine Freund:innen.</p>
+      <div class="mission-tools">
+        <a class="tool-tag" href="https://kside.de/weihnachten2026/" target="_blank">🎄 Beispiel-Kalender</a>
+        <span class="tool-tag">HTML &amp; KI</span>
+        <span class="tool-tag">24 interaktive Türchen</span>
+      </div>
+      <div class="mission-cta">
+        <div class="difficulty">
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot filled"></div>
+          <div class="diff-dot"></div>
+          <span class="diff-label">Mittel</span>
+        </div>
+        <button class="open-btn" onclick="openModal(8)">Mission starten →</button>
       </div>
     </div>
 
@@ -1463,7 +1498,7 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
 <!-- ═══════════════ SCRIPTS ═══════════════ -->
 <script>
   const completed = new Set();
-  const jColors = { 1: '#962B3F', 2: '#F0762B', 3: '#6b9a36', 4: '#7a4f8c', 5: '#1B6EC2', 6: '#A64D79' };
+  const jColors = { 1: '#962B3F', 2: '#F0762B', 3: '#6b9a36', 4: '#7a4f8c', 5: '#1B6EC2', 6: '#A64D79', 7: '#2F7D7D', 8: '#A87A1C' };
 
   function openModal(n) {
     document.getElementById('modal' + n).classList.add('open');
@@ -1513,9 +1548,9 @@ Dashboard ausgeben → Chat-Modus für Rückfragen.</div>
 
   function updateProgress() {
     const c = completed.size;
-    document.getElementById('progressFill').style.width = (c / 7 * 100) + '%';
-    document.getElementById('progressCount').textContent = c + ' / 7';
-    if (c === 7) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
+    document.getElementById('progressFill').style.width = (c / 8 * 100) + '%';
+    document.getElementById('progressCount').textContent = c + ' / 8';
+    if (c === 8) setTimeout(() => showToast('🏆 Alle Missionen abgeschlossen!'), 700);
   }
 
   function showToast(msg) {
@@ -1614,6 +1649,81 @@ kein externes Framework, keine Hilfsdateien.</div>
       </div>
 
       <button class="done-btn" onclick="markDone(7)">✓ Mission abgeschlossen!</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 8 -->
+<div class="modal-overlay" id="modal8">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(8)">✕</button>
+    <div class="modal-top">
+      <div class="modal-badge">🎄 Mission 8</div>
+      <div class="modal-title">Interaktiven Adventskalender bauen</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>Ziel dieser Mission</h3>
+        <p>Du baust einen interaktiven Adventskalender als HTML-Seite - 24 Türchen, hinter denen sich Tipps, Zitate, Fragen oder kleine Aufgaben verstecken. Alles in einer Datei, die du als Link verschickst. Ein Beispiel: <strong><a href="https://kside.de/weihnachten2026/" target="_blank" style="color:var(--c);text-decoration:none;">Mein KI-Weihnachtskalender 2026</a></strong>.</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>So geht's</h3>
+        <ul class="step-list">
+          <li><div class="step-num">1</div><div><strong>Thema wählen:</strong> Wofür ist der Kalender? Z. B. Ladies Night in Eisenach, ein Team-Advent, Tipps für deine Community.</div></li>
+          <li><div class="step-num">2</div><div><strong>Prompt kopieren</strong> (siehe unten), die Platzhalter in eckigen Klammern ausfüllen.</div></li>
+          <li><div class="step-num">3</div><div>An eine KI geben - sie liefert dir den kompletten HTML-Code in einer Datei.</div></li>
+          <li><div class="step-num">4</div><div>Code in eine Datei <code style="background:var(--bg2);padding:1px 5px;border-radius:4px;">adventskalender.html</code> kopieren, im Browser öffnen und durchklicken.</div></li>
+          <li><div class="step-num">5</div><div>Hochladen (z. B. GitHub Pages, Netlify Drop) und den Link verschenken.</div></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 Prompt-Beispiel</h3>
+        <div class="code-block">Erstelle mir einen interaktiven Adventskalender als HTML-Seite.
+
+Thema: [z. B. Ladies Night in Eisenach]
+Hinter jedem der 24 Türchen soll sich verbergen: [z. B. ein Tipp,
+ein Zitat, eine Frage, eine kleine KI-Aufgabe]
+Stil und Farben: [z. B. winterlich, warm, Rot und Gold]
+Zielgruppe: [z. B. Frauen, die Lust auf Neues haben]
+
+Wichtig: Alle Türchen sollen sich jederzeit öffnen lassen,
+auch bevor der eigentliche Tag da ist.
+
+Bitte stelle mir zuerst 3 kurze Fragen, bevor du loslegst.
+
+Alles in einer Datei, responsiv, CSS im &lt;style&gt;-Block,
+kein externes Framework, keine Hilfsdateien.</div>
+      </div>
+
+      <div class="modal-section">
+        <h3>Was du ausprobieren kannst</h3>
+        <ul class="question-list">
+          <li>Was passiert hinter den Türchen? Tipps, Zitate, Fragen, kleine Aufgaben - oder ein Mix</li>
+          <li>Eine KI-Aufgabe pro Türchen: dann wird der Kalender selbst zur Mini-Lernreise</li>
+          <li>Andere Zielgruppen: Kolleg:innen, Vereinsmitglieder, Workshop-Gruppe, Freund:innen</li>
+          <li>Den fertigen Prompt von einer KI schärfen lassen - wie in Mission 7</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>Für wen?</h3>
+        <ul class="question-list">
+          <li>Alle, die ihre Community oder ihr Team in der Vorweihnachtszeit überraschen wollen</li>
+          <li>Menschen, die mal ein digitales Geschenk bauen wollen, das technisch simpel bleibt</li>
+          <li>Lernreise-Teilnehmende, die Mission 7 (HTML-Seite) schon kennen und weitermachen wollen</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="tip-box">
+          <strong>💡 Tipp - die 3 Fragen am Anfang:</strong> Der Prompt baut bewusst eine Rückfrage ein. Die Antworten der KI (Thema, Inhalte, Zielgruppe) machen den Kalender erst persönlich - nimm dir die Zeit und antworte konkret. Zum Vergleich: <strong><a href="https://kside.de/weihnachten2026/" target="_blank" style="color:var(--c);text-decoration:none;">so sieht meiner aus</a></strong>.
+        </div>
+      </div>
+
+      <button class="done-btn" onclick="markDone(8)">✓ Mission abgeschlossen!</button>
     </div>
   </div>
 </div>
