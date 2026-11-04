@@ -35,8 +35,8 @@ export default function Community() {
 
           <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-md">
             <Image
-              src="/community-foto.jpg"
-              alt="Community of Practice"
+              src="/community-lernraum.jpg"
+              alt="Gemeinsamer Lernraum"
               fill
               className="object-cover"
             />
