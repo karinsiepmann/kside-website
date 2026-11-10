@@ -197,32 +197,6 @@ export default function TerminePage() {
               </a>
             </div>
           </div>
-
-          {/* SkalaCampus Teaser */}
-          <div className="border-t-2 border-gray-200 pt-8">
-            <a
-              href="/skala-campus"
-              className="block p-8 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl hover:shadow-md hover:from-blue-100 hover:to-indigo-100 transition group"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="text-3xl">🎤</div>
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition">
-                      SKalaCAMPUS Morgenimpulse
-                    </h2>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Morgenimpulse Frühjahr 2027 · Die Lern-Plattform für sozial Engagierte
-                    </p>
-                  </div>
-                </div>
-                <span className="text-blue-600 font-bold text-xl group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </a>
-            <p className="text-sm mt-2 text-gray-600">
-              Zwei weitere Morgenimpulse folgen im Frühjahr 2027.
-            </p>
-          </div>
         </div>
 
         {/* Footer */}
