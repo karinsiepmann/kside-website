@@ -17,24 +17,12 @@ export default function TerminePage() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [selectedTerm, setSelectedTerm] = useState<Term | null>(null);
 
-  const openZoomModal = (term: Term) => {
-    if (!term.zoomLink) return;
-    setSelectedTerm(term);
-    setShowZoomModal(true);
-  };
-
-  const openInfoModal = (term: Term) => {
-    if (term.zoomLink) return;
-    setSelectedTerm(term);
-    setShowInfoModal(true);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-white py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-rose-700 to-orange-500 text-white p-12 text-center">
-          <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026</h1>
+          <h1 className="text-4xl font-bold mb-2">Aktuelle Termine 2026/2027</h1>
           <p className="text-lg opacity-95">AI Open Learning Lab for Women</p>
           <div className="inline-block bg-white/25 backdrop-blur px-4 py-2 rounded-full text-sm mt-4">
             Wiesbaden · Zukunftswerk
@@ -67,12 +55,6 @@ export default function TerminePage() {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {([
-                  { date: "05.10", day: "Mo" },
-                  { date: "12.10", day: "Mo" },
-                  { date: "19.10", day: "Mo" },
-                  { date: "26.10", day: "Mo" },
-                  { date: "02.11", day: "Mo" },
-                  { date: "09.11", day: "Mo" },
                   { date: "16.11", day: "Mo" },
                   { date: "23.11", day: "Mo" },
                   { date: "30.11", day: "Mo" },
@@ -112,138 +94,51 @@ export default function TerminePage() {
               </div>
             </div>
 
-            {/* Montags Online */}
+            {/* SkalaCampus Morgenimpulse Frühjahr 2027 */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-gray-900">
-                  💻 Montags Online
+                  🎤 SKalaCAMPUS Morgenimpulse
                 </h3>
                 <span className="text-sm text-gray-600 font-medium">
-                  18:00 – 19:30 Uhr
+                  9:00 – 10:00 Uhr · online
                 </span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  { date: "24.08", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                  { date: "28.09", day: "Mo", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                ].map((item) => (
-                  <div
-                    key={item.date}
-                    className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 hover:bg-orange-100 transition"
-                  >
-                    <div className="text-lg font-bold text-gray-900">
-                      {item.date}
-                    </div>
-                    <div className="text-sm text-gray-600">{item.day}</div>
-                    <div className="flex gap-2 mt-2 flex-wrap">
-                      <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
-                        Online
-                      </span>
-                      <button
-                        onClick={() => openZoomModal(item)}
-                        className="inline-block bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-orange-700 transition"
-                      >
-                        Zoom →
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Zu Gast bei Seibert */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  🤝 Zu Gast bei
-                </h3>
-                <a
-                  href="https://de.seibert.group/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition"
-                >
-                  Seibert Group →
-                </a>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {[
                   {
-                    date: "21.09",
-                    day: "Mo",
-                    time: "17:00 Uhr",
-                    locationName: "Seibert Group",
-                    locationAddress: "Luisenstraße 37-39, 1. OG, Wiesbaden",
+                    date: "Mi, 20.01.2027",
+                    title: "KI-Tools für den Arbeitsalltag",
+                    link: "https://www.skala-campus.org/event/ki-tools-arbeitsalltag-2/",
+                  },
+                  {
+                    date: "Do, 11.02.2027",
+                    title: "Präsentationen und Animationen mit KI",
+                    link: "https://www.skala-campus.org/event/praesentationen-mit-ki/",
                   },
                 ].map((item) => (
-                  <div
+                  <a
                     key={item.date}
-                    onClick={() => openInfoModal(item)}
-                    className="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-600 hover:bg-indigo-100 transition cursor-pointer"
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600 hover:bg-blue-100 transition"
                   >
                     <div className="text-lg font-bold text-gray-900">
                       {item.date}
                     </div>
-                    <div className="text-sm text-gray-600">{item.day}</div>
-                    <div className="flex gap-2 mt-2 flex-wrap">
-                      <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full">
-                        Zu Gast bei
-                      </span>
-                      <span className="inline-block bg-indigo-200 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">
-                        Präsenz
-                      </span>
+                    <div className="text-sm text-gray-700 mt-1 font-medium">
+                      {item.title}
                     </div>
-                    <a
-                      href="https://de.seibert.group/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block text-xs font-semibold text-indigo-700 hover:text-indigo-900 mt-2 transition"
-                    >
-                      {item.locationName} ↗
-                    </a>
-                    <p className="text-xs text-gray-700 mt-1 leading-relaxed">
-                      {item.locationAddress}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Dienstags Online */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  💻 Dienstags Online
-                </h3>
-                <span className="text-sm text-gray-600 font-medium">
-                  18:00 – 19:30 Uhr
-                </span>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  { date: "11.08", day: "Di", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                  { date: "08.09", day: "Di", time: "18:00 – 19:30", zoomLink: "https://us02web.zoom.us/j/81062781038" },
-                ].map((item) => (
-                  <div
-                    key={item.date}
-                    className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 hover:bg-orange-100 transition"
-                  >
-                    <div className="text-lg font-bold text-gray-900">
-                      {item.date}
-                    </div>
-                    <div className="text-sm text-gray-600">{item.day}</div>
                     <div className="flex gap-2 mt-2 flex-wrap">
-                      <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">
+                      <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
                         Online
                       </span>
-                      <button
-                        onClick={() => openZoomModal(item)}
-                        className="inline-block bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-orange-700 transition"
-                      >
-                        Zoom →
-                      </button>
+                      <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        Anmelden →
+                      </span>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -317,20 +212,15 @@ export default function TerminePage() {
                       SKalaCAMPUS Morgenimpulse
                     </h2>
                     <p className="text-sm text-gray-600 mt-1">
-                      4 Termine · Aug – Okt 2026 · Die Lern-Plattform für sozial Engagierte
+                      Morgenimpulse Frühjahr 2027 · Die Lern-Plattform für sozial Engagierte
                     </p>
                   </div>
                 </div>
                 <span className="text-blue-600 font-bold text-xl group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </a>
-            <p className="text-sm mt-2">
-              <a
-                href="/teaser-komplexes-wissen/"
-                className="text-rose-700 font-semibold hover:text-rose-900 transition"
-              >
-                ▶ Teaser zum Morgenimpuls am 06.10. ansehen
-              </a>
+            <p className="text-sm mt-2 text-gray-600">
+              Zwei weitere Morgenimpulse folgen im Frühjahr 2027.
             </p>
           </div>
         </div>
