@@ -257,7 +257,6 @@ function show(name,text){
 }
 var secs=[].slice.call(document.querySelectorAll('[data-region]'));
 secs.forEach(function(s){
-  s.addEventListener('mouseenter',function(){ show(s.dataset.region, s.dataset.cap); });
   s.addEventListener('focusin',function(){ show(s.dataset.region, s.dataset.cap); });
 });
 var mobile=function(){ return window.innerWidth<=820; };
