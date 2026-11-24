@@ -175,7 +175,7 @@ dl.facts dd{margin:0}
 (function(){
 var ANMELDEN='https://anny.eu/book/lab-for-women';
 var LIVE=['2026-11-16','2026-11-23','2026-11-30','2026-12-07','2026-12-14'];
-var SPECIAL={'2026-12-14':{t:'Weihnachtsmarkt an der Pyramide',s:'Wir treffen uns direkt auf dem Weihnachtsmarkt · 17 Uhr',w:'AI Open Learning Lab for Women · 17 Uhr · Weihnachtsmarkt Wiesbaden, an der Pyramide · kostenfrei'}};
+var SPECIAL={'2026-12-14':{t:'Weihnachtsmarkt an der Pyramide',s:'Wir treffen uns direkt auf dem Weihnachtsmarkt · 17 Uhr',w:'AI Open Learning Lab for Women · 17 Uhr · Weihnachtsmarkt Wiesbaden, an der Pyramide · kostenfrei',privat:true}};
 var SKALA=[
   {d:'2027-01-20', t:'KI-Tools für den Arbeitsalltag', l:'https://www.skala-campus.org/event/ki-tools-arbeitsalltag-2/'},
   {d:'2027-02-11', t:'Präsentationen und Animationen mit KI', l:'https://www.skala-campus.org/event/praesentationen-mit-ki/'},
@@ -204,7 +204,8 @@ var live=document.getElementById('live');
 LIVE.forEach(function(d){
   var li=document.createElement('li'); if(isPast(d)) li.className='past'; if(d===firstLive) li.className+=' nxt';
   var sp=SPECIAL[d]||null;
-  li.innerHTML='<a class="row" href="'+ANMELDEN+'" target="_blank" rel="noopener">'+dayCell(d)+'<div><div class="t">'+(sp?sp.t:'Präsenz im Zukunftswerk')+'</div><div class="s">'+(sp?sp.s:'17:00 bis 20:00 Uhr')+'</div></div><span class="go">'+(isPast(d)?'vorbei':'Anmelden →')+'</span></a>';
+  var innerLive=dayCell(d)+'<div><div class="t">'+(sp?sp.t:'Präsenz im Zukunftswerk')+'</div><div class="s">'+(sp?sp.s:'17:00 bis 20:00 Uhr')+'</div></div><span class="go">'+(isPast(d)?'vorbei':(sp&&sp.privat?'':'Anmelden →'))+'</span>';
+  li.innerHTML=(sp&&sp.privat)?'<div class="row" style="cursor:default">'+innerLive+'</div>':'<a class="row" href="'+ANMELDEN+'" target="_blank" rel="noopener">'+innerLive+'</a>';
   live.appendChild(li);
 });
 var sk=document.getElementById('skala');
@@ -224,7 +225,7 @@ if(pick){
   var D=P(pick.d), when=WDL[D.getDay()]+', '+D.getDate()+'. '+MONL[D.getMonth()];
   if(pick.kind==='live'){
     var sp2=SPECIAL[pick.d];
-    nx.innerHTML='<div class="lbl">Als Nächstes</div><div class="when">'+when+'</div><div class="what">'+(sp2?sp2.w:'AI Open Learning Lab for Women · 17:00 bis 20:00 Uhr · Zukunftswerk Wiesbaden · kostenfrei')+'</div><a class="btn" href="'+ANMELDEN+'" target="_blank" rel="noopener">Anmelden</a>';
+    nx.innerHTML='<div class="lbl">Als Nächstes</div><div class="when">'+when+'</div><div class="what">'+(sp2?sp2.w:'AI Open Learning Lab for Women · 17:00 bis 20:00 Uhr · Zukunftswerk Wiesbaden · kostenfrei')+'</div>'+((sp2&&sp2.privat)?'':'<a class="btn" href="'+ANMELDEN+'" target="_blank" rel="noopener">Anmelden</a>');
   } else {
     var ev=SKALA.filter(function(e){return e.d===pick.d;})[0];
     nx.innerHTML='<div class="lbl">Als Nächstes</div><div class="when"></div><div class="what"></div>'+(ev.l?'<a class="btn" target="_blank" rel="noopener">Anmelden</a>':'<span class="btn btn-ghost" style="cursor:default">Ankündigung folgt</span>');
